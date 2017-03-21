@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="logo_sign">
+	<div class="logo"></div>
+	<div class="sign">
+		<span>欢迎您系统管理员</span> <span class="sp_home">首页</span> <span
+			class="sp_backstage"><a href="Manager/toIndex.action">后台管理</a></span> <span class="sp_signout">退出</span>
+	</div>
+</div>
+<div class="nav">
+	<ul class="navUI">
+	<li><a href="toIndex.action">首页</a></li>
+	<c:forEach items="${catalogList }" var="catalog" begin="0" end="8">
+		<li><a href="toList.action?c_id=${catalog.id }">${catalog.name }</a></li>
+	</c:forEach>
+	</ul>
+</div>

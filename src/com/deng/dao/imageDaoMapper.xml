@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
+<mapper namespace="com.deng.dao.IImageDao">
+	
+	<insert id="saveImage" parameterType="Image">
+		insert into t_image(id,name,picture,title) values(#{id},#{name},#{picture,jdbcType=BLOB},#{title})
+	</insert>
+	
+	<select id="findImageById" resultType="Image" parameterType="int">
+		select * from t_image where id = #{id}
+	</select>
+
+</mapper>

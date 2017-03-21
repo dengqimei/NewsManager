@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  
+  <typeAliases>
+  	<package name="com.deng.bean" />
+  </typeAliases>
+  
+  	<mappers>
+		 <mapper resource="com/deng/dao/userDaoMapper.xml"/>
+		 <mapper resource="com/deng/dao/catalogDaoMapper.xml"/>
+		 <mapper resource="com/deng/dao/newsDaoMapper.xml"/>
+		 <mapper resource="com/deng/dao/commentDaoMapper.xml"/>
+		 <mapper resource="com/deng/dao/imageDaoMapper.xml"/>
+		 <mapper resource="com/deng/dao/addressDaoMapper.xml"/>
+    </mappers>
+  </configuration>  

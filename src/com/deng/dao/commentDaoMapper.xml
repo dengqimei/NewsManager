@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+<mapper namespace="com.deng.dao.ICommentDao">
+
+	<resultMap type="comment" id="CommentResult">
+		<result property="id" column="commentid"/>
+		<result property="comment" column="commentcontent"/>
+		<result property="publishTime" column="publishtime"/>
+		<result property="user_id" column="user_id"/>
+		<result property="news_id" column="news_id"/>
+	</resultMap>
+	
+	<insert id="save" parameterType="comment">
+		insert into comment_info 
+		values(#{id},#{content},#{publishTime},#{user_id},#{news_id})
+	</insert>
+	
+	<delete id="deleteById" parameterType="Long">
+		delete from comment_info where commentid = #{id}
+	</delete>
+	
+	<update id="update" parameterType="comment">
+		update comment_info set commentcontent = #{content},
+		publishtime = #{publishTime},user_id = #{user_id},
+		news_id = #{news_id} where commentid = #{id}
+	</update>
+	
+	<select id="queryById" parameterType="Long" resultMap="CommentResult">
+		select * from comment_info where commentid = #{id}
+	</select>
+	
+	<select id="queryByUserId" parameterType="String" resultMap="CommentResult">
+		select * from comment_info where user_id = #{id}
+	</select>
+	
+	<select id="queryByNewsId" parameterType="Long" resultMap="CommentResult">
+		select * from comment_info where news_id = #{id}
+	</select>
+	
+</mapper>

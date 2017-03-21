@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+	<mapper namespace="com.deng.dao.ICatalogDao">
+	
+		<resultMap type="Catalog" id="CatalogResult">
+			<id property="id" column="catalogid"/>
+			<result property="name" column="catalogname"/>
+			<result property="code" column="catalogcode"/>
+			<result property="inputTime" column="inputtime"/>
+			<result property="updateTime" column="updatetime"/>
+		</resultMap>
+
+		<insert id="save" parameterType="Catalog">
+			insert into catalog_info 
+			values(#{id},#{name},#{code},#{inputTime},#{updateTime})
+		</insert>
+		
+		<select id="queryAll" resultMap="CatalogResult">
+			select * from catalog_info
+		</select>
+		
+		<select id="queryById" parameterType="Long" resultMap="CatalogResult">
+			select * from catalog_info where catalogid = #{id}
+		</select>
+		
+		<update id="update" parameterType="Catalog">
+			update catalog_info set catalogname = #{name},
+			catalogcode = #{code},updatetime = #{updateTime}
+			where catalogid= #{id}
+		</update>
+		
+		<delete id="deleteById" parameterType="Long">
+			delete from catalog_info where catalogid = #{id}
+		</delete>
+	</mapper>
