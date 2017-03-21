@@ -47,5 +47,10 @@ public class UserServiceImpl implements IUserService{
 		return "failed";
 	}
 
+	@Override
+	public User findById(String id) {
+		return userDao.queryById(id);
+	}
+
 	
 }

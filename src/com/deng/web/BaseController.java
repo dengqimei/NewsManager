@@ -2,6 +2,8 @@ package com.deng.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,11 +43,17 @@ public class BaseController {
 	private List<Address> countyList;
 	
 	@RequestMapping("/toIndex.action")
-	public String toIndex(Model model){
+	public String toIndex(Model model,HttpServletRequest request){
 		//System.out.println("in toindex...");
 		showCatalog(model);
 		catalogNewsList = newsService.findAllNews();
 		model.addAttribute("catalogNewsList", catalogNewsList);
+		String login = (String) request.getSession().getAttribute("username");
+		if(login==null||"".equals(login)){
+			request.getSession().setAttribute("login", "请登录");
+		}else{
+			request.getSession().setAttribute("login", "");
+		}
 		return "index";
 	}
 	
@@ -55,16 +63,28 @@ public class BaseController {
 	}
 	
 	@RequestMapping("/login.action")
-	public String login(User user,Model model){
+	public String login(User user,Model model,HttpServletRequest request){
 //		System.out.println("============");
 //		System.out.println(userService.login(user));
 		if("success".equals(userService.login(user))){
 			showCatalog(model);
 			catalogNewsList = newsService.findAllNews();
 			model.addAttribute("catalogNewsList", catalogNewsList);
+			request.getSession().setAttribute("login", "");
+			request.getSession().setAttribute("username", userService.findById(user.getId()).getName());
 			return "index";
 		}
 		return "failed";
+	}
+	
+	@RequestMapping("/logout.action")
+	public String logout(HttpServletRequest request,Model model){
+		request.getSession().setAttribute("username","");
+		request.getSession().setAttribute("login", "请登录");
+		showCatalog(model);
+		catalogNewsList = newsService.findAllNews();
+		model.addAttribute("catalogNewsList", catalogNewsList);
+		return "index";
 	}
 	
 	@RequestMapping("/toRegister.action")

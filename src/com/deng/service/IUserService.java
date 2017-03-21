@@ -12,5 +12,7 @@ public interface IUserService {
 	
 	public String login(User user);
 	
+	public User findById(String id);
+	
 	
 }

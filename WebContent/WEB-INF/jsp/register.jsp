@@ -26,7 +26,6 @@
     /**
      * 获取省列表
      */
-  
 	function initProvinces() {
 		//$('#province').empty();
 		$.ajax({
@@ -95,7 +94,7 @@
 	
 	<form action="register.action" method="post">
 	
-		<table>
+		<table align="center">
 			<caption><h1>用户注册</h1></caption>
 			<tr>
 				<td>用户名ID：</td>
@@ -138,7 +137,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><input type="submit" value="注册"></td>
+				<td colspan="2"><input type="submit" value="注册"></td>
 			</tr>
 		</table>
 		

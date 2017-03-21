@@ -4,8 +4,9 @@
 <div class="logo_sign">
 	<div class="logo"></div>
 	<div class="sign">
-		<span>欢迎您系统管理员</span> <span class="sp_home">首页</span> <span
-			class="sp_backstage"><a href="Manager/toIndex.action">后台管理</a></span> <span class="sp_signout">退出</span>
+		<span>欢迎您&nbsp;<a href="#">${sessionScope.username}</a><a href="toLogin.action">${sessionScope.login }</a></span> <span class="sp_home">首页</span> <span
+			class="sp_backstage"><a href="Manager/toIndex.action">后台管理</a></span> 
+			<span class="sp_signout"><a href="logout.action">退出</a></span>
 	</div>
 </div>
 <div class="nav">
