@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+	<mapper namespace="com.deng.dao.ICodeDao">
+		
+		<resultMap type="code" id="CodeResult">
+			<result property="id" column="itemno"/>
+			<result property="name" column="itemname"/>
+		</resultMap>
+		
+		<select id="queryProvince" resultMap="CodeResult">
+			select itemno,itemname from code_library where itemno like '%0000'
+		</select>
+		
+		<select id="queryCity" parameterType="String" resultMap="CodeResult">
+			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno like #{id}
+		</select>
+		
+		<select id="queryCounty" parameterType="String" resultMap="CodeResult">
+			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno like #{id}
+		</select>
+		
+		<select id="queryAddressById" parameterType="String" resultMap="CodeResult">
+			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno = #{id}
+		</select>
+		
+		<select id="queryUserType" parameterType="String" resultMap="CodeResult">
+			select itemno,itemname from code_library where codeno = 'UserType' and itemno = #{id}
+		</select>
+		
+		<select id="queryUserSex" parameterType="String" resultMap="CodeResult">
+			select itemno,itemname from code_library where codeno = 'UserSex' and itemno = #{id}
+		</select>
+		
+	</mapper>

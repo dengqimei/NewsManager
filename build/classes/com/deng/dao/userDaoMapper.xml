@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+	<mapper namespace="com.deng.dao.IUserDao">
+	
+		<resultMap type="user" id="UserResult">
+			<result property="id" column="userid"/>		
+			<result property="name" column="username"/>	
+			<result property="password" column="userpassword"/>		
+			<result property="age" column="userage"/>
+			<result property="sex" column="usersex"/>
+			<result property="address" column="useraddress"/>
+			<result property="type" column="usertype"/>		
+			<result property="inputTime" column="registerTime"/>		
+			<result property="updateTime" column="updateTime"/>		
+		</resultMap>
+
+		<insert id="save" parameterType="User">
+			insert into user_info values(#{id},#{name},#{password},
+			#{age},#{sex},#{address},#{type},#{inputTime},#{updateTime})
+		</insert>
+		
+		<delete id="deleteById" parameterType="String">
+			delete from user_info where userid = #{id}
+		</delete>
+		
+		<update id="update" parameterType="user">
+			update user_info set username = #{name},userage = #{age},
+			userpassword = #{password},usertype = #{type}
+			where userid = #{id}
+		</update>
+		
+		<select id="queryById" parameterType="String" resultMap="UserResult">
+			select * from user_info where userid = #{id}
+		</select>
+		
+		<select id="queryAll" resultMap="UserResult">
+			select * from user_info
+		</select>
+	</mapper>
