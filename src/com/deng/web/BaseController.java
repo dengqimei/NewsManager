@@ -45,13 +45,12 @@ public class BaseController {
 	private LoginInfo loginInfo;
 	
 	@RequestMapping("/toIndex.action")
-	public String toIndex(Model model,HttpServletRequest request,User user,String logout){
-		System.out.println("==================");
-		System.out.println(logout);
+	public String toIndex(Model model,HttpServletRequest request,User user){
 		showCatalog(model);
 		catalogNewsList = newsService.findAllNews();
 		model.addAttribute("catalogNewsList", catalogNewsList);
 		request.getSession().setAttribute("login", "请登录");
+		request.getSession().setAttribute("username", "");
 		request.getSession().setMaxInactiveInterval(5*60);
 		String islogin = (String) request.getSession().getAttribute("login");
 		String userName = (String) request.getSession().getAttribute("username");
