@@ -1,20 +1,29 @@
 package com.deng.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import com.deng.bean.User;
+import com.deng.dao.ICodeDao;
 import com.deng.dao.IUserDao;
+import com.deng.model.UserModel;
 import com.deng.service.IUserService;
 import com.deng.util.DateUtil;
 
 public class UserServiceImpl implements IUserService{
 	
 	@Resource
-	//@Autowired
 	private IUserDao userDao;
+	@Resource ICodeDao codeDao;
 	
 	public void setUserDao(IUserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	public void setCodeDao(ICodeDao codeDao) {
+		this.codeDao = codeDao;
 	}
 
 	@Override
@@ -50,6 +59,24 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public User findById(String id) {
 		return userDao.queryById(id);
+	}
+
+	@Override
+	public List<UserModel> findAll() {
+		List<UserModel> userModel = new ArrayList<UserModel>();
+		List<User> userList = userDao.queryAll();
+		for(User user : userList){
+			UserModel model = new UserModel();
+			model.setUser(user);
+			String address = codeDao.queryAddressById(user.getAddress()).getName();
+			String type = codeDao.queryUserType(user.getType()).getName();
+			String sex = codeDao.queryUserSex(user.getSex()).getName();
+			model.setAddress(address);
+			model.setType(type);
+			model.setSex(sex);
+			userModel.add(model);
+		}
+		return userModel;
 	}
 
 	

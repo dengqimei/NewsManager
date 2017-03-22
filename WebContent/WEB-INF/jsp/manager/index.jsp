@@ -51,6 +51,8 @@
 						</a></li>
 						<li url="toNewsManager.action"><a href="javascript:void(0)"> <em class="base_sys"></em><span>新闻管理</span>
 						</a></li>
+						<li url="toUserManager.action"><a href="javascript:void(0)"> <em class="base_sys"></em><span>用户管理</span>
+						</a></li>
 					</ul>
 				</div>
 				<div class="right" style="padding:30px">

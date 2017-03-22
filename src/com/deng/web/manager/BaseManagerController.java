@@ -15,8 +15,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.deng.bean.Catalog;
 import com.deng.bean.News;
+import com.deng.model.UserModel;
 import com.deng.service.ICatalogService;
 import com.deng.service.INewsService;
+import com.deng.service.IUserService;
 
 
 @Controller
@@ -26,17 +28,18 @@ public class BaseManagerController {
 	private ICatalogService catalogService;
 	@Autowired
 	private INewsService newsService;
+	@Autowired
+	private IUserService userService;
 
-	
 	private List<Catalog> catalogList;
 	private List<News> newsList;
 	private Catalog catalog;
 	private News news;
+	private List<UserModel> userModelList;
 	
 	@RequestMapping("/Manager/toIndex.action")
 	public String toManagerIndex(){
 		System.out.println("in manager toindex...");
-		//userService.register(new User(2,"tom",20));
 		return "/manager/index";
 	}
 	
@@ -53,10 +56,7 @@ public class BaseManagerController {
 	
 	@RequestMapping("/Manager/toUpdCatalog.action")
 	public String toUpdCatalog(Long id,Model model){
-//		System.out.println("===========");
-//		System.out.println(id);
 		catalog = catalogService.findCatalogById(id);
-//		System.out.println(catalog);
 		model.addAttribute(catalog);
 		return "/manager/updCatalog";
 	}
@@ -69,7 +69,6 @@ public class BaseManagerController {
 	
 	@RequestMapping("/Manager/delCatalog.action")
 	public String delCatalog(Long id){
-		//System.out.println(id);
 		catalogService.deleteCatalogById(id);
 		return "/manager/catalogManager";
 	}
@@ -77,12 +76,6 @@ public class BaseManagerController {
 	@RequestMapping("/Manager/toCatalogManager.action")
 	public String toCatalogManager(Model model){
 		catalogList = catalogService.findAll();
-//		System.out.println("===================");
-//		System.out.println(catalogList.get(1).getId());
-//		System.out.println(catalogList.get(1).getName());
-//		System.out.println(catalogList.get(1).getCode());
-//		System.out.println(catalogList.get(1).getInputTime());
-//		System.out.println(catalogList.get(1).getUpdateTime());
 		model.addAttribute("catalogList", catalogList);
 		return "/manager/catalogManager";
 	}
@@ -91,8 +84,6 @@ public class BaseManagerController {
 	public String toAddNews(News news,Model model){
 		catalogList = catalogService.findAll();
 		model.addAttribute("catalogList", catalogList);
-//		System.out.println(catalogList.size());
-//		System.out.println(catalogList);
 		return "/manager/addNews";
 	}
 	
@@ -108,11 +99,6 @@ public class BaseManagerController {
 		byte[] image = uploadimage.getBytes();
 		news.setImage(image);
 		newsService.addNews(news);
-//		System.out.println("================");
-//		System.out.println(news.getTitle());
-//		System.out.println(news.getAuthor());
-//		System.out.println(news.getContent());
-//		System.out.println(news.getCatalog_id());
 		return "/manager/addNews";
 	}
 	
@@ -157,6 +143,13 @@ public class BaseManagerController {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@RequestMapping("/Manager/toUserManager.action")
+	public String toUserManager(Model model){
+		userModelList = userService.findAll();
+		model.addAttribute("userModelList", userModelList);
+		return "/manager/userManager";
 	}
 	
 }

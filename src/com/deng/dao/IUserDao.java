@@ -12,8 +12,6 @@ public interface IUserDao {
 	
 	public void update(User user);
 	
-	public User queryByUserName(String username);
-	
 	public User queryById(String id);
 	
 	public List<User> queryAll();

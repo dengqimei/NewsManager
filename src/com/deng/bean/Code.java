@@ -1,13 +1,13 @@
 package com.deng.bean;
 
-public class Address {
+public class Code {
 
 	private String id;
 	private String name;
 	
-	public Address() {}
+	public Code() {}
 
-	public Address(String id, String name) {
+	public Code(String id, String name) {
 		this.id = id;
 		this.name = name;
 	}

@@ -22,7 +22,7 @@
 	<bean id="newsservice" class="com.deng.service.impl.NewsServiceImpl"></bean>
 	<bean id="commentservice" class="com.deng.service.impl.CommentServiceImpl"></bean>
 	<bean id="imageservice" class="com.deng.service.impl.ImageServiceImpl"></bean>
-	<bean id="addressservice" class="com.deng.service.impl.AddressServiceImpl"></bean>
+	<bean id="addressservice" class="com.deng.service.impl.CodeServiceImpl"></bean>
 <!-- 事务处理类  相当与一个切面类-->	 
 	 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
   		<property name="dataSource" ref="dataSource"/>

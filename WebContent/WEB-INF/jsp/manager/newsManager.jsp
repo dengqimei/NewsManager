@@ -40,7 +40,7 @@
 		</c:forEach>
 	</table>
 </div>
-<script>
+<script type="text/javascript">
 $(function(){
 	$(".del").off();
 	$(".del").on("click",function(){

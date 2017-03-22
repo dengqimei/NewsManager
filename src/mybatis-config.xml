@@ -14,6 +14,6 @@
 		 <mapper resource="com/deng/dao/newsDaoMapper.xml"/>
 		 <mapper resource="com/deng/dao/commentDaoMapper.xml"/>
 		 <mapper resource="com/deng/dao/imageDaoMapper.xml"/>
-		 <mapper resource="com/deng/dao/addressDaoMapper.xml"/>
+		 <mapper resource="com/deng/dao/codeDaoMapper.xml"/>
     </mappers>
   </configuration>  

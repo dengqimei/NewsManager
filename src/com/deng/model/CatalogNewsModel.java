@@ -9,6 +9,7 @@ public class CatalogNewsModel {
 
 	private Catalog catalog;
 	private List<News> news;
+	
 	public Catalog getCatalog() {
 		return catalog;
 	}
