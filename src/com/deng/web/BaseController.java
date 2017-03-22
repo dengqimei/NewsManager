@@ -45,20 +45,14 @@ public class BaseController {
 	private LoginInfo loginInfo;
 	
 	@RequestMapping("/toIndex.action")
-	public String toIndex(Model model,HttpServletRequest request,User user){
+	public String toIndex(Model model,HttpServletRequest request){
 		showCatalog(model);
 		catalogNewsList = newsService.findAllNews();
 		model.addAttribute("catalogNewsList", catalogNewsList);
 		request.getSession().setAttribute("login", "请登录");
-		request.getSession().setAttribute("username", "");
 		request.getSession().setMaxInactiveInterval(5*60);
-		String islogin = (String) request.getSession().getAttribute("login");
 		String userName = (String) request.getSession().getAttribute("username");
-		if("请登录".equals(islogin)&&"".equals(userName)){
-			if(user.getId()!=null){
-				login(user, request);
-			}
-		}else if(loginInfo!=null&&!"".equals(userName)){
+		if(loginInfo!=null&&userName!=null){
 			logout(request);
 		}
 		return "index";
@@ -69,22 +63,38 @@ public class BaseController {
 		return "login";
 	}
 	
-	public String login(User user,HttpServletRequest request){
-		if("success".equals(userService.login(user))){
-//			showCatalog(model);
-//			catalogNewsList = newsService.findAllNews();
-//			model.addAttribute("catalogNewsList", catalogNewsList);
-			String userName = userService.findById(user.getId()).getName();
-			request.getSession().setAttribute("login", "");
-			request.getSession().setAttribute("username", userName);
-			loginInfo = new LoginInfo();
-			loginInfo.setSessionId(request.getSession().getId());
-			loginInfo.setUserId(user.getId());
-			loginInfo.setUserName(userName);
-			userService.saveLoginInfo(loginInfo);
+	@RequestMapping("/login.action")
+	public String login(User user,HttpServletRequest request,Model model){
+		if(user.getId()!=null){
+			if("success".equals(userService.login(user))){
+				showCatalog(model);
+				catalogNewsList = newsService.findAllNews();
+				model.addAttribute("catalogNewsList", catalogNewsList);
+				String userName = userService.findById(user.getId()).getName();
+				request.getSession().setAttribute("login", "");
+				request.getSession().setAttribute("username", userName);
+				loginInfo = new LoginInfo();
+				loginInfo.setSessionId(request.getSession().getId());
+				loginInfo.setUserId(user.getId());
+				loginInfo.setUserName(userName);
+				userService.saveLoginInfo(loginInfo);
+				return "index";
+			}else{
+				request.getSession().setAttribute("msg", "登录失败，用户名或者密码错误！");
+				return "failed";
+			}
+		}else{
+			String userName = (String) request.getSession().getAttribute("username");
+			if(userName==null){
+				request.getSession().setAttribute("login", "请登录");
+			}else{
+				request.getSession().setAttribute("username", userName);
+			}
+			showCatalog(model);
+			catalogNewsList = newsService.findAllNews();
+			model.addAttribute("catalogNewsList", catalogNewsList);
 			return "index";
 		}
-		return "failed";
 	}
 	
 	public String logout(HttpServletRequest request){

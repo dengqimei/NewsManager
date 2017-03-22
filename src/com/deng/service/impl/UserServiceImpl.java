@@ -58,12 +58,15 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public String login(User user) {
-		String password = userDao.queryById(user.getId()).getPassword();
-		String type = userDao.queryById(user.getId()).getType();
-		if(password.equals(user.getPassword())&&"1".equals(type)){
-			return "success";
-		}else if(password.equals(user.getPassword())&&"0".equals(type)){
-			return "manager";
+		User user1 = userDao.queryById(user.getId());
+		if(user1!=null){
+			String password = user1.getPassword();
+			String type = user1.getType();
+			if(password.equals(user.getPassword())&&"1".equals(type)){
+				return "success";
+			}else if(password.equals(user.getPassword())&&"0".equals(type)){
+				return "manager";
+			}
 		}
 		return "failed";
 	}

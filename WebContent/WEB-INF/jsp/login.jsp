@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<form action="toIndex.action" method="post" id="loginForm">
+	<form action="login.action" method="post" id="loginForm">
 		<table align="center">
 			<caption><h1>用户登录</h1></caption>
 			<tr>
@@ -27,7 +27,7 @@
 				</td>
 			</tr> -->
 			<tr>
-				<td colspan="2" align="center"><input type="submit" value="登录"></td>
+				<td colspan="2" align="center"><input type="submit" value="登录" onclick="msg()"></td>
 			</tr>
 		</table>
 	</form>
