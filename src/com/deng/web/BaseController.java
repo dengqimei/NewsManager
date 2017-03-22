@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.deng.bean.Code;
+import com.deng.bean.LoginInfo;
 import com.deng.bean.Catalog;
 import com.deng.bean.News;
 import com.deng.bean.User;
@@ -41,17 +42,25 @@ public class BaseController {
 	private List<Code> provinceList;
 	private List<Code> cityList;
 	private List<Code> countyList;
+	private LoginInfo loginInfo;
 	
 	@RequestMapping("/toIndex.action")
-	public String toIndex(Model model,HttpServletRequest request){
+	public String toIndex(Model model,HttpServletRequest request,User user,String logout){
+		System.out.println("==================");
+		System.out.println(logout);
 		showCatalog(model);
 		catalogNewsList = newsService.findAllNews();
 		model.addAttribute("catalogNewsList", catalogNewsList);
-		String islogin = (String) request.getSession().getAttribute("username");
-		if(islogin==null||"".equals(islogin)){
-			request.getSession().setAttribute("login", "请登录");
-		}else{
-			request.getSession().setAttribute("login", "");
+		request.getSession().setAttribute("login", "请登录");
+		request.getSession().setMaxInactiveInterval(5*60);
+		String islogin = (String) request.getSession().getAttribute("login");
+		String userName = (String) request.getSession().getAttribute("username");
+		if("请登录".equals(islogin)&&"".equals(userName)){
+			if(user.getId()!=null){
+				login(user, request);
+			}
+		}else if(loginInfo!=null&&!"".equals(userName)){
+			logout(request);
 		}
 		return "index";
 	}
@@ -61,32 +70,38 @@ public class BaseController {
 		return "login";
 	}
 	
-	@RequestMapping("/login.action")
-	public String login(User user,Model model,HttpServletRequest request){
+	public String login(User user,HttpServletRequest request){
 		if("success".equals(userService.login(user))){
-			showCatalog(model);
-			catalogNewsList = newsService.findAllNews();
-			model.addAttribute("catalogNewsList", catalogNewsList);
+//			showCatalog(model);
+//			catalogNewsList = newsService.findAllNews();
+//			model.addAttribute("catalogNewsList", catalogNewsList);
+			String userName = userService.findById(user.getId()).getName();
 			request.getSession().setAttribute("login", "");
-			request.getSession().setAttribute("username", userService.findById(user.getId()).getName());
+			request.getSession().setAttribute("username", userName);
+			loginInfo = new LoginInfo();
+			loginInfo.setSessionId(request.getSession().getId());
+			loginInfo.setUserId(user.getId());
+			loginInfo.setUserName(userName);
+			userService.saveLoginInfo(loginInfo);
 			return "index";
 		}
 		return "failed";
 	}
 	
-	@RequestMapping("/logout.action")
-	public String logout(HttpServletRequest request,Model model){
+	public String logout(HttpServletRequest request){
+		userService.setLogoutTime(loginInfo);
+		System.out.println("===================");
+		System.out.println(request.getSession().getAttribute("username"));
 		request.getSession().setAttribute("username","");
 		request.getSession().setAttribute("login", "请登录");
-		showCatalog(model);
-		catalogNewsList = newsService.findAllNews();
-		model.addAttribute("catalogNewsList", catalogNewsList);
+//		showCatalog(model);
+//		catalogNewsList = newsService.findAllNews();
+//		model.addAttribute("catalogNewsList", catalogNewsList);
 		return "index";
 	}
 	
 	@RequestMapping("/toRegister.action")
 	public String toRegister(Model model){
-		System.out.println("in register......");
 		return "register";
 	}
 	

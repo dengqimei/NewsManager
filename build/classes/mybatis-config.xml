@@ -15,5 +15,6 @@
 		 <mapper resource="com/deng/dao/commentDaoMapper.xml"/>
 		 <mapper resource="com/deng/dao/imageDaoMapper.xml"/>
 		 <mapper resource="com/deng/dao/codeDaoMapper.xml"/>
+		 <mapper resource="com/deng/dao/loginInfoDaoMapper.xml"/>
     </mappers>
   </configuration>  

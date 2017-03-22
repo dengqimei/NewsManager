@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.deng.bean.Catalog;
+import com.deng.bean.LoginInfo;
 import com.deng.bean.News;
+import com.deng.bean.User;
 import com.deng.model.UserModel;
 import com.deng.service.ICatalogService;
 import com.deng.service.INewsService;
@@ -36,6 +39,7 @@ public class BaseManagerController {
 	private Catalog catalog;
 	private News news;
 	private List<UserModel> userModelList;
+	private LoginInfo loginInfo;
 	
 	@RequestMapping("/Manager/toIndex.action")
 	public String toManagerIndex(){
@@ -150,6 +154,32 @@ public class BaseManagerController {
 		userModelList = userService.findAll();
 		model.addAttribute("userModelList", userModelList);
 		return "/manager/userManager";
+	}
+	
+	@RequestMapping("/Manager/toLogin.action")
+	public String toLogin(){
+		return "login";
+	}
+	
+	@RequestMapping("/Manager/login.action")
+	public String login(User user,Model model,HttpServletRequest request){
+		if("manager".equals(userService.login(user))){
+			String userName = userService.findById(user.getId()).getName();
+			request.getSession().setAttribute("username", userName);
+			loginInfo = new LoginInfo();
+			loginInfo.setSessionId(request.getSession().getId());
+			loginInfo.setUserId(user.getId());
+			loginInfo.setUserName(userName);
+			userService.saveLoginInfo(loginInfo);
+			return "manager/index";
+		}
+		return "manager/failed";
+	}
+	
+	@RequestMapping("/Manager/logout.action")
+	public void logout(HttpServletRequest request,Model model){
+		userService.setLogoutTime(loginInfo);
+		request.getSession().setAttribute("username","");
 	}
 	
 }

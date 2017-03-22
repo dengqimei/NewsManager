@@ -9,7 +9,6 @@
 <link rel="stylesheet" type="text/css" href="theme/1/css/common.css">
 <link rel="stylesheet" type="text/css" href="theme/1/css/front/style.css">
 </head>
-
 <body>
 	<div id="main">
 		<div class="top">

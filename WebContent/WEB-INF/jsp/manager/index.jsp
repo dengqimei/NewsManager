@@ -32,7 +32,7 @@
 			<div class="top">
 				<div class="t_logo"></div>
 				<div class="t_sign">
-					<span>你好，管理员</span><a href="#" class="t_exit">退出</a>
+					<span>你好，${sessionScope.username }</span><a href="logout.action" class="t_exit">退出</a>
 				</div>
 				<div style="position: absolute;top:10px;right: 20px">
 					<a href="../toIndex.action" target="_blank">跳转到前台首页</a>

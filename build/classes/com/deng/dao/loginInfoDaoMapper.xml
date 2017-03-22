@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+<mapper namespace="com.deng.dao.ILoginInfoDao">
+
+	<resultMap type="logininfo" id="LoginInfoResult">
+		<result property="sessionId" column="sessionid"/>
+		<result property="userId" column="userid"/>
+		<result property="userName" column="username"/>
+		<result property="loginTime" column="logintime"/>
+		<result property="logoutTime" column="logouttime"/>
+	</resultMap>
+	
+	<insert id="save" parameterType="logininfo">
+		insert into login_info values(#{sessionId},#{userId},
+		#{userName},#{loginTime},#{logoutTime})
+	</insert>
+	
+	<update id="setLogoutTime" parameterType="logininfo">
+		update login_info set logouttime = #{logoutTime}
+		where sessionid = #{sessionId} and userid = #{userId}
+	</update>
+	
+	<select id="queryAll" resultMap="LoginInfoResult">
+		select * from login_info
+	</select>
+	
+	<select id="queryByUserId" resultMap="LoginInfoResult" parameterType="String">
+		select * from login_info where userid = #{userId}
+	</select>
+	
+</mapper>

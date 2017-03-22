@@ -6,9 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户登录</title>
 </head>
-
 <body>
-	<form action="toIndex.action" method="post" id="loginForm">
+	<form action="Manager/login.action" method="post">
 		<table align="center">
 			<caption><h1>用户登录</h1></caption>
 			<tr>

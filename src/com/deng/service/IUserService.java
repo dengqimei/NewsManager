@@ -2,6 +2,7 @@ package com.deng.service;
 
 import java.util.List;
 
+import com.deng.bean.LoginInfo;
 import com.deng.bean.User;
 import com.deng.model.UserModel;
 
@@ -18,5 +19,9 @@ public interface IUserService {
 	public User findById(String id);
 	
 	public List<UserModel> findAll();
+	
+	public void saveLoginInfo(LoginInfo loginInfo);
+	
+	public void setLogoutTime(LoginInfo loginInfo);
 	
 }
