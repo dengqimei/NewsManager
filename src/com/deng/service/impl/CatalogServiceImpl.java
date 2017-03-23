@@ -14,6 +14,7 @@ public class CatalogServiceImpl implements ICatalogService{
 
 	@Resource
 	private ICatalogDao catalogDao;
+	
 	public void setCatalogDao(ICatalogDao catalogDao) {
 		this.catalogDao = catalogDao;
 	}

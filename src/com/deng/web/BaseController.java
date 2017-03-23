@@ -102,9 +102,9 @@ public class BaseController {
 	
 	//用户退出登录
 	public String logout(HttpServletRequest request){
-		System.out.println(request.getSession().getAttribute("username"));
 		request.getSession().setAttribute("username","");
 		request.getSession().setAttribute("login", "请登录");
+		userService.Logout(loginInfo);
 		return "index";
 	}
 	

@@ -10,7 +10,11 @@ public class ImageServiceImpl implements IImageService{
 	
 	@Autowired
 	private IImageDao imageDao;
-	
+
+	public void setImageDao(IImageDao imageDao) {
+		this.imageDao = imageDao;
+	}
+
 	@Override
 	public void saveImage(Image image) {
 		imageDao.saveImage(image);

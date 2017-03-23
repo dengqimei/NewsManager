@@ -22,6 +22,6 @@ public interface IUserService {
 	
 	public void saveLoginInfo(LoginInfo loginInfo);
 	
-	public void setLogoutTime(LoginInfo loginInfo);
+	public void Logout(LoginInfo loginInfo);
 	
 }

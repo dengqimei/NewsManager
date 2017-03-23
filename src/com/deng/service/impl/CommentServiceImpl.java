@@ -12,6 +12,7 @@ public class CommentServiceImpl implements ICommentService{
 	
 	@Resource
 	private ICommentDao commentDao;
+	
 	public void setCommentDao(ICommentDao commentDao){
 		this.commentDao = commentDao;
 	}

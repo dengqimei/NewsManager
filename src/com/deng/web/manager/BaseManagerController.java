@@ -49,7 +49,6 @@ public class BaseManagerController {
 	//跳转到管理界面
 	@RequestMapping("/Manager/toIndex.action")
 	public String toManagerIndex(){
-		System.out.println("in manager toindex...");
 		return "/manager/index";
 	}
 	
@@ -152,7 +151,6 @@ public class BaseManagerController {
 	@RequestMapping("/Manager/showImage.action")
 	public void showImage(Long id,HttpServletResponse response,OutputStream out){
 		byte[] image = newsService.findNewsById(id).getImage();
-		System.out.println(image.toString());
 		response.setContentType("img/jpg");
 		response.setCharacterEncoding("utf-8");
 		try {
@@ -180,8 +178,6 @@ public class BaseManagerController {
 	//跳转到修改用户信息页面
 	@RequestMapping("/Manager/toUpdUser.action")
 	public String toUpdUser(String id,Model model){
-		System.out.println("in toupduser......");
-		System.out.println(id);
 		User user = userService.findById(id);
 		model.addAttribute(user);
 		showAddress(user, model);
@@ -191,8 +187,6 @@ public class BaseManagerController {
 	//修改用户信息
 	@RequestMapping("/Manager/updUser.action")
 	public String updUser(User user){
-		System.out.println("===============");
-		System.out.println(user);
 		userService.updateUser(user);
 		return "manager/userManager";
 	}
@@ -229,7 +223,7 @@ public class BaseManagerController {
 	//管理员退出登录
 	@RequestMapping("/Manager/logout.action")
 	public void logout(HttpServletRequest request,Model model){
-		userService.setLogoutTime(loginInfo);
+		userService.Logout(loginInfo);
 		request.getSession().setAttribute("username","");
 	}
 	
@@ -237,8 +231,6 @@ public class BaseManagerController {
 	@ResponseBody
 	@RequestMapping("/Manager/showNewsByCatalog.action")
 	public List<News> showNewsByCatalog(Long catalog_id){
-		System.out.println("in showNewsByCatalog......");
-		System.out.println(newsService.findNewsByCatalog(catalog_id));
 		return newsService.findNewsByCatalog(catalog_id);
 	}
 	
@@ -246,8 +238,6 @@ public class BaseManagerController {
 	@ResponseBody
 	@RequestMapping("/Manager/showCatalog.action")
 	public List<Catalog> showCatalog(){
-		System.out.println("in showCatalog......");
-		System.out.println(catalogService.findAll());
 		return catalogService.findAll();
 	}
 	

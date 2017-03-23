@@ -14,15 +14,17 @@
 		<result property="clickTimes" column="clicktimes"/>
 		<result property="catalog_id" column="catalog_id"/>
 		<result property="image" column="newsimage"/>
+		<result property="publishDate" column="publishdate"/>
 	</resultMap>
 	
 	<insert id="save" parameterType="News">
 		insert into news_info values(#{id},#{title},#{author},#{content}
-		,#{publishTime},#{updateTime},#{clickTimes},#{catalog_id},#{image,jdbcType=BLOB})
+		,#{publishTime},#{updateTime},#{clickTimes},#{catalog_id},
+		#{image,jdbcType=BLOB},#{publishDate})
 	</insert>
 	
 	<select id="queryAll" resultMap="NewsResult">
-		select * from news_info order by publishtime asc
+		select * from news_info order by publishtime desc
 	</select>
 	
 	<select id="queryById" parameterType="Long" resultMap="NewsResult">
@@ -41,7 +43,7 @@
 	</delete>
 	
 	<select id="queryByCatalogId" parameterType="Long" resultMap="NewsResult">
-		select * from news_info where catalog_id = #{Catalog_id}
+		select * from news_info where catalog_id = #{Catalog_id} order by publishtime desc
 	</select>
 		
 </mapper>

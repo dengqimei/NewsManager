@@ -104,10 +104,9 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public void setLogoutTime(LoginInfo loginInfo) {
+	public void Logout(LoginInfo loginInfo) {
 		String logoutTime = DateUtil.getDate();
 		loginInfo.setLogoutTime(logoutTime);
-		System.out.println(logoutTime);
 		loginInfoDao.setLogoutTime(loginInfo);
 	}
 

@@ -11,6 +11,7 @@ public class News {
 	private Integer clickTimes;//点击次数
 	private Long catalog_id;//所属栏目
 	private byte[] image;//新闻图片
+	private String publishDate;//发布日期
 	
 	public News() {}
 
@@ -109,6 +110,14 @@ public class News {
 
 	public void setImage(byte[] image) {
 		this.image = image;
+	}
+
+	public String getPublishDate() {
+		return publishDate;
+	}
+
+	public void setPublishDate(String publishDate) {
+		this.publishDate = publishDate;
 	}
 
 }

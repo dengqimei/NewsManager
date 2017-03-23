@@ -25,7 +25,11 @@ public class NewsServiceImpl implements INewsService{
 	public void setNewsDao(INewsDao newsDao){
 		this.newsDao = newsDao;
 	}
-	
+
+	public void setCatalogDao(ICatalogDao catalogDao) {
+		this.catalogDao = catalogDao;
+	}
+
 	@Override
 	public void addNews(News news) {
 		String publishTime = DateUtil.getDate();
@@ -33,6 +37,7 @@ public class NewsServiceImpl implements INewsService{
 		String id = IdUtil.getId();
 		news.setId(Long.parseLong(id));
 		news.setPublishTime(publishTime);
+		news.setPublishDate(publishTime.split(" ")[0]);
 		news.setUpdateTime(updateTime);
 		news.setClickTimes(0);
 		newsDao.save(news);

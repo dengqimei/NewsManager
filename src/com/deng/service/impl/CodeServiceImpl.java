@@ -12,7 +12,11 @@ public class CodeServiceImpl implements ICodeService{
 
 	@Resource
 	private ICodeDao codeDao;
-	
+
+	public void setCodeDao(ICodeDao codeDao) {
+		this.codeDao = codeDao;
+	}
+
 	@Override
 	public List<Code> findAllProvince() {
 		return codeDao.queryAllProvince();
