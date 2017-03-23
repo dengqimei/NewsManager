@@ -22,7 +22,7 @@
 	</insert>
 	
 	<select id="queryAll" resultMap="NewsResult">
-		select * from news_info
+		select * from news_info order by publishtime asc
 	</select>
 	
 	<select id="queryById" parameterType="Long" resultMap="NewsResult">

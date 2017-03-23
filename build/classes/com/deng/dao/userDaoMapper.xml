@@ -12,8 +12,8 @@
 			<result property="sex" column="usersex"/>
 			<result property="address" column="useraddress"/>
 			<result property="type" column="usertype"/>		
-			<result property="inputTime" column="registerTime"/>		
-			<result property="updateTime" column="updateTime"/>		
+			<result property="inputTime" column="registertime"/>		
+			<result property="updateTime" column="updatetime"/>		
 		</resultMap>
 
 		<insert id="save" parameterType="User">
@@ -27,7 +27,7 @@
 		
 		<update id="update" parameterType="user">
 			update user_info set username = #{name},userage = #{age},
-			userpassword = #{password},usertype = #{type}
+			usersex = #{sex},useraddress = #{address},updatetime = #{updateTime}
 			where userid = #{id}
 		</update>
 		

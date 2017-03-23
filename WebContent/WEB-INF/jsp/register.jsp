@@ -124,9 +124,9 @@
 				<td>
 					省份<select id="province" name="province">
 						<option value="000000">---请选择---</option>
-						<c:forEach items="${provinceList }" var="province">
+						<%-- <c:forEach items="${provinceList }" var="province">
 							<option value="${province.id }">${province.name }</option>
-						</c:forEach>
+						</c:forEach> --%>
 					</select>
 					市<select id="city" name="city">
 						<option value="000000">---请选择---</option>

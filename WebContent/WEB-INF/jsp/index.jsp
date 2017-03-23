@@ -61,7 +61,7 @@
 							<ul class="discipUI">
 								<c:forEach items="${cnl.news }" var="news" begin="0" end="5">
 								<li><a href="toContent.action?id=${news.id }" class="txt_title">${news.title }</a><span
-									class="txt_discipline">${news.author }</span><span class="txt_time">${news.publishTime }</span>
+									class="txt_discipline">${news.author }</span><%-- <span class="txt_time">${news.publishTime }</span> --%>
 								</li>
 							</c:forEach>
 							</ul>

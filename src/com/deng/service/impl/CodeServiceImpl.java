@@ -14,18 +14,18 @@ public class CodeServiceImpl implements ICodeService{
 	private ICodeDao codeDao;
 	
 	@Override
-	public List<Code> findProvince() {
-		return codeDao.queryProvince();
+	public List<Code> findAllProvince() {
+		return codeDao.queryAllProvince();
 	}
 
 	@Override
-	public List<Code> findCity(String provinceId) {
-		return codeDao.queryCity(provinceId);
+	public List<Code> findCityByProvince(String provinceId) {
+		return codeDao.queryCityByProvince(provinceId);
 	}
 
 	@Override
-	public List<Code> findCounty(String cityId) {
-		return codeDao.queryCounty(cityId);
+	public List<Code> findCountyByCity(String cityId) {
+		return codeDao.queryCountyByCity(cityId);
 	}
 
 	@Override
@@ -41,6 +41,21 @@ public class CodeServiceImpl implements ICodeService{
 	@Override
 	public Code findUserSex(String id) {
 		return codeDao.queryUserSex(id);
+	}
+
+	@Override
+	public Code findProvinceById(String provinceId) {
+		return codeDao.queryProvince(provinceId);
+	}
+
+	@Override
+	public Code findCityById(String cityId) {
+		return codeDao.queryCity(cityId);
+	}
+
+	@Override
+	public Code findCountyById(String countyId) {
+		return codeDao.queryCounty(countyId);
 	}
 
 

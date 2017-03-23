@@ -53,6 +53,8 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public void updateUser(User user) {
+		String updateTime = DateUtil.getDate();
+		user.setUpdateTime(updateTime);
 		userDao.update(user);
 	}
 

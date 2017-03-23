@@ -9,16 +9,28 @@
 			<result property="name" column="itemname"/>
 		</resultMap>
 		
-		<select id="queryProvince" resultMap="CodeResult">
+		<select id="queryAllProvince" resultMap="CodeResult">
 			select itemno,itemname from code_library where itemno like '%0000'
 		</select>
 		
-		<select id="queryCity" parameterType="String" resultMap="CodeResult">
+		<select id="queryCityByProvince" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno like #{id}
 		</select>
 		
-		<select id="queryCounty" parameterType="String" resultMap="CodeResult">
+		<select id="queryCountyByCity" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno like #{id}
+		</select>
+		
+		<select id="queryProvince" parameterType="String" resultMap="CodeResult">
+			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno = #{id}
+		</select>
+		
+		<select id="queryCity" parameterType="String" resultMap="CodeResult">
+			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno = #{id}
+		</select>
+		
+		<select id="queryCounty" parameterType="String" resultMap="CodeResult">
+			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno = #{id}
 		</select>
 		
 		<select id="queryAddressById" parameterType="String" resultMap="CodeResult">

@@ -6,11 +6,17 @@ import com.deng.bean.Code;
 
 public interface ICodeDao {
 	
-	public List<Code> queryProvince();
+	public List<Code> queryAllProvince();
 	
-	public List<Code> queryCity(String provinceId);
+	public List<Code> queryCityByProvince(String provinceId);
 	
-	public List<Code> queryCounty(String cityId);
+	public List<Code> queryCountyByCity(String cityId);
+	
+	public Code queryProvince(String provinceId);
+	
+	public Code queryCity(String cityId);
+	
+	public Code queryCounty(String countyId);
 	
 	public Code queryAddressById(String id);
 	
