@@ -50,12 +50,12 @@ public class BaseController {
 		showCatalog(model);
 		catalogNewsList = newsService.findAllNews();
 		model.addAttribute("catalogNewsList", catalogNewsList);
-		request.getSession().setAttribute("login", "请登录");
-		request.getSession().setMaxInactiveInterval(5*60);
+		String login = (String) request.getSession().getAttribute("login");
 		String userName = (String) request.getSession().getAttribute("username");
-		if(loginInfo!=null&&userName!=null){
-			logout(request);
+		if(("".equals(login)||login==null)&&("".equals(userName)||userName==null)){
+			request.getSession().setAttribute("login", "请登录");
 		}
+		request.getSession().setMaxInactiveInterval(5*60);
 		return "index";
 	}
 	
@@ -101,10 +101,25 @@ public class BaseController {
 	}
 	
 	//用户退出登录
-	public String logout(HttpServletRequest request){
-		request.getSession().setAttribute("username","");
-		request.getSession().setAttribute("login", "请登录");
-		userService.Logout(loginInfo);
+	@RequestMapping("/logout.action")
+	public String logout(HttpServletRequest request,Model model){
+		String userName = (String) request.getSession().getAttribute("username");
+		if(loginInfo!=null&&userName!=null){
+			request.getSession().setAttribute("username","");
+			request.getSession().setAttribute("login", "请登录");
+			userService.Logout(loginInfo);
+			showCatalog(model);
+			catalogNewsList = newsService.findAllNews();
+			model.addAttribute("catalogNewsList", catalogNewsList);
+			return "index";
+		}
+		showCatalog(model);
+		catalogNewsList = newsService.findAllNews();
+		model.addAttribute("catalogNewsList", catalogNewsList);
+		String login = (String) request.getSession().getAttribute("login");
+		if(("".equals(login)||login==null)&&("".equals(userName)||userName==null)){
+			request.getSession().setAttribute("login", "请登录");
+		}
 		return "index";
 	}
 	
@@ -174,6 +189,26 @@ public class BaseController {
 		model.addAttribute("catalogList", catalogList);
 	}
 	
+	//跳转到用户信息页面
+	@RequestMapping("/toUserInfo.action")
+	public String toUserInfo(String userName,Model model){
+		User user = userService.findByName(userName);
+		model.addAttribute(user);
+		showAddress(user, model);
+		return "userInfo";
+	}
 	
+	//显示地址
+		public void showAddress(User user,Model model){
+			String addressId = user.getAddress();
+			String provinceId = addressId.substring(0, 2)+"0000";
+			String cityId = addressId.substring(0,4)+"00";
+			Code province = codeService.findProvinceById(provinceId);
+			Code city = codeService.findCityById(cityId);
+			Code address = codeService.findCountyById(addressId);
+			model.addAttribute("province",province);
+			model.addAttribute("city",city);
+			model.addAttribute("address",address);
+		}
 	
 }

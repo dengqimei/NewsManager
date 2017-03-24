@@ -35,6 +35,10 @@
 			select * from user_info where userid = #{id}
 		</select>
 		
+		<select id="queryByName" parameterType="String" resultMap="UserResult">
+			select * from user_info where username = #{name}
+		</select>
+		
 		<select id="queryAll" resultMap="UserResult">
 			select * from user_info
 		</select>

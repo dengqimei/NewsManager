@@ -12,6 +12,8 @@ public interface ILoginInfoDao {
 	
 	public List<LoginInfo> queryAll();
 	
-	public List<LoginInfo> queryByUserId(String id);
+	public List<LoginInfo> queryByUserId(String userId);
+	
+	public String queryLastLoginTime (String userId);
 	
 }

@@ -30,4 +30,8 @@
 		select * from login_info where userid = #{userId}
 	</select>
 	
+	<select id="queryLastLoginTime" resultType="String" parameterType="String">
+		select max(logintime) from login_info where userid = #{userId}
+	</select>
+	
 </mapper>

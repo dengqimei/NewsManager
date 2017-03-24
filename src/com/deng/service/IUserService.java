@@ -18,6 +18,8 @@ public interface IUserService {
 	
 	public User findById(String id);
 	
+	public User findByName(String name);
+	
 	public List<UserModel> findAll();
 	
 	public void saveLoginInfo(LoginInfo loginInfo);

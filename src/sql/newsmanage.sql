@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-03-23 21:21:54
+Date: 2017-03-24 17:08:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3646,6 +3646,14 @@ INSERT INTO `login_info` VALUES ('FF2294E08F6CE15DDDC1DE20F3B0AE62', 'qmdeng', '
 INSERT INTO `login_info` VALUES ('4099223DE5DD9DC250E4ABE882A6680C', 'qmdeng', '邓启梅', '2017-03-23 21:10:44', '2017-03-23 21:11:52');
 INSERT INTO `login_info` VALUES ('4099223DE5DD9DC250E4ABE882A6680C', 'qmdeng', '邓启梅', '2017-03-23 21:11:25', '2017-03-23 21:11:52');
 INSERT INTO `login_info` VALUES ('4099223DE5DD9DC250E4ABE882A6680C', 'qmdeng', '邓启梅', '2017-03-23 21:11:49', '2017-03-23 21:11:52');
+INSERT INTO `login_info` VALUES ('19A18D7686C3298A6CED24185F69B06E', 'qmdeng', '邓启梅', '2017-03-24 09:56:28', null);
+INSERT INTO `login_info` VALUES ('6FC3501CF1B56207437C3FDED30C0FAE', 'qmdeng', '邓启梅', '2017-03-24 10:01:41', null);
+INSERT INTO `login_info` VALUES ('C1F69350C86D4EB740BF464F40FE8859', 'qmdeng', '邓启梅', '2017-03-24 10:24:24', '2017-03-24 10:24:34');
+INSERT INTO `login_info` VALUES ('2767F8DB7AC81C069468FBEDC847D40F', 'qmdeng', '邓启梅', '2017-03-24 10:27:22', '2017-03-24 10:28:44');
+INSERT INTO `login_info` VALUES ('2767F8DB7AC81C069468FBEDC847D40F', 'qmdeng', '邓启梅', '2017-03-24 10:28:16', '2017-03-24 10:28:44');
+INSERT INTO `login_info` VALUES ('2767F8DB7AC81C069468FBEDC847D40F', 'qmdeng', '邓启梅', '2017-03-24 10:28:38', '2017-03-24 10:28:44');
+INSERT INTO `login_info` VALUES ('2767F8DB7AC81C069468FBEDC847D40F', 'qmdeng', '邓启梅', '2017-03-24 10:33:38', null);
+INSERT INTO `login_info` VALUES ('F3B979C7E3A935962A1E6990374B792A', 'qmdeng', '邓启梅', '2017-03-24 10:43:13', null);
 
 -- ----------------------------
 -- Table structure for news_info
@@ -3713,7 +3721,7 @@ INSERT INTO `t_image` VALUES ('1', '1', '', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
-  `userid` varchar(255) NOT NULL COMMENT '用户编号',
+  `userid` varchar(255) NOT NULL COMMENT '用户名ID',
   `username` varchar(255) DEFAULT NULL COMMENT '用户名',
   `userpassword` varchar(255) DEFAULT NULL COMMENT '用户密码',
   `userage` varchar(255) DEFAULT NULL COMMENT '用户年龄',

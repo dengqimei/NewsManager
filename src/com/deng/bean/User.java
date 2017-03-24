@@ -11,6 +11,7 @@ public class User {
 	private String type;
 	private String inputTime;
 	private String updateTime;
+	private String lastLoginTime;
 	
 	public User() {}
 
@@ -108,6 +109,14 @@ public class User {
 
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(String lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 
 	@Override

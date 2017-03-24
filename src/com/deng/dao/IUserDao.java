@@ -14,6 +14,8 @@ public interface IUserDao {
 	
 	public User queryById(String id);
 	
+	public User queryByName(String name);
+	
 	public List<User> queryAll();
 	
 }

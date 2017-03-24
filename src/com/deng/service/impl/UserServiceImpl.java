@@ -110,5 +110,13 @@ public class UserServiceImpl implements IUserService{
 		loginInfoDao.setLogoutTime(loginInfo);
 	}
 
+	@Override
+	public User findByName(String name) {
+		User user = userDao.queryByName(name);
+		String lastLoginTime = loginInfoDao.queryLastLoginTime(user.getId());
+		user.setLastLoginTime(lastLoginTime);
+		return user;
+	}
+
 	
 }
