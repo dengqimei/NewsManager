@@ -15,7 +15,7 @@
    </style>
 <div>
 	<table border="1" style=" border-collapse:collapse; width:100%;">
-	<caption style="font-size:24px;font-weight: bold;">所有新闻信息</caption>
+	<caption style="font-size:24px;font-weight: bold;">所有用户信息</caption>
 		<tr>
 			<th>用户ID</th>
 			<th>用户姓名</th>

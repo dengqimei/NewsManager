@@ -67,6 +67,7 @@ public class UserServiceImpl implements IUserService{
 			if(password.equals(user.getPassword())&&"1".equals(type)){
 				return "success";
 			}else if(password.equals(user.getPassword())&&"0".equals(type)){
+				System.out.println("111111");
 				return "manager";
 			}
 		}
@@ -75,7 +76,10 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public User findById(String id) {
-		return userDao.queryById(id);
+		User user = userDao.queryById(id);
+		String lastLoginTime = loginInfoDao.queryLastLoginTime(user.getId());
+		user.setLastLoginTime(lastLoginTime);
+		return user;
 	}
 
 	@Override

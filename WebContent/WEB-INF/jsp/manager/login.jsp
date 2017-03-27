@@ -7,7 +7,7 @@
 <title>用户登录</title>
 </head>
 <body>
-	<form action="Manager/login.action" method="post">
+	<form action="login.action" method="post">
 		<table align="center">
 			<caption><h1>用户登录</h1></caption>
 			<tr>

@@ -210,6 +210,7 @@ public class BaseManagerController {
 		if("manager".equals(userService.login(user))){
 			String userName = userService.findById(user.getId()).getName();
 			request.getSession().setAttribute("username", userName);
+			request.getSession().setAttribute("login", "");
 			loginInfo = new LoginInfo();
 			loginInfo.setSessionId(request.getSession().getId());
 			loginInfo.setUserId(user.getId());

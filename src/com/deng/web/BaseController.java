@@ -199,16 +199,21 @@ public class BaseController {
 	}
 	
 	//显示地址
-		public void showAddress(User user,Model model){
-			String addressId = user.getAddress();
-			String provinceId = addressId.substring(0, 2)+"0000";
-			String cityId = addressId.substring(0,4)+"00";
-			Code province = codeService.findProvinceById(provinceId);
-			Code city = codeService.findCityById(cityId);
-			Code address = codeService.findCountyById(addressId);
-			model.addAttribute("province",province);
-			model.addAttribute("city",city);
-			model.addAttribute("address",address);
-		}
-	
+	public void showAddress(User user,Model model){
+		String addressId = user.getAddress();
+		String provinceId = addressId.substring(0, 2)+"0000";
+		String cityId = addressId.substring(0,4)+"00";
+		Code province = codeService.findProvinceById(provinceId);
+		Code city = codeService.findCityById(cityId);
+		Code address = codeService.findCountyById(addressId);
+		model.addAttribute("province",province);
+		model.addAttribute("city",city);
+		model.addAttribute("address",address);
+	}
+		
+		
+	@RequestMapping("/toTest.action")
+	public String toTest(){
+		return "test";
+	}
 }
