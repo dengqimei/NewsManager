@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.deng.bean.Catalog;
 import com.deng.bean.Code;
-import com.deng.bean.LoginInfo;
+//import com.deng.bean.LoginInfo;
 import com.deng.bean.News;
 import com.deng.bean.User;
 import com.deng.model.UserModel;
@@ -44,7 +44,7 @@ public class BaseManagerController {
 	private Catalog catalog;
 	private News news;
 	private List<UserModel> userModelList;
-	private LoginInfo loginInfo;
+//	private LoginInfo loginInfo;
 	
 	//跳转到管理界面
 	@RequestMapping("/Manager/toIndex.action")
@@ -198,7 +198,7 @@ public class BaseManagerController {
 		return "/manager/userManager";
 	}
 	
-	//跳转到管理员登录页面
+	/*//跳转到管理员登录页面
 	@RequestMapping("/Manager/toLogin.action")
 	public String toLogin(){
 		return "manager/login";
@@ -226,7 +226,7 @@ public class BaseManagerController {
 	public void logout(HttpServletRequest request,Model model){
 		userService.Logout(loginInfo);
 		request.getSession().setAttribute("username","");
-	}
+	}*/
 	
 	//通过栏目筛选新闻信息
 	@ResponseBody

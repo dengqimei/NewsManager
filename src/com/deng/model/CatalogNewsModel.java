@@ -23,6 +23,4 @@ public class CatalogNewsModel {
 		this.news = news;
 	}
 	
-	
-	
 }

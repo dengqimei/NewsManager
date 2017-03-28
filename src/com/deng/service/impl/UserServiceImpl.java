@@ -64,11 +64,11 @@ public class UserServiceImpl implements IUserService{
 		if(user1!=null){
 			String password = user1.getPassword();
 			String type = user1.getType();
-			if(password.equals(user.getPassword())&&"1".equals(type)){
-				return "success";
-			}else if(password.equals(user.getPassword())&&"0".equals(type)){
+			if(password.equals(user.getPassword())&&"0".equals(type)){
 				System.out.println("111111");
 				return "manager";
+			}else{
+				return "success";
 			}
 		}
 		return "failed";

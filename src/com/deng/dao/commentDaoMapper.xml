@@ -6,7 +6,7 @@
 
 	<resultMap type="comment" id="CommentResult">
 		<result property="id" column="commentid"/>
-		<result property="comment" column="commentcontent"/>
+		<result property="content" column="commentcontent"/>
 		<result property="publishTime" column="publishtime"/>
 		<result property="user_id" column="user_id"/>
 		<result property="news_id" column="news_id"/>

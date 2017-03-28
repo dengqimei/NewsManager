@@ -1,18 +1,16 @@
 package com.deng.bean;
 
-import java.util.Date;
-
 public class Comment {
 
 	private Long id;
 	private String content;
-	private Date publishTime;
-	private Long user_id;
+	private String publishTime;
+	private String user_id;
 	private Long news_id;
 	
 	public Comment() {}
 
-	public Comment(Long id, String content, Date publishTime, Long user_id, Long news_id) {
+	public Comment(Long id, String content, String publishTime, String user_id, Long news_id) {
 		this.id = id;
 		this.content = content;
 		this.publishTime = publishTime;
@@ -36,19 +34,19 @@ public class Comment {
 		this.content = content;
 	}
 
-	public Date getPublishTime() {
+	public String getPublishTime() {
 		return publishTime;
 	}
 
-	public void setPublishTime(Date publishTime) {
+	public void setPublishTime(String publishTime) {
 		this.publishTime = publishTime;
 	}
 
-	public Long getUser_id() {
+	public String getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(Long user_id) {
+	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
 
@@ -58,6 +56,12 @@ public class Comment {
 
 	public void setNews_id(Long news_id) {
 		this.news_id = news_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", content=" + content + ", publishTime=" + publishTime + ", user_id=" + user_id
+				+ ", news_id=" + news_id + "]";
 	}
 
 }

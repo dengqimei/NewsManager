@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.deng.bean.Code;
+import com.deng.bean.Comment;
 import com.deng.bean.LoginInfo;
 import com.deng.bean.Catalog;
 import com.deng.bean.News;
 import com.deng.bean.User;
 import com.deng.model.CatalogNewsModel;
+import com.deng.model.UserCommentModel;
 import com.deng.service.ICodeService;
+import com.deng.service.ICommentService;
 import com.deng.service.ICatalogService;
 import com.deng.service.INewsService;
 import com.deng.service.IUserService;
@@ -33,6 +36,8 @@ public class BaseController {
 	private ICodeService codeService;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private ICommentService commentService;
 	
 	private List<Catalog> catalogList;
 	private List<CatalogNewsModel> catalogNewsList;
@@ -44,18 +49,19 @@ public class BaseController {
 	private List<Code> countyList;
 	private LoginInfo loginInfo;
 	
-	//进入系统首页、退出登录
+	//进入系统首页
 	@RequestMapping("/toIndex.action")
 	public String toIndex(Model model,HttpServletRequest request){
 		showCatalog(model);
 		catalogNewsList = newsService.findAllNews();
 		model.addAttribute("catalogNewsList", catalogNewsList);
+		request.getSession().setMaxInactiveInterval(5*60);
 		String login = (String) request.getSession().getAttribute("login");
 		String userName = (String) request.getSession().getAttribute("username");
 		if(("".equals(login)||login==null)&&("".equals(userName)||userName==null)){
 			request.getSession().setAttribute("login", "请登录");
+			request.getSession().setAttribute("usertype", "1");
 		}
-		request.getSession().setMaxInactiveInterval(5*60);
 		return "index";
 	}
 	
@@ -68,12 +74,13 @@ public class BaseController {
 	//用户登录
 	@RequestMapping("/login.action")
 	public String login(User user,HttpServletRequest request,Model model){
+		request.getSession().setMaxInactiveInterval(5*60);
 		if(user.getId()!=null){
+			showCatalog(model);
+			catalogNewsList = newsService.findAllNews();
+			model.addAttribute("catalogNewsList", catalogNewsList);
+			String userName = userService.findById(user.getId()).getName();
 			if("success".equals(userService.login(user))){
-				showCatalog(model);
-				catalogNewsList = newsService.findAllNews();
-				model.addAttribute("catalogNewsList", catalogNewsList);
-				String userName = userService.findById(user.getId()).getName();
 				request.getSession().setAttribute("login", "");
 				request.getSession().setAttribute("username", userName);
 				loginInfo = new LoginInfo();
@@ -81,6 +88,17 @@ public class BaseController {
 				loginInfo.setUserId(user.getId());
 				loginInfo.setUserName(userName);
 				userService.saveLoginInfo(loginInfo);
+				request.getSession().setAttribute("usertype", "1");
+				return "index";
+			}else if("manager".equals(userService.login(user))){
+				request.getSession().setAttribute("login", "");
+				request.getSession().setAttribute("username", userName);
+				loginInfo = new LoginInfo();
+				loginInfo.setSessionId(request.getSession().getId());
+				loginInfo.setUserId(user.getId());
+				loginInfo.setUserName(userName);
+				userService.saveLoginInfo(loginInfo);
+				request.getSession().setAttribute("usertype", "0");
 				return "index";
 			}else{
 				request.getSession().setAttribute("msg", "登录失败，用户名或者密码错误！");
@@ -111,6 +129,7 @@ public class BaseController {
 			showCatalog(model);
 			catalogNewsList = newsService.findAllNews();
 			model.addAttribute("catalogNewsList", catalogNewsList);
+			request.getSession().setAttribute("usertype", "1");
 			return "index";
 		}
 		showCatalog(model);
@@ -216,4 +235,22 @@ public class BaseController {
 	public String toTest(){
 		return "test";
 	}
+	
+	@ResponseBody
+	@RequestMapping("showComment.action")
+	public List<UserCommentModel> showComment(Long newsId){
+		List<UserCommentModel> list = commentService.findUserComments(newsId);
+		return list;
+	}
+	
+	@RequestMapping("saveComment.action")
+	public void saveComment(Long newsId,String content,String username){
+		User user = userService.findByName(username);
+		Comment comment = new Comment();
+		comment.setContent(content);
+		comment.setNews_id(newsId);
+		comment.setUser_id(user.getId());
+		commentService.addComment(comment);
+	}
+	
 }

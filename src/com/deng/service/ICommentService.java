@@ -3,6 +3,7 @@ package com.deng.service;
 import java.util.List;
 
 import com.deng.bean.Comment;
+import com.deng.model.UserCommentModel;
 
 public interface ICommentService {
 
@@ -17,5 +18,7 @@ public interface ICommentService {
 	public List<Comment> findCommentByUser(Long user_id);
 
 	public List<Comment> findCommentByNews(Long news_id);
+	
+	public List<UserCommentModel> findUserComments(Long news_id);
 
 }
