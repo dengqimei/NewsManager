@@ -51,7 +51,8 @@
 			url : "saveComment.action",
 			data : {newsId:newsId,content:content,username:username},
 			success : function(){
-				location.reload();
+				$('.text').val() =="请输入内容......";
+				location.reload(this);
 			}
 		});
 	}
@@ -101,7 +102,7 @@
 				</div>
 				<div id="comment" style="width: 1050px; height: auto;margin-left:10px;margin-top:40px">
 					<div class="cont-box">
-						<textarea class="text" placeholder="请输入..."></textarea>
+						<textarea class="text" placeholder="请输入内容..."></textarea>
 					</div>
 					<div class="tools-box">
 						<!-- <div class="operator-box-btn"><span class="face-icon"  >☺</span><span class="img-icon">▧</span></div> -->

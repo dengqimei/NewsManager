@@ -249,6 +249,8 @@ public class BaseController {
 	public void saveComment(Long newsId,String content,String username){
 		System.out.println("==============");
 		User user = userService.findByName(username);
+		System.out.println(content);
+		System.out.println(newsId);
 		Comment comment = new Comment();
 		comment.setContent(content);
 		comment.setNews_id(newsId);
