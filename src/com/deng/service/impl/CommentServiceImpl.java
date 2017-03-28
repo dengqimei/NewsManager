@@ -6,7 +6,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.deng.bean.Comment;
+import com.deng.bean.News;
 import com.deng.dao.ICommentDao;
+import com.deng.dao.INewsDao;
 import com.deng.dao.IUserDao;
 import com.deng.model.UserCommentModel;
 import com.deng.service.ICommentService;
@@ -19,6 +21,8 @@ public class CommentServiceImpl implements ICommentService{
 	private ICommentDao commentDao;
 	@Resource
 	private IUserDao userDao;
+	@Resource
+	private INewsDao newsDao;
 	
 	public void setCommentDao(ICommentDao commentDao){
 		this.commentDao = commentDao;
@@ -28,12 +32,26 @@ public class CommentServiceImpl implements ICommentService{
 		this.userDao = userDao;
 	}
 
+	public void setNewsDao(INewsDao newsDao) {
+		this.newsDao = newsDao;
+	}
+
 	@Override
 	public void addComment(Comment comment) {
 		String id = IdUtil.getId();
 		String publishTime = DateUtil.getDate();
 		comment.setId(Long.parseLong(id));
 		comment.setPublishTime(publishTime);
+		Long newsId = comment.getNews_id();
+		News news = newsDao.queryById(newsId);
+		int count = news.getClickTimes();
+		System.out.println("=======");
+		System.out.println(count);
+		count = count+1;
+		news.setClickTimes(count);
+		newsDao.update(news);
+		System.out.println("==============");
+		System.out.println(count);
 		commentDao.save(comment);
 	}
 

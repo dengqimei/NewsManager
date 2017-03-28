@@ -25,6 +25,7 @@
 			$('#info-show ul').prepend(reply(username,content,publishTime));
 			saveComment(username);
 		}
+	
 	}
 	
 	var html;
@@ -48,7 +49,10 @@
 		$.ajax({
 			type : "POST",
 			url : "saveComment.action",
-			data : {newsId:newsId,content:content,username:username}
+			data : {newsId:newsId,content:content,username:username},
+			success : function(){
+				location.reload();
+			}
 		});
 	}
 	
@@ -89,7 +93,7 @@
 					<div class="title">${news.title }</div>
 					<div class="abstract">
 						<span>更新时间：${news.publishTime }</span> <span>发布人：${news.author }</span>
-						<span>点击${news.clickTimes }次</span>
+						<span>评论${news.clickTimes }次</span>
 					</div>
 					<div class="details">
 						<p>${news.content }</p>

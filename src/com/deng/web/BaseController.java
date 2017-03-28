@@ -138,6 +138,7 @@ public class BaseController {
 		String login = (String) request.getSession().getAttribute("login");
 		if(("".equals(login)||login==null)&&("".equals(userName)||userName==null)){
 			request.getSession().setAttribute("login", "请登录");
+			request.getSession().setAttribute("usertype", "1");
 		}
 		return "index";
 	}
@@ -243,8 +244,10 @@ public class BaseController {
 		return list;
 	}
 	
+	@ResponseBody
 	@RequestMapping("saveComment.action")
 	public void saveComment(Long newsId,String content,String username){
+		System.out.println("==============");
 		User user = userService.findByName(username);
 		Comment comment = new Comment();
 		comment.setContent(content);
