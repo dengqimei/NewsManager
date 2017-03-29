@@ -21,6 +21,10 @@
 			<div class="congw">
 				<div class="conlist">
 					<div class="search_result">
+					<div class="position">
+						<span class="poshome">您现在的位置：</span> <a href="toIndex.action">首页</a>
+						>> <a href="toList.action?c_id=${news.catalog_id }">${catalog.name }</a>
+					</div>
 					<c:forEach items="${newsList }" var="news">
 						<div class="art_box">
 							<div class="art_img">
@@ -34,7 +38,7 @@
 									<span>栏目名称：${catalog.name }</span>
 								</div>
 								<div class="tag_txt">
-									<span>撰写人：${news.author }</span><span class="pl30">上传时间：${news.publishTime }</span>
+									<span>作者：${news.author }</span><span class="pl30">发布时间：${news.publishTime }</span>
 								</div>
 							</div>
 						</div>

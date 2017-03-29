@@ -26,4 +26,10 @@ public interface IUserService {
 	
 	public void Logout(LoginInfo loginInfo);
 	
+	public int batchDel(String[] delids);
+	
+	public int batchInUse(String[] updids);
+	
+	public int batchUnUse(String[] updids);
+	
 }

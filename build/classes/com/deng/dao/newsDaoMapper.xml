@@ -15,12 +15,13 @@
 		<result property="catalog_id" column="catalog_id"/>
 		<result property="image" column="newsimage"/>
 		<result property="publishDate" column="publishdate"/>
+		<result property="isPublish" column="ispublish"/>
 	</resultMap>
 	
 	<insert id="save" parameterType="News">
 		insert into news_info values(#{id},#{title},#{author},#{content}
 		,#{publishTime},#{updateTime},#{clickTimes},#{catalog_id},
-		#{image,jdbcType=BLOB},#{publishDate})
+		#{image,jdbcType=BLOB},#{publishDate},#{ispublish})
 	</insert>
 	
 	<select id="queryAll" resultMap="NewsResult">
@@ -41,9 +42,34 @@
 	<delete id="deleteById" parameterType="Long">
 		delete from news_info where newsid = #{id}
 	</delete>
-	
+	<!-- 通过栏目查询栏目下所有新闻信息 -->
 	<select id="queryByCatalogId" parameterType="Long" resultMap="NewsResult">
 		select * from news_info where catalog_id = #{Catalog_id} order by publishtime desc
 	</select>
+	<!-- 通过栏目查询栏目下已发布的新闻信息 -->
+	<select id="queryCatalogNews" parameterType="Long" resultMap="NewsResult">
+		select * from news_info where catalog_id = #{Catalog_id} and ispublish = "1" order by publishtime desc
+	</select>
+	<!-- 批量删除新闻 -->
+	<delete id="batchDel" parameterType="String">
+		delete from news_info where newsid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<!-- 批量发布新闻 -->
+	<update id="batchPublish" parameterType="String">
+		update news_info set ispublish = "1" where newsid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</update>
+	<!-- 批量取消发布新闻 -->
+	<update id="batchCancel" parameterType="String">
+		update news_info set ispublish = "0" where newsid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</update>
 		
 </mapper>

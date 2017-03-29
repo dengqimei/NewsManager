@@ -16,4 +16,12 @@ public interface ICatalogService {
 	
 	public List<Catalog> findAll();
 	
+	public List<Catalog> findAllInuse();
+	
+	public int batchDel(String[] delids);
+	
+	public int batchInUse(String[] updids);
+	
+	public int batchUnUse(String[] updids);
+	
 }

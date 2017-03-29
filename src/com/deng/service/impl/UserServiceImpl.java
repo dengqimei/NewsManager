@@ -43,6 +43,7 @@ public class UserServiceImpl implements IUserService{
 		user.setType("1");
 		user.setInputTime(inputTime);
 		user.setUpdateTime(updateTime);
+		user.setIsInuse("1");
 		userDao.save(user);
 	}
 
@@ -65,10 +66,11 @@ public class UserServiceImpl implements IUserService{
 			String password = user1.getPassword();
 			String type = user1.getType();
 			if(password.equals(user.getPassword())&&"0".equals(type)){
-				System.out.println("111111");
 				return "manager";
-			}else{
+			}else if(password.equals(user.getPassword())&&"1".equals(type)){
 				return "success";
+			}else{
+				return "failed";
 			}
 		}
 		return "failed";
@@ -120,6 +122,33 @@ public class UserServiceImpl implements IUserService{
 		String lastLoginTime = loginInfoDao.queryLastLoginTime(user.getId());
 		user.setLastLoginTime(lastLoginTime);
 		return user;
+	}
+
+	@Override
+	public int batchDel(String[] delids) {
+		if(delids.length==0){
+			return -1;
+		}else{
+			return userDao.batchDel(delids);
+		}
+	}
+
+	@Override
+	public int batchInUse(String[] updids) {
+		if(updids.length==0){
+			return -1;
+		}else{
+			return userDao.batchInUse(updids);
+		}
+	}
+
+	@Override
+	public int batchUnUse(String[] updids) {
+		if(updids.length==0){
+			return -1;
+		}else{
+			return userDao.batchUnUse(updids);
+		}
 	}
 
 	

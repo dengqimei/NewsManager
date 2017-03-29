@@ -15,5 +15,13 @@ public interface ICatalogDao {
 	public Catalog queryById(Long id);
 
 	public List<Catalog> queryAll();
+	
+	public List<Catalog> queryAllInuse();
+	
+	public int batchDel(String[] delids);
+	
+	public int batchInUse(String[] updids);
+	
+	public int batchUnUse(String[] updids);
 
 }

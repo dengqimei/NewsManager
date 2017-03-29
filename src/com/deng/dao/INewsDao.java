@@ -16,6 +16,14 @@ public interface INewsDao {
 	
 	public List<News> queryAll();
 
+	public List<News> queryCatalogNews(Long Catalog_id);
+	
 	public List<News> queryByCatalogId(Long catalog_id);
+	
+	public int batchDel(String[] delids);
+	
+	public int batchCancel(String[] delids);
+	
+	public int batchPublish(String[] updids);
 
 }

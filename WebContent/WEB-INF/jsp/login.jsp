@@ -27,7 +27,8 @@
 				</td>
 			</tr> -->
 			<tr>
-				<td colspan="2" align="center"><input type="submit" value="登录" onclick="msg()"></td>
+				<td align="center"><input type="submit" value="登录"></td>
+				<td><a href="toRegister.action">没有账号？注册</a></td>
 			</tr>
 		</table>
 	</form>

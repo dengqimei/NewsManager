@@ -24,6 +24,7 @@ import com.deng.service.ICommentService;
 import com.deng.service.ICatalogService;
 import com.deng.service.INewsService;
 import com.deng.service.IUserService;
+import com.deng.util.MD5;
 
 @Controller
 public class BaseController {
@@ -75,6 +76,8 @@ public class BaseController {
 	@RequestMapping("/login.action")
 	public String login(User user,HttpServletRequest request,Model model){
 		request.getSession().setMaxInactiveInterval(5*60);
+		String password = MD5.getInstance().getMD5ofStr(user.getPassword());
+		user.setPassword(password);
 		if(user.getId()!=null){
 			showCatalog(model);
 			catalogNewsList = newsService.findAllNews();
@@ -152,6 +155,8 @@ public class BaseController {
 	//用户注册
 	@RequestMapping("/register.action")
 	public String register(User user,String sex,String address){
+		String password = MD5.getInstance().getMD5ofStr(user.getPassword());
+		user.setPassword(password);
 		userService.register(user);
 		return "login";
 	}
@@ -190,7 +195,7 @@ public class BaseController {
 		newsList = newsService.findNewsByCatalog(c_id);
 		catalog = catalogService.findCatalogById(c_id);
 		model.addAttribute("newsList", newsList);
-		model.addAttribute(catalog);
+		model.addAttribute("catalog",catalog);
 		return "list";
 	}
 	
@@ -199,13 +204,15 @@ public class BaseController {
 	public String toContent(Long id,Model model){
 		showCatalog(model);
 		news = newsService.findNewsById(id);
+		catalog = catalogService.findCatalogById(news.getCatalog_id());
 		model.addAttribute(news);
+		model.addAttribute("catalog",catalog);
 		return "content";
 	}
 	
 	//显示所有栏目
 	public void showCatalog(Model model){
-		catalogList = catalogService.findAll();
+		catalogList = catalogService.findAllInuse();
 		model.addAttribute("catalogList", catalogList);
 	}
 	

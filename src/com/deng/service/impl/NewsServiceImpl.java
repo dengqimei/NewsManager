@@ -40,6 +40,7 @@ public class NewsServiceImpl implements INewsService{
 		news.setPublishDate(publishTime.split(" ")[0]);
 		news.setUpdateTime(updateTime);
 		news.setClickTimes(0);
+		news.setIsPublish("0");
 		newsDao.save(news);
 	}
 
@@ -73,15 +74,42 @@ public class NewsServiceImpl implements INewsService{
 	@Override
 	public List<CatalogNewsModel> findAllNews() {
 		List<CatalogNewsModel> list = new ArrayList<CatalogNewsModel>();
-		List<Catalog> catalogList = catalogDao.queryAll();
+		List<Catalog> catalogList = catalogDao.queryAllInuse();
 		for(Catalog catalog : catalogList){
 			CatalogNewsModel model = new CatalogNewsModel();
 			model.setCatalog(catalog);
-			List<News> newsList = newsDao.queryByCatalogId(catalog.getId());
+			List<News> newsList = newsDao.queryCatalogNews(catalog.getId());
 			model.setNews(newsList);
 			list.add(model);
 		}
 		return list;
+	}
+
+	@Override
+	public int batchDel(String[] delids) {
+		if(delids.length==0){
+			return -1;
+		}else{
+			return newsDao.batchDel(delids);
+		}
+	}
+
+	@Override
+	public int batchPublish(String[] updids) {
+		if(updids.length==0){
+			return -1;
+		}else{
+			return newsDao.batchPublish(updids);
+		}
+	}
+	
+	@Override
+	public int batchCancel(String[] updids) {
+		if(updids.length==0){
+			return -1;
+		}else{
+			return newsDao.batchCancel(updids);
+		}
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.deng.bean;
 
+import java.util.Arrays;
+
 public class News {
 
 	private Long id;//新闻编号
@@ -12,6 +14,7 @@ public class News {
 	private Long catalog_id;//所属栏目
 	private byte[] image;//新闻图片
 	private String publishDate;//发布日期
+	private String isPublish;
 	
 	public News() {}
 
@@ -118,6 +121,22 @@ public class News {
 
 	public void setPublishDate(String publishDate) {
 		this.publishDate = publishDate;
+	}
+
+	public String getIsPublish() {
+		return isPublish;
+	}
+
+	public void setIsPublish(String isPublish) {
+		this.isPublish = isPublish;
+	}
+
+	@Override
+	public String toString() {
+		return "News [id=" + id + ", title=" + title + ", author=" + author + ", content=" + content + ", publishTime="
+				+ publishTime + ", updateTime=" + updateTime + ", clickTimes=" + clickTimes + ", catalog_id="
+				+ catalog_id + ", image=" + Arrays.toString(image) + ", publishDate=" + publishDate + ", isPublish="
+				+ isPublish + "]";
 	}
 
 }

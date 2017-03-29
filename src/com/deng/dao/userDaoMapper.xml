@@ -2,44 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 			
-	<mapper namespace="com.deng.dao.IUserDao">
+<mapper namespace="com.deng.dao.IUserDao">
 	
-		<resultMap type="user" id="UserResult">
-			<result property="id" column="userid"/>		
-			<result property="name" column="username"/>	
-			<result property="password" column="userpassword"/>		
-			<result property="age" column="userage"/>
-			<result property="sex" column="usersex"/>
-			<result property="address" column="useraddress"/>
-			<result property="type" column="usertype"/>		
-			<result property="inputTime" column="registertime"/>		
-			<result property="updateTime" column="updatetime"/>		
-		</resultMap>
+	<resultMap type="user" id="UserResult">
+		<result property="id" column="userid"/>		
+		<result property="name" column="username"/>	
+		<result property="password" column="userpassword"/>		
+		<result property="age" column="userage"/>
+		<result property="sex" column="usersex"/>
+		<result property="address" column="useraddress"/>
+		<result property="type" column="usertype"/>		
+		<result property="inputTime" column="registertime"/>		
+		<result property="updateTime" column="updatetime"/>		
+		<result property="isInuse" column="isinuse"/>		
+	</resultMap>
 
-		<insert id="save" parameterType="User">
-			insert into user_info values(#{id},#{name},#{password},
-			#{age},#{sex},#{address},#{type},#{inputTime},#{updateTime})
-		</insert>
-		
-		<delete id="deleteById" parameterType="String">
-			delete from user_info where userid = #{id}
-		</delete>
-		
-		<update id="update" parameterType="user">
-			update user_info set username = #{name},userage = #{age},
-			usersex = #{sex},useraddress = #{address},updatetime = #{updateTime}
-			where userid = #{id}
-		</update>
-		
-		<select id="queryById" parameterType="String" resultMap="UserResult">
-			select * from user_info where userid = #{id}
-		</select>
-		
-		<select id="queryByName" parameterType="String" resultMap="UserResult">
-			select * from user_info where username = #{name}
-		</select>
-		
-		<select id="queryAll" resultMap="UserResult">
-			select * from user_info
-		</select>
-	</mapper>
+	<insert id="save" parameterType="User">
+		insert into user_info values(#{id},#{name},#{password},
+		#{age},#{sex},#{address},#{type},#{inputTime},#{updateTime},#{isInuse})
+	</insert>
+	
+	<delete id="deleteById" parameterType="String">
+		delete from user_info where userid = #{id}
+	</delete>
+	
+	<update id="update" parameterType="user">
+		update user_info set username = #{name},userage = #{age},
+		usersex = #{sex},useraddress = #{address},updatetime = #{updateTime}
+		where userid = #{id}
+	</update>
+	
+	<select id="queryById" parameterType="String" resultMap="UserResult">
+		select * from user_info where userid = #{id}
+	</select>
+	
+	<select id="queryByName" parameterType="String" resultMap="UserResult">
+		select * from user_info where username = #{name}
+	</select>
+	
+	<select id="queryAll" resultMap="UserResult">
+		select * from user_info
+	</select>
+	
+	<!-- 批量删除用户 -->
+	<delete id="batchDel" parameterType="String">
+		delete from user_info where userid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 批量启用用户 -->
+	<update id="batchInUse" parameterType="String">
+		update user_info set isinuse = "1" where userid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</update>
+	
+	<!-- 批量禁用用户 -->
+	<update id="batchUnUse" parameterType="String">
+		update user_info set isinuse = "0" where userid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</update>
+</mapper>

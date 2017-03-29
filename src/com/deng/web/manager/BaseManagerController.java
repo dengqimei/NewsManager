@@ -7,6 +7,7 @@ import java.util.List;
 //import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,6 +88,44 @@ public class BaseManagerController {
 		return "/manager/catalogManager";
 	}
 	
+	//批量删除栏目
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchDelCatalog.action",produces={"text/html;charset=UTF-8;"})
+	public String batchDelCatalog(@Param("delids")String[] delids){
+		int result = catalogService.batchDel(delids);
+		if(delids.length==result){
+			return result+"个用户删除成功！！！";
+		}else{
+			System.out.println("删除失败！！！");
+			return "删除失败！！！";
+		}
+	}
+	
+	//批量启用栏目
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchInUseCatalog.action",produces={"text/html;charset=UTF-8;"})
+	public String batchInUseCatalog(@Param("updids")String[] updids){
+		int result = catalogService.batchInUse(updids);
+		if(updids.length==result){
+			return result+"个栏目启用成功！！！";
+		}else{
+			System.out.println("启用失败！！！");
+			return "启用失败！！！";
+		}
+	}
+	//批量禁用用户
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchUnUseCatalog.action",produces={"text/html;charset=UTF-8;"})
+	public String batchUnUseCatalog(@Param("updids")String[] updids){
+		int result = catalogService.batchUnUse(updids);
+		if(updids.length==result){
+			return result+"个栏目禁用成功！！！";
+		}else{
+			System.out.println("禁用失败！！！");
+			return "禁用失败！！！";
+		}
+	}
+	
 	//跳转到栏目管理页面
 	@RequestMapping("/Manager/toCatalogManager.action")
 	public String toCatalogManager(Model model){
@@ -124,6 +163,7 @@ public class BaseManagerController {
 	@RequestMapping("/Manager/toUpdNews.action")
 	public String toUpdNews(Long id,Model model){
 		news = newsService.findNewsById(id);
+		System.out.println(news);
 		catalog = catalogService.findCatalogById(news.getCatalog_id());
 		catalogList = catalogService.findAll();
 		model.addAttribute(news);
@@ -145,6 +185,43 @@ public class BaseManagerController {
 	public String delNews(Long id){
 		newsService.deleteNewsById(id);
 		return "/manager/newsManager";
+	}
+	
+	//批量删除新闻
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchDelNews.action",produces={"text/html;charset=UTF-8;"})
+	public String batchDelNews(@Param("delids")String[] delids){
+		int result = newsService.batchDel(delids);
+		if(delids.length==result){
+			return result+"条新闻删除成功！！！";
+		}else{
+			System.out.println("删除失败！！！");
+			return "删除失败！！！";
+		}
+	}
+	
+	//批量发布新闻
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchPublishNews.action",produces={"text/html;charset=utf-8;"})
+	public String batchPublishNews(@Param("updids")String[] updids){
+		int result = newsService.batchPublish(updids);
+		if(updids.length==result){
+			return result+"条新闻发布成功！！！";
+		}else{
+			return "发布失败！！！";
+		}
+	}
+	
+	//批量取消发布新闻
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchCancelNews.action",produces={"text/html;charset=utf-8;"})
+	public String batchCancelNews(@Param("updids")String[] updids){
+		int result = newsService.batchCancel(updids);
+		if(updids.length==result){
+			return result+"条新闻取消发布成功！！！";
+		}else{
+			return "取消发布失败！！！";
+		}
 	}
 	
 	//显示图片
@@ -196,6 +273,44 @@ public class BaseManagerController {
 	public String delUser(String id){
 		userService.deleteUserById(id);
 		return "/manager/userManager";
+	}
+	
+	//批量删除用户
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchDelUser.action",produces={"text/html;charset=UTF-8;"})
+	public String batchDelUser(@Param("delids")String[] delids){
+		int result = userService.batchDel(delids);
+		if(delids.length==result){
+			return result+"个用户删除成功！！！";
+		}else{
+			System.out.println("删除失败！！！");
+			return "删除失败！！！";
+		}
+	}
+	
+	//批量启用用户
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchInUseUser.action",produces={"text/html;charset=UTF-8;"})
+	public String batchInUseUser(@Param("updids")String[] updids){
+		int result = userService.batchInUse(updids);
+		if(updids.length==result){
+			return result+"个用户启用成功！！！";
+		}else{
+			System.out.println("启用失败！！！");
+			return "启用失败！！！";
+		}
+	}
+	//批量禁用用户
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchUnUseUser.action",produces={"text/html;charset=UTF-8;"})
+	public String batchUnUseUser(@Param("updids")String[] updids){
+		int result = userService.batchUnUse(updids);
+		if(updids.length==result){
+			return result+"个用户禁用成功！！！";
+		}else{
+			System.out.println("禁用失败！！！");
+			return "禁用失败！！！";
+		}
 	}
 	
 	/*//跳转到管理员登录页面

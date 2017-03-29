@@ -18,4 +18,10 @@ public interface IUserDao {
 	
 	public List<User> queryAll();
 	
+	public int batchDel(String[] delids);
+	
+	public int batchInUse(String[] updids);
+	
+	public int batchUnUse(String[] updids);
+	
 }

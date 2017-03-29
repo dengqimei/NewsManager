@@ -21,4 +21,10 @@ public interface INewsService {
 	
 	public List<CatalogNewsModel> findAllNews();
 	
+	public int batchDel(String[] delids);
+	
+	public int batchPublish(String[] updids);
+	
+	public int batchCancel(String[] updids);
+	
 }

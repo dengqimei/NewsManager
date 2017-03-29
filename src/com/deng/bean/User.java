@@ -12,6 +12,7 @@ public class User {
 	private String inputTime;
 	private String updateTime;
 	private String lastLoginTime;
+	private String isInuse;
 	
 	public User() {}
 
@@ -117,6 +118,14 @@ public class User {
 
 	public void setLastLoginTime(String lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
+	}
+
+	public String getIsInuse() {
+		return isInuse;
+	}
+
+	public void setIsInuse(String isInuse) {
+		this.isInuse = isInuse;
 	}
 
 	@Override

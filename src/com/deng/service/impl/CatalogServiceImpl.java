@@ -27,6 +27,7 @@ public class CatalogServiceImpl implements ICatalogService{
 		catalog.setId(Long .parseLong(id));
 		catalog.setInputTime(inputTime);
 		catalog.setUpdateTime(updateTime);
+		catalog.setIsInuse("1");
 		catalogDao.save(catalog);
 	}
 
@@ -50,6 +51,38 @@ public class CatalogServiceImpl implements ICatalogService{
 	@Override
 	public List<Catalog> findAll() {
 		return catalogDao.queryAll();
+	}
+	
+	@Override
+	public List<Catalog> findAllInuse() {
+		return catalogDao.queryAllInuse();
+	}
+
+	@Override
+	public int batchDel(String[] delids) {
+		if(delids.length==0){
+			return -1;
+		}else{
+			return catalogDao.batchDel(delids);
+		}
+	}
+
+	@Override
+	public int batchInUse(String[] updids) {
+		if(updids.length==0){
+			return -1;
+		}else{
+			return catalogDao.batchInUse(updids);
+		}
+	}
+
+	@Override
+	public int batchUnUse(String[] updids) {
+		if(updids.length==0){
+			return -1;
+		}else{
+			return catalogDao.batchUnUse(updids);
+		}
 	}
 	
 }
