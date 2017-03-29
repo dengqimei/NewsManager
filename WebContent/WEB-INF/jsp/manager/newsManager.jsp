@@ -10,7 +10,8 @@ th{
 td{
     font-size:15px;
     font-family:微软雅黑;
-    text-align:center;
+    text-align:left;
+    text-indent: 1em;
 }
 </style>
 <script type="text/javascript">
@@ -60,11 +61,16 @@ td{
 				$.each(data, function(i, news) {
 					isPublish = news.isPublish;
 					$("#news").append(
-							"<tr><td><input type='checkbox' value="+news.id+" name='id' class='id'></td><td>"
-							+ news.title + "</td><td>" + news.author+ "</td><td>"+
-							news.publishTime+ "</td><td>" + news.clickTimes+ 
-							"</td><td><p id='ispublish'></p></td><td><a href='javascript:void(0)' val="
-							+news.id+" class='upd'>修改</a></td></tr>");
+						"<tr><td style='text-align: center; text-indent: 0px;'>"+
+						"<input type='checkbox' value="+news.id+" name='id' class='id'>"+
+						"</td><td style='text-align: left;'>&nbsp;&nbsp;"+ news.title + 
+						"</td><td width='100px' style='text-align: center; text-indent: 0px;'>" 
+						+ news.author+ "</td><td>"+news.publishTime+ "</td><td style="+
+						"'text-align: center; text-indent: 0px;'>" + news.clickTimes+ "</td>"+
+						"<td><p id='ispublish'>"+
+						(isPublish==0?'<p style="color:red">未发布</p>':'<p style="color:blue">已发布</p>')+
+						"</p></td><td><a href='javascript:void(0)' val="+news.id+" class='upd'>修改</a></td></tr>"
+					);
 				});
 				initTableColor();
 			}
@@ -191,11 +197,11 @@ td{
 		<c:forEach items="${newsList }" var="news" varStatus="status">
 		<tr <%-- <c:if test="${status.index %2 !=0 }">style="background:#f1f1f1"</c:if>
 		<c:if test="${status.index %2 ==0 }">style="background:white"</c:if> --%>>
-			<td><input type="checkbox" value=${news.id } name="id" class="id"></td>
-			<td width="40%">${news.title }</td>
-			<td width="150px">${news.author }</td>
+			<td style="text-align: center; text-indent: 0px;"><input type="checkbox" value=${news.id } name="id" class="id"></td>
+			<td width="40%">&nbsp;&nbsp;${news.title }</td>
+			<td width="100px" style="text-align: center; text-indent: 0px;">${news.author }</td>
 			<td>${news.publishTime }</td>
-			<td>${news.clickTimes }</td>
+			<td style="text-align: center; text-indent: 0px;">${news.clickTimes }</td>
 			<td>
 				<%-- <a href="javascript:void(0)" val="${news.id }" class="upd">修改</a>
 			   <a href="javascript:void(0)" val="${news.id }" class="del">删除</a> --%>

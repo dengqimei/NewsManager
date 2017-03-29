@@ -45,13 +45,9 @@ public class CommentServiceImpl implements ICommentService{
 		Long newsId = comment.getNews_id();
 		News news = newsDao.queryById(newsId);
 		int count = news.getClickTimes();
-		System.out.println("=======");
-		System.out.println(count);
 		count = count+1;
 		news.setClickTimes(count);
 		newsDao.update(news);
-		System.out.println("==============");
-		System.out.println(count);
 		commentDao.save(comment);
 	}
 

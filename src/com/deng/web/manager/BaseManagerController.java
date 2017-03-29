@@ -163,7 +163,6 @@ public class BaseManagerController {
 	@RequestMapping("/Manager/toUpdNews.action")
 	public String toUpdNews(Long id,Model model){
 		news = newsService.findNewsById(id);
-		System.out.println(news);
 		catalog = catalogService.findCatalogById(news.getCatalog_id());
 		catalogList = catalogService.findAll();
 		model.addAttribute(news);
