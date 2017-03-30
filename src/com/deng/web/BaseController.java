@@ -18,7 +18,7 @@ import com.deng.bean.Catalog;
 import com.deng.bean.News;
 import com.deng.bean.User;
 import com.deng.model.CatalogNewsModel;
-import com.deng.model.UserCommentModel;
+import com.deng.model.UserNewsCommentModel;
 import com.deng.service.ICodeService;
 import com.deng.service.ICommentService;
 import com.deng.service.ICatalogService;
@@ -82,8 +82,8 @@ public class BaseController {
 			showCatalog(model);
 			catalogNewsList = newsService.findAllNews();
 			model.addAttribute("catalogNewsList", catalogNewsList);
-			String userName = userService.findById(user.getId()).getName();
 			if("success".equals(userService.login(user))){
+				String userName = userService.findById(user.getId()).getName();
 				request.getSession().setAttribute("login", "");
 				request.getSession().setAttribute("username", userName);
 				loginInfo = new LoginInfo();
@@ -94,6 +94,7 @@ public class BaseController {
 				request.getSession().setAttribute("usertype", "1");
 				return "index";
 			}else if("manager".equals(userService.login(user))){
+				String userName = userService.findById(user.getId()).getName();
 				request.getSession().setAttribute("login", "");
 				request.getSession().setAttribute("username", userName);
 				loginInfo = new LoginInfo();
@@ -118,6 +119,36 @@ public class BaseController {
 			catalogNewsList = newsService.findAllNews();
 			model.addAttribute("catalogNewsList", catalogNewsList);
 			return "index";
+		}
+	}
+	
+	//检查用户名是否存在
+	@ResponseBody
+	@RequestMapping(value="/checkUserId.action",produces={"text/html;charset=utf-8"})
+	public String checkUserId(String userid){
+		System.out.println(userid);
+		User user = userService.findById(userid);
+		if(user==null){
+			return "failed";
+		}else{
+			return "success";
+		}
+	}
+	
+	//检查用户名是否存在
+	@ResponseBody
+	@RequestMapping(value="/checkLogin.action",produces={"text/html;charset=utf-8"})
+	public String checkLogin(String userid,String password){
+		User user = new User();
+		user.setId(userid);
+		user.setPassword(MD5.getInstance().getMD5ofStr(password));
+		System.out.println("====================");
+		System.out.println(user);
+		System.out.println(userService.login(user));
+		if("failed".equals(userService.login(user))){
+			return "failed";
+		}else{
+			return "success";
 		}
 	}
 	
@@ -246,8 +277,8 @@ public class BaseController {
 	
 	@ResponseBody
 	@RequestMapping("showComment.action")
-	public List<UserCommentModel> showComment(Long newsId){
-		List<UserCommentModel> list = commentService.findUserComments(newsId);
+	public List<UserNewsCommentModel> showComment(Long newsId){
+		List<UserNewsCommentModel> list = commentService.findNewsComments(newsId);
 		return list;
 	}
 	

@@ -53,6 +53,8 @@
 						</a></li>
 						<li url="toUserManager.action"><a href="javascript:void(0)"> <em class="base_sys"></em><span>用户管理</span>
 						</a></li>
+						<li url="toCommentManager.action"><a href="javascript:void(0)"> <em class="base_sys"></em><span>评论管理</span>
+						</a></li>
 					</ul>
 				</div>
 				<div class="right" style="padding:30px">

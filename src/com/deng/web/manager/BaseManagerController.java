@@ -22,8 +22,10 @@ import com.deng.bean.Code;
 import com.deng.bean.News;
 import com.deng.bean.User;
 import com.deng.model.UserModel;
+import com.deng.model.UserNewsCommentModel;
 import com.deng.service.ICatalogService;
 import com.deng.service.ICodeService;
+import com.deng.service.ICommentService;
 import com.deng.service.INewsService;
 import com.deng.service.IUserService;
 
@@ -39,12 +41,15 @@ public class BaseManagerController {
 	private IUserService userService;
 	@Autowired
 	private ICodeService codeService;
+	@Autowired
+	private ICommentService commentService;
 
 	private List<Catalog> catalogList;
 	private List<News> newsList;
 	private Catalog catalog;
 	private News news;
 	private List<UserModel> userModelList;
+	private List<UserNewsCommentModel> commentList;
 //	private LoginInfo loginInfo;
 	
 	//跳转到管理界面
@@ -309,6 +314,27 @@ public class BaseManagerController {
 		}else{
 			System.out.println("禁用失败！！！");
 			return "禁用失败！！！";
+		}
+	}
+	
+	//跳转到评论管理页面
+	@RequestMapping("/Manager/toCommentManager.action")
+	public String toCommentManager(Model model){
+		commentList = commentService.findAllComment();
+		model.addAttribute("commentList",commentList);
+		return "manager/commentManager";
+	}
+	
+	//批量删除评论
+	@ResponseBody
+	@RequestMapping(value="/Manager/batchDelComment.action",produces={"text/html;charset=UTF-8;"})
+	public String batchDelComment(@Param("delids")String[] delids){
+		int result = commentService.batchDel(delids);
+		if(delids.length==result){
+			return result+"条评论删除成功！！！";
+		}else{
+			System.out.println("删除失败！！！");
+			return "删除失败！！！";
 		}
 	}
 	

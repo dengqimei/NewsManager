@@ -94,7 +94,7 @@ td{
 		if (delids.length == 0) {
 			alert("请选择一条记录删除!");
 		} else {
-			var flag = confirm("确定删除吗？");
+			var flag = confirm("确定删除已选中的新闻信息吗？");
 			if(flag){
 				$.ajax({
 					url : "batchDelNews.action",
@@ -117,7 +117,7 @@ td{
 		if (updids.length == 0) {
 			alert("请选择一条记录发布!");
 		} else {
-			var flag = confirm("确定发布已选中的新闻吗？");
+			var flag = confirm("确定发布已选中的新闻信息吗？");
 			if(flag){
 				$.ajax({
 					url : "batchPublishNews.action",
@@ -140,7 +140,7 @@ td{
 		if (updids.length == 0) {
 			alert("请选择一条记录取消发布!");
 		} else {
-			var flag = confirm("确定取消发布已选中的新闻吗？");
+			var flag = confirm("确定取消发布已选中的新闻信息吗？");
 			if(flag){
 				$.ajax({
 					url : "batchCancelNews.action",

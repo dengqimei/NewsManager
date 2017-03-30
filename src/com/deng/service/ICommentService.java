@@ -3,7 +3,7 @@ package com.deng.service;
 import java.util.List;
 
 import com.deng.bean.Comment;
-import com.deng.model.UserCommentModel;
+import com.deng.model.UserNewsCommentModel;
 
 public interface ICommentService {
 
@@ -15,10 +15,12 @@ public interface ICommentService {
 
 	public Comment findCommentById(Long id);
 
-	public List<Comment> findCommentByUser(Long user_id);
+	public List<UserNewsCommentModel> findAllComment();
 
-	public List<Comment> findCommentByNews(Long news_id);
+	public List<UserNewsCommentModel> findUserComment(String user_id);
 	
-	public List<UserCommentModel> findUserComments(Long news_id);
-
+	public List<UserNewsCommentModel> findNewsComments(Long news_id);
+	
+	public int batchDel(String[] delids);
+	
 }

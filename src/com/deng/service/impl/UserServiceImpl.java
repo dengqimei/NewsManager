@@ -73,14 +73,16 @@ public class UserServiceImpl implements IUserService{
 				return "failed";
 			}
 		}
-		return "failed";
+		return "";
 	}
 
 	@Override
 	public User findById(String id) {
 		User user = userDao.queryById(id);
-		String lastLoginTime = loginInfoDao.queryLastLoginTime(user.getId());
-		user.setLastLoginTime(lastLoginTime);
+		if(user!=null){
+			String lastLoginTime = loginInfoDao.queryLastLoginTime(user.getId());
+			user.setLastLoginTime(lastLoginTime);
+		}
 		return user;
 	}
 

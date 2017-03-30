@@ -13,9 +13,13 @@ public interface ICommentDao {
 	public void update(Comment comment);
 
 	public Comment queryById(Long id);
+	
+	public List<Comment> queryAll();
 
-	public List<Comment> queryByUserId(Long user_id);
+	public List<Comment> queryByUserId(String user_id);
 
 	public List<Comment> queryByNewsId(Long news_id);
+	
+	public int batchDel(String[] delids);
 
 }

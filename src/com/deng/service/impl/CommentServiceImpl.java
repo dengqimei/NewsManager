@@ -10,7 +10,7 @@ import com.deng.bean.News;
 import com.deng.dao.ICommentDao;
 import com.deng.dao.INewsDao;
 import com.deng.dao.IUserDao;
-import com.deng.model.UserCommentModel;
+import com.deng.model.UserNewsCommentModel;
 import com.deng.service.ICommentService;
 import com.deng.util.DateUtil;
 import com.deng.util.IdUtil;
@@ -65,28 +65,61 @@ public class CommentServiceImpl implements ICommentService{
 	public Comment findCommentById(Long id) {
 		return commentDao.queryById(id);
 	}
-
-	@Override
-	public List<Comment> findCommentByUser(Long user_id) {
-		return commentDao.queryByUserId(user_id);
-	}
-
-	@Override
-	public List<Comment> findCommentByNews(Long news_id) {
-		return commentDao.queryByNewsId(news_id);
-	}
 	
-	public List<UserCommentModel> findUserComments(Long news_id){
-		List<UserCommentModel> list = new ArrayList<UserCommentModel>();
-		List<Comment> commentList = commentDao.queryByNewsId(news_id);
+	@Override
+	public List<UserNewsCommentModel> findAllComment() {
+		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
+		List<Comment> commentList = commentDao.queryAll();
 		for(Comment comment : commentList){
-			UserCommentModel model = new UserCommentModel();
+			UserNewsCommentModel model = new UserNewsCommentModel();
 			model.setComment(comment);
 			String username = userDao.queryById(comment.getUser_id()).getName();
+			String newstitle = newsDao.queryById(comment.getNews_id()).getTitle();
 			model.setUsername(username);
+			model.setNewstitle(newstitle);
 			list.add(model);
 		}
 		return list;
+	}
+
+	@Override
+	public List<UserNewsCommentModel> findUserComment(String user_id) {
+		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
+		List<Comment> commentList = commentDao.queryByUserId(user_id);
+		for(Comment comment : commentList){
+			UserNewsCommentModel model = new UserNewsCommentModel();
+			model.setComment(comment);
+			String username = userDao.queryById(user_id).getName();
+			String newstitle = newsDao.queryById(comment.getNews_id()).getTitle();
+			model.setUsername(username);
+			model.setNewstitle(newstitle);
+			list.add(model);
+		}
+		return list;
+	}
+	
+	public List<UserNewsCommentModel> findNewsComments(Long news_id){
+		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
+		List<Comment> commentList = commentDao.queryByNewsId(news_id);
+		for(Comment comment : commentList){
+			UserNewsCommentModel model = new UserNewsCommentModel();
+			model.setComment(comment);
+			String username = userDao.queryById(comment.getUser_id()).getName();
+			String newstitle = newsDao.queryById(news_id).getTitle();
+			model.setUsername(username);
+			model.setNewstitle(newstitle);
+			list.add(model);
+		}
+		return list;
+	}
+
+	@Override
+	public int batchDel(String[] delids) {
+		if(delids.length==0){
+			return -1;
+		}else{
+			return commentDao.batchDel(delids);
+		}
 	}
 
 }

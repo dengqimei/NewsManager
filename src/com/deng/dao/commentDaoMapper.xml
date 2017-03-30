@@ -31,6 +31,10 @@
 		select * from comment_info where commentid = #{id}
 	</select>
 	
+	<select id="queryAll" resultMap="CommentResult">
+		select * from comment_info
+	</select>
+	
 	<select id="queryByUserId" parameterType="String" resultMap="CommentResult">
 		select * from comment_info where user_id = #{id}
 	</select>
@@ -38,5 +42,13 @@
 	<select id="queryByNewsId" parameterType="Long" resultMap="CommentResult">
 		select * from comment_info where news_id = #{id}
 	</select>
+	
+	<!-- 批量删除用户 -->
+	<delete id="batchDel" parameterType="String">
+		delete from comment_info where commentid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</delete>
 	
 </mapper>

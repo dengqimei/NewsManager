@@ -2,10 +2,12 @@ package com.deng.model;
 
 import com.deng.bean.Comment;
 
-public class UserCommentModel {
+public class UserNewsCommentModel {
 
 	private String username;
 	private Comment comment;
+	private String newstitle;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -17,6 +19,12 @@ public class UserCommentModel {
 	}
 	public void setComment(Comment comment) {
 		this.comment = comment;
+	}
+	public String getNewstitle() {
+		return newstitle;
+	}
+	public void setNewstitle(String newstitle) {
+		this.newstitle = newstitle;
 	}
 	
 }
