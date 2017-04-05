@@ -22,6 +22,14 @@ $(function(){
 	    <caption style="font-size:24px;font-weight: bold;">添加栏目</caption>
 		<tr height="30px"><td width="70px">栏目名称:</td><td><input type="text" name="name" /></td></tr> 
 		<tr height="30px"><td width="70px">栏目序号:</td><td><input type="text"name="code" /></td></tr> 
+		<tr height="30px">
+			<td width="70px">栏目类型:</td>
+			<td><select name="type">
+				<option value="0">系统栏目</option>
+				<option value="1">用户栏目</option>
+			</select>
+			</td>
+		</tr> 
 		<tr height="30px"><td colspan="2"><input type="submit" value="提交" /></td></tr>
 	</table>
 	</form>

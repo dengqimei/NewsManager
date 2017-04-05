@@ -11,7 +11,6 @@
 </head>
 <script type="text/javascript" src="theme/1/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="theme/1/js/main.js"></script>
-<!-- <script type="text/javascript" src="theme/1/js/sinaFaceAndEffec.js"></script> -->
 <script type="text/javascript">
 
 	

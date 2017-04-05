@@ -140,17 +140,17 @@ body{
 	margin-right:3px;
 	vertical-align:middle;}	
 .baseUI .base_basicset{
-	background:url(../images/icon/icon_basic.png) no-repeat}
+	background:url(../images/icon/icon_add.png) no-repeat}
 .baseUI .base_userset{
-	background:url(../images/icon/icon_personnel.png) no-repeat}
+	background:url(../images/icon/icon_permission.png) no-repeat}
 .baseUI .base_teachergroup{
-	background:url(../images/icon/icon_educational.png) no-repeat}
+	background:url(../images/icon/ico_tjadd.png) no-repeat}
 .baseUI .base_roll{
-	background:url(../images/icon/icon_roll.png) no-repeat}
+	background:url(../images/icon/iconEdit.png) no-repeat}
 .baseUI .base_auth{
-	background:url(../images/icon/icon_permission.png) no-repeat;}	
+	background:url(../images/icon/icon_personnel.png) no-repeat;}	
 .baseUI .base_sys{
-	background:url(../images/icon/icon_system.png) no-repeat;}		
+	background:url(../images/icon/ico_permission.png) no-repeat;}		
 
 /* 网站站点图标 */
 .baseUI .po_site_set,

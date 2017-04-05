@@ -76,8 +76,10 @@ public class BaseController {
 	@RequestMapping("/login.action")
 	public String login(User user,HttpServletRequest request,Model model){
 		request.getSession().setMaxInactiveInterval(5*60);
-		String password = MD5.getInstance().getMD5ofStr(user.getPassword());
-		user.setPassword(password);
+		if(user.getPassword()!=null){
+			String password = MD5.getInstance().getMD5ofStr(user.getPassword());
+			user.setPassword(password);
+		}
 		if(user.getId()!=null){
 			showCatalog(model);
 			catalogNewsList = newsService.findAllNews();
@@ -135,7 +137,7 @@ public class BaseController {
 		}
 	}
 	
-	//检查用户名是否存在
+	//检查登录密码是否正确
 	@ResponseBody
 	@RequestMapping(value="/checkLogin.action",produces={"text/html;charset=utf-8"})
 	public String checkLogin(String userid,String password){
@@ -241,19 +243,21 @@ public class BaseController {
 		return "content";
 	}
 	
-	//显示所有栏目
-	public void showCatalog(Model model){
-		catalogList = catalogService.findAllInuse();
-		model.addAttribute("catalogList", catalogList);
-	}
-	
 	//跳转到用户信息页面
 	@RequestMapping("/toUserInfo.action")
 	public String toUserInfo(String userName,Model model){
 		User user = userService.findByName(userName);
+		catalogList = catalogService.findAllUserInuse();
 		model.addAttribute(user);
+		model.addAttribute("catalogList", catalogList);
 		showAddress(user, model);
 		return "userInfo";
+	}
+	
+	//显示所有系统栏目
+	public void showCatalog(Model model){
+		catalogList = catalogService.findAllInuse();
+		model.addAttribute("catalogList", catalogList);
 	}
 	
 	//显示地址
@@ -285,10 +289,7 @@ public class BaseController {
 	@ResponseBody
 	@RequestMapping("saveComment.action")
 	public void saveComment(Long newsId,String content,String username){
-		System.out.println("==============");
 		User user = userService.findByName(username);
-		System.out.println(content);
-		System.out.println(newsId);
 		Comment comment = new Comment();
 		comment.setContent(content);
 		comment.setNews_id(newsId);

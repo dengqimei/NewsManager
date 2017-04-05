@@ -18,6 +18,8 @@ public interface ICatalogDao {
 	
 	public List<Catalog> queryAllInuse();
 	
+	public List<Catalog> queryAllUserInuse();
+	
 	public int batchDel(String[] delids);
 	
 	public int batchInUse(String[] updids);

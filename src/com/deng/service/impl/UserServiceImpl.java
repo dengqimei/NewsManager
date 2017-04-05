@@ -36,6 +36,7 @@ public class UserServiceImpl implements IUserService{
 		this.loginInfoDao = loginInfoDao;
 	}
 
+	//用户注册
 	@Override
 	public void register(User user) {
 		String inputTime = DateUtil.getDate();
@@ -46,23 +47,26 @@ public class UserServiceImpl implements IUserService{
 		user.setIsInuse("1");
 		userDao.save(user);
 	}
-
+	
+	//删除用户
 	@Override
 	public void deleteUserById(String id) {
 		userDao.deleteById(id);
 	}
 
+	//修改用户信息
 	@Override
 	public void updateUser(User user) {
 		String updateTime = DateUtil.getDate();
 		user.setUpdateTime(updateTime);
 		userDao.update(user);
 	}
-
+	
+	//用户登录
 	@Override
 	public String login(User user) {
 		User user1 = userDao.queryById(user.getId());
-		if(user1!=null){
+		if(user1!=null&&"1".equals(user1.getIsInuse())){  //用户是否存在、如果存在，是否启用
 			String password = user1.getPassword();
 			String type = user1.getType();
 			if(password.equals(user.getPassword())&&"0".equals(type)){
@@ -76,6 +80,7 @@ public class UserServiceImpl implements IUserService{
 		return "";
 	}
 
+	//通过ID查找用户
 	@Override
 	public User findById(String id) {
 		User user = userDao.queryById(id);
@@ -85,7 +90,8 @@ public class UserServiceImpl implements IUserService{
 		}
 		return user;
 	}
-
+	
+	//查询所有用户信息
 	@Override
 	public List<UserModel> findAll() {
 		List<UserModel> userModel = new ArrayList<UserModel>();
@@ -103,29 +109,35 @@ public class UserServiceImpl implements IUserService{
 		}
 		return userModel;
 	}
-
+	
+	//保存用户登录信息
 	@Override
 	public void saveLoginInfo(LoginInfo loginInfo) {
 		String loginTime = DateUtil.getDate();
 		loginInfo.setLoginTime(loginTime);
 		loginInfoDao.save(loginInfo);
 	}
-
+	
+	//用户退出登录
 	@Override
 	public void Logout(LoginInfo loginInfo) {
 		String logoutTime = DateUtil.getDate();
 		loginInfo.setLogoutTime(logoutTime);
 		loginInfoDao.setLogoutTime(loginInfo);
 	}
-
+	
+	//通过用户名查找用户
 	@Override
 	public User findByName(String name) {
 		User user = userDao.queryByName(name);
+		System.out.println("======================");
+		System.out.println(user);
 		String lastLoginTime = loginInfoDao.queryLastLoginTime(user.getId());
 		user.setLastLoginTime(lastLoginTime);
 		return user;
 	}
 
+	//批量删除用户
 	@Override
 	public int batchDel(String[] delids) {
 		if(delids.length==0){
@@ -135,6 +147,7 @@ public class UserServiceImpl implements IUserService{
 		}
 	}
 
+	//批量启用用户
 	@Override
 	public int batchInUse(String[] updids) {
 		if(updids.length==0){
@@ -143,7 +156,8 @@ public class UserServiceImpl implements IUserService{
 			return userDao.batchInUse(updids);
 		}
 	}
-
+	
+	//批量禁用用户
 	@Override
 	public int batchUnUse(String[] updids) {
 		if(updids.length==0){

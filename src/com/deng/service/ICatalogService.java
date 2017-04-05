@@ -18,6 +18,8 @@ public interface ICatalogService {
 	
 	public List<Catalog> findAllInuse();
 	
+	public List<Catalog> findAllUserInuse();
+	
 	public int batchDel(String[] delids);
 	
 	public int batchInUse(String[] updids);

@@ -10,20 +10,26 @@
 		<result property="code" column="catalogcode"/>
 		<result property="inputTime" column="inputtime"/>
 		<result property="updateTime" column="updatetime"/>
+		<result property="type" column="catalogtype"/>
 		<result property="isInuse" column="isinuse"/>
 	</resultMap>
 
 	<insert id="save" parameterType="Catalog">
 		insert into catalog_info 
-		values(#{id},#{name},#{code},#{inputTime},#{updateTime},#{isInuse})
+		values(#{id},#{name},#{code},#{inputTime},#{updateTime},#{type},#{isInuse})
 	</insert>
 	
 	<select id="queryAll" resultMap="CatalogResult">
 		select * from catalog_info
 	</select>
-	<!-- 查询所有已启用的栏目 -->
+	<!-- 查询所有已启用的系统栏目 -->
 	<select id="queryAllInuse" resultMap="CatalogResult">
-		select * from catalog_info where isinuse = "1"
+		select * from catalog_info where isinuse = "1" and catalogtype="0"
+	</select>
+	
+	<!-- 查询所有已启用的用户栏目 -->
+	<select id="queryAllUserInuse" resultMap="CatalogResult">
+		select * from catalog_info where isinuse = "1" and catalogtype="1"
 	</select>
 	
 	<select id="queryById" parameterType="Long" resultMap="CatalogResult">

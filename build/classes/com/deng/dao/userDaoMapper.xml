@@ -33,7 +33,7 @@
 	</update>
 	
 	<select id="queryById" parameterType="String" resultMap="UserResult">
-		select * from user_info where userid = #{id} and isinuse = "1"
+		select * from user_info where userid = #{id}
 	</select>
 	
 	<select id="queryByName" parameterType="String" resultMap="UserResult">

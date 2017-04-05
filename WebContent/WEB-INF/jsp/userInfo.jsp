@@ -7,19 +7,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户信息</title>
 </head>
+<link rel="stylesheet" type="text/css" href="theme/1/css/main.css" />
+<link rel="stylesheet" type="text/css" href="theme/1/css/common.css">
+<link rel="stylesheet" type="text/css" href="theme/1/css/front/style.css">
+</head>
+<script type="text/javascript" src="theme/1/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="theme/1/js/main.js"></script>
 <script type="text/javascript">
 $(function() {
     initProvinces();
-    var form=$("#updUserForm");
-	form.off();
-	form.on("submit",function(){
-		form.ajaxSubmit(function(){
-			form[0].reset;
-			alert("修改成功！");
-			$(".baseUI li :contains('用户管理')").trigger("click");
-		});
-		return false;
-	});
 });
 
 /**
@@ -90,58 +86,103 @@ function initCounties(cityID) {
 </script>
 
 <body>
-
-	<form action="updUser.action" method="post" id="updUserForm">
-	
-		<table align="center">
-			<caption><h1>用户信息</h1></caption>
-			<tr>
-				<td>用户名ID：</td>
-				<td><input type="text" name="id" id="id" value="${user.id }" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>用户名称：</td>
-				<td><input type="text" name="name" id="name" value="${user.name }"></td>
-			</tr>
-			<tr>
-				<td>年龄：</td>
-				<td><input type="text" name="age" id="age" value="${user.age }"></td>
-			</tr>
-			<tr>
-				<td>性别：</td>
-				<td>
-					<input type="radio" name="sex" id="sex" value="0" <c:if test="${user.sex=='0'}"> checked='checked'</c:if> />男
-					<input type="radio" name="sex" id="sex" value="1" <c:if test="${user.sex=='1'}"> checked='checked'</c:if> >女
-				</td>
-			</tr>
-			<tr>
-				<td>地址：</td>
-				<td>
-					省份<select id="province" name="province">
-						<option value="${province.id }">${province.name }</option>
-					</select>
-					市<select id="city" name="city">
-						<option value="${city.id }">${city.name }</option>
-					</select>
-					县/市<select id="county" name="address">
-						<option  value="${user.address }">${address.name }</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>注册时间：</td>
-				<td><input type="text" name="age" id="age" value="${user.inputTime }" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>最后登录时间：</td>
-				<td><input type="text" name="lastLogin" id="lastLogin" value="${user.lastLoginTime }" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="修改"></td>
-			</tr>
-		</table>
+	<div id="main">
+		<div class="top">
+			<div class="logo_sign">
+				<div class="logo"></div>
+				<div class="sign">
+					<span>欢迎您&nbsp;<a id="username" val="${username }" href="toUserInfo.action?userName=${username }">${username }</a>
+					<a href="toLogin.action">${login }</a></span> <!-- <span class="sp_home" style="visibility:hidden">首页</span> --> <span
+						class="sp_backstage" <c:if test="${usertype=='1' }"> style="visibility:hidden"</c:if>><a href="Manager/toIndex.action">后台管理</a></span> 
+						<span class="sp_signout"<c:if test="${username==''||username==null }"> style="visibility:hidden"</c:if>><a href="logout.action">退出</a></span>
+				</div>
+			</div>
+			<div class="nav">
+				<ul class="navUI">
+				<li><a href="toIndex.action">首页</a></li>
+				<c:forEach items="${catalogList }" var="catalog" begin="0" end="8">
+					<li><a href="javascript:void(0)">${catalog.name }</a></li>
+				</c:forEach>
+				</ul>
+			</div>
+		</div>
 		
-	</form>
-	
+		<div class="content">
+			<div class="congw">
+				<div class="userinfo">
+					<form action="updUser.action" method="post" id="updUserForm">
+					
+						<table align="center" style="height:400px;margin-left:30px;font-size:16px;">
+							<caption align="center"><h2>用户个人信息</h2></caption>
+							<tr>
+								<td>用户名ID：</td>
+								<td><input type="text" name="id" id="id" value="${user.id }" readonly="readonly"></td>
+							</tr>
+							<tr>
+								<td>用户名称：</td>
+								<td><input type="text" name="name" id="name" value="${user.name }"></td>
+							</tr>
+							<tr>
+								<td>年龄：</td>
+								<td><input type="text" name="age" id="age" value="${user.age }"></td>
+							</tr>
+							<tr>
+								<td>性别：</td>
+								<td>
+									<input type="radio" name="sex" id="sex" value="0" <c:if test="${user.sex=='0'}"> checked='checked'</c:if> />男
+									<input type="radio" name="sex" id="sex" value="1" <c:if test="${user.sex=='1'}"> checked='checked'</c:if> >女
+								</td>
+							</tr>
+							<tr>
+								<td>地址：</td>
+								<td>
+									省份<select id="province" name="province">
+										<option value="${province.id }">${province.name }</option>
+									</select>
+									市<select id="city" name="city">
+										<option value="${city.id }">${city.name }</option>
+									</select>
+									县/市<select id="county" name="address">
+										<option  value="${user.address }">${address.name }</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>注册时间：</td>
+								<td><input type="text" name="age" id="age" value="${user.inputTime }" readonly="readonly"></td>
+							</tr>
+							<tr>
+								<td>最后登录时间：</td>
+								<td><input type="text" name="lastLogin" id="lastLogin" value="${user.lastLoginTime }" readonly="readonly"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="修改"></td>
+							</tr>
+						</table>
+						
+					</form>
+				</div>
+				
+				<div class="link">
+					<div class="linelink">
+						<span>友情链接：</span> <a href="http://news.sina.com.cn/">新浪新闻</a> <a
+							href="http://mini.eastday.com/">头条新闻</a> <a
+							href="http://news.ifeng.com/">凤凰新闻</a> <a
+							href="http://www.huanqiu.com/">环球新闻</a> <a
+							href="http://www.xinhuanet.com/">新华网</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="foot">
+				<p>
+					信息发布系统 技术支持：<a href="javascript:void(0)">软件科技有限公司</a>
+					电话：021-xxxxxxx
+				</p>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
+

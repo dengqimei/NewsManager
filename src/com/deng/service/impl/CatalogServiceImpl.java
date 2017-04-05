@@ -84,5 +84,10 @@ public class CatalogServiceImpl implements ICatalogService{
 			return catalogDao.batchUnUse(updids);
 		}
 	}
+
+	@Override
+	public List<Catalog> findAllUserInuse() {
+		return catalogDao.queryAllUserInuse();
+	}
 	
 }

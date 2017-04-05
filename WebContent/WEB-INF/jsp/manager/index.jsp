@@ -47,11 +47,11 @@
 						</a></li>
 						<li url="toCatalogManager.action"><a href="javascript:void(0)"> <em class="base_userset"></em><span>栏目管理</span>
 						</a></li>
-						<li url="toAddNews.action"><a href="javascript:void(0)"> <em class="base_roll"></em><span>新闻发布</span>
+						<li url="toAddNews.action"><a href="javascript:void(0)"> <em class="base_teachergroup"></em><span>新闻发布</span>
 						</a></li>
-						<li url="toNewsManager.action"><a href="javascript:void(0)"> <em class="base_sys"></em><span>新闻管理</span>
+						<li url="toNewsManager.action"><a href="javascript:void(0)"> <em class="base_roll"></em><span>新闻管理</span>
 						</a></li>
-						<li url="toUserManager.action"><a href="javascript:void(0)"> <em class="base_sys"></em><span>用户管理</span>
+						<li url="toUserManager.action"><a href="javascript:void(0)"> <em class="base_auth"></em><span>用户管理</span>
 						</a></li>
 						<li url="toCommentManager.action"><a href="javascript:void(0)"> <em class="base_sys"></em><span>评论管理</span>
 						</a></li>

@@ -73,6 +73,8 @@ public class CommentServiceImpl implements ICommentService{
 		for(Comment comment : commentList){
 			UserNewsCommentModel model = new UserNewsCommentModel();
 			model.setComment(comment);
+			System.out.println("====================");
+			System.out.println(comment);
 			String username = userDao.queryById(comment.getUser_id()).getName();
 			String newstitle = newsDao.queryById(comment.getNews_id()).getTitle();
 			model.setUsername(username);

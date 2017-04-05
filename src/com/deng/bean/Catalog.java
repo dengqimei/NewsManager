@@ -7,6 +7,7 @@ public class Catalog {
 	private String code;//栏目序号
 	private String inputTime;//栏目添加时间
 	private String updateTime;//栏目更新时间
+	private String type;
 	private String isInuse;
 	
 	public Catalog() {}
@@ -57,6 +58,14 @@ public class Catalog {
 
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getIsInuse() {
