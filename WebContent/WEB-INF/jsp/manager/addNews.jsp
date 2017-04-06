@@ -77,7 +77,7 @@
 			<td><input type="file" id=uploadimage name="uploadimage" accept="image/*"></td>
 		</tr>
 		<tr>
-			<td><input type="submit" value="发布"></td>
+			<td><input type="submit" value="添加"></td>
 		</tr>
 	</table>
 </form>

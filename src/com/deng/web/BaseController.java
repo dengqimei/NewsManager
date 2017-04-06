@@ -56,7 +56,7 @@ public class BaseController {
 		showCatalog(model);
 		catalogNewsList = newsService.findAllNews();
 		model.addAttribute("catalogNewsList", catalogNewsList);
-		request.getSession().setMaxInactiveInterval(5*60);
+//		request.getSession().setMaxInactiveInterval(5*60);
 		String login = (String) request.getSession().getAttribute("login");
 		String userName = (String) request.getSession().getAttribute("username");
 		if(("".equals(login)||login==null)&&("".equals(userName)||userName==null)){
@@ -144,9 +144,6 @@ public class BaseController {
 		User user = new User();
 		user.setId(userid);
 		user.setPassword(MD5.getInstance().getMD5ofStr(password));
-		System.out.println("====================");
-		System.out.println(user);
-		System.out.println(userService.login(user));
 		if("failed".equals(userService.login(user))){
 			return "failed";
 		}else{
@@ -221,7 +218,7 @@ public class BaseController {
 		return countyList;
 	}
 	
-	//跳转到新闻列表页面
+	/*//跳转到新闻列表页面
 	@RequestMapping("/toList.action")
 	public String toList(Long c_id,Model model){
 		showCatalog(model);
@@ -230,6 +227,39 @@ public class BaseController {
 		model.addAttribute("newsList", newsList);
 		model.addAttribute("catalog",catalog);
 		return "list";
+	}*/
+	
+	//跳转到新闻列表页面
+	@RequestMapping("/toList.action")
+	public String toList(Long c_id,Model model,Integer currPage){
+		showCatalog(model);
+		int pageSize = 5;
+		if(currPage==null)currPage=1;
+		int offset = (currPage-1)*pageSize;
+		int pageCount = newsService.getCatalogPageCount(pageSize,c_id);
+		newsList = newsService.findNewsByCatalog(c_id,offset,pageSize);
+		catalog = catalogService.findCatalogById(c_id);
+		model.addAttribute("newsList", newsList);
+		model.addAttribute("catalog",catalog);
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("currPage", currPage);
+		return "list";
+	}
+	
+	//查询栏目下新闻信息、分页
+	@RequestMapping("/listNews.action")
+	public String searchNews(Long c_id,Model model,Integer currPage){
+		int pageSize = 5;
+		if(currPage==null)currPage=1;
+		int offset = (currPage-1)*pageSize;
+		int pageCount = newsService.getCatalogPageCount(pageSize, c_id);
+		newsList = newsService.findNewsByCatalog(c_id, offset, pageSize);
+		catalog = catalogService.findCatalogById(c_id);
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("currPage", currPage);
+		model.addAttribute("newsList", newsList);
+		model.addAttribute("catalog", catalog);
+		return "c_news";
 	}
 	
 	//跳转到新闻详情页面

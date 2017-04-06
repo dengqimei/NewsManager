@@ -20,16 +20,25 @@
 	</insert>
 	
 	<select id="queryAll" resultMap="CatalogResult">
-		select * from catalog_info
+		select * from catalog_info order by catalogcode asc
 	</select>
+	
+	<select id="queryAllCatalog" resultMap="CatalogResult">
+		select * from catalog_info order by catalogcode asc limit #{param1},#{param2}
+	</select>
+	
+	<select id="getPageCount" resultType="int">
+		select (count(*)-1)/#{pageSize}+1 from catalog_info
+	</select>
+	
 	<!-- 查询所有已启用的系统栏目 -->
 	<select id="queryAllInuse" resultMap="CatalogResult">
-		select * from catalog_info where isinuse = "1" and catalogtype="0"
+		select * from catalog_info where isinuse = "1" and catalogtype="0" order by catalogcode asc
 	</select>
 	
 	<!-- 查询所有已启用的用户栏目 -->
 	<select id="queryAllUserInuse" resultMap="CatalogResult">
-		select * from catalog_info where isinuse = "1" and catalogtype="1"
+		select * from catalog_info where isinuse = "1" and catalogtype="1" order by catalogcode asc
 	</select>
 	
 	<select id="queryById" parameterType="Long" resultMap="CatalogResult">

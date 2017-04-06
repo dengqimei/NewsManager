@@ -16,6 +16,8 @@ public interface ICatalogService {
 	
 	public List<Catalog> findAll();
 	
+	public List<Catalog> findAllCatalog(Integer offset,Integer pageSize);
+	
 	public List<Catalog> findAllInuse();
 	
 	public List<Catalog> findAllUserInuse();
@@ -25,5 +27,7 @@ public interface ICatalogService {
 	public int batchInUse(String[] updids);
 	
 	public int batchUnUse(String[] updids);
+	
+	public int getPageCount(Integer pageSize);
 	
 }

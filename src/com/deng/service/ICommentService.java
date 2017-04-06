@@ -15,12 +15,14 @@ public interface ICommentService {
 
 	public Comment findCommentById(Long id);
 
-	public List<UserNewsCommentModel> findAllComment();
+	public List<UserNewsCommentModel> findAllComment(Integer offset,Integer pageSize);
 
 	public List<UserNewsCommentModel> findUserComment(String user_id);
 	
 	public List<UserNewsCommentModel> findNewsComments(Long news_id);
 	
 	public int batchDel(String[] delids);
+	
+	public int getPageCount(Integer pageSize);
 	
 }

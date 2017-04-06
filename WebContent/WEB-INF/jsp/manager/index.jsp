@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../theme/1/css/icon.css">
 <link rel="stylesheet" type="text/css" href="../theme/1/jquery-easyui-themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="../theme/1/css/easyui-tabs.css">
-<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../js/jquery.form.js"></script>
 <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../theme/1/js/base.js"></script>

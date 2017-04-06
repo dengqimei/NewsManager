@@ -14,7 +14,7 @@ public interface ICommentDao {
 
 	public Comment queryById(Long id);
 	
-	public List<Comment> queryAll();
+	public List<Comment> queryAll(Integer offset,Integer pageSize);
 
 	public List<Comment> queryByUserId(String user_id);
 
@@ -22,4 +22,6 @@ public interface ICommentDao {
 	
 	public int batchDel(String[] delids);
 
+	public int getPageCount(Integer pageSize);
+	
 }

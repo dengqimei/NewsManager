@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="queryAll" resultMap="CommentResult">
-		select * from comment_info
+		select * from comment_info limit #{param1},#{param2}
 	</select>
 	
 	<select id="queryByUserId" parameterType="String" resultMap="CommentResult">
@@ -50,5 +50,10 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<!-- 栏目下所有评论信息的页数 -->
+	<select id="getPageCount" resultType="int">
+		select (count(*)-1)/#{pageSize}+1 from comment_info
+	</select>
 	
 </mapper>

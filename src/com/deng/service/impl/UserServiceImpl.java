@@ -93,9 +93,9 @@ public class UserServiceImpl implements IUserService{
 	
 	//查询所有用户信息
 	@Override
-	public List<UserModel> findAll() {
+	public List<UserModel> findAll(Integer offset,Integer pageSize) {
 		List<UserModel> userModel = new ArrayList<UserModel>();
-		List<User> userList = userDao.queryAll();
+		List<User> userList = userDao.queryAll(offset, pageSize);
 		for(User user : userList){
 			UserModel model = new UserModel();
 			model.setUser(user);
@@ -165,6 +165,11 @@ public class UserServiceImpl implements IUserService{
 		}else{
 			return userDao.batchUnUse(updids);
 		}
+	}
+
+	@Override
+	public int getPageCount(Integer pageSize) {
+		return userDao.getPageCount(pageSize);
 	}
 
 	

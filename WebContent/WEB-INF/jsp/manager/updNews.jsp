@@ -35,10 +35,10 @@
 			<td>文章内容：</td>
 			<td><textarea rows="5" cols="60" id="content" name="content">${news.content }</textarea></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td>更改图片：</td>
 			<td><input type="file" id="uploadimage" name="uploadimage" accept="image/*"></td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td>文章浏览次数：</td>
 			<td><input type="text" name="clickTimes" id="clickTimes" value="${news.clickTimes }" readonly="readonly"></td>
@@ -68,10 +68,10 @@
 		}else if(content==""||content==null){
 			alert("新闻内容不能为空！！！");
 			return false;
-		}else if(uploadimage==""||uploadimage==null){
+		}/* else if(uploadimage==""||uploadimage==null){
 			alert("上传图片不能为空！！！");
 			return false;
-		}else{
+		} */else{
 			return true;
 		}
 	}

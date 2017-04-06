@@ -67,14 +67,12 @@ public class CommentServiceImpl implements ICommentService{
 	}
 	
 	@Override
-	public List<UserNewsCommentModel> findAllComment() {
+	public List<UserNewsCommentModel> findAllComment(Integer offset,Integer pageSize) {
 		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
-		List<Comment> commentList = commentDao.queryAll();
+		List<Comment> commentList = commentDao.queryAll(offset,pageSize);
 		for(Comment comment : commentList){
 			UserNewsCommentModel model = new UserNewsCommentModel();
 			model.setComment(comment);
-			System.out.println("====================");
-			System.out.println(comment);
 			String username = userDao.queryById(comment.getUser_id()).getName();
 			String newstitle = newsDao.queryById(comment.getNews_id()).getTitle();
 			model.setUsername(username);
@@ -124,4 +122,9 @@ public class CommentServiceImpl implements ICommentService{
 		}
 	}
 
+	@Override
+	public int getPageCount(Integer pageSize){
+		return commentDao.getPageCount(pageSize);
+	}
+	
 }

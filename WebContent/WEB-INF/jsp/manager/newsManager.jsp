@@ -3,9 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style type="text/css">
 th{
+	height:40px;
     background:#f5f5f5;
     font-size:16px;
     font-family:微软雅黑;
+}
+tr{
+	height:35px;
 }
 td{
     font-size:15px;
@@ -38,7 +42,8 @@ td{
  			dataType : "json",
  			success : function(data) {
  				$.each(data, function(i, catalog) {
- 					$("<option value='" + catalog.id + "'>"
+ 					$(".queryByCID").empty();
+ 					$("<option class='querybyCID' value='" + catalog.id + "'>"
  						+ catalog.name + "</option><br>").click(function() {
  								showNews(catalog.id);
  					}).appendTo($('#catalog')); 
@@ -47,7 +52,7 @@ td{
  		});
  	}
  	
- 	//根据栏目显示新闻信息
+ 	/* //根据栏目显示新闻信息
 	function showNews(catalog_id) {
 		$("#news").empty();
 		$.ajax({
@@ -75,7 +80,7 @@ td{
 				initTableColor();
 			}
 		});
-	}
+	} */
 	
 	//查询所有新闻信息
 	function queryAll() {
@@ -173,9 +178,28 @@ td{
 			});
 		});
 	});
+	
+	//翻页
+	$(function(){
+		$(".page").off();
+		$(".page").on("click",function(){
+			var currPage = $(this).attr("val");
+			$.post("toNewsManager.action",{currPage:currPage},function(){
+				$(".right").load("toNewsManager.action",{currPage:currPage});
+			})
+		})
+	});
+	
+	//根据栏目显示新闻信息
+	function showNews(c_id){
+		$.post("showNewsByCatalog.action",{catalog_id:c_id},function(){
+			$(".newsTable").load("showNewsByCatalog.action",{catalog_id:c_id});
+		})
+	}
+	
 </script>
     
-<div>
+<div class="c_news">
 	<div style="margin-bottom:5px;">
 		<input type="button" value="删除" onclick="batchDel()"/>&nbsp;
 		<input type="button" value="发布" onclick="batchPublish()"/>&nbsp;
@@ -183,36 +207,56 @@ td{
 		<input class="query" type="button" value="查询所有新闻信息">&nbsp;
 		<select id="catalog"><option class="query">---请选择栏目---</option></select>
 	</div>
-	<table border="1" style=" border-collapse:collapse; width:100%;" id="newsTable">
-		<tr>
-			<th><p style="font-size:14px">全选/反选</p><input type="checkbox" id="all"/></th>
-			<th>标题</th>
-			<th>作者</th>
-			<th>发布时间</th>
-			<th>评论次数</th>
-			<th>是否发布</th>
-			<th>操作</th>
-		</tr>
-		<tbody id="news">
-		<c:forEach items="${newsList }" var="news" varStatus="status">
-		<tr <%-- <c:if test="${status.index %2 !=0 }">style="background:#f1f1f1"</c:if>
-		<c:if test="${status.index %2 ==0 }">style="background:white"</c:if> --%>>
-			<td style="text-align: center; text-indent: 0px;"><input type="checkbox" value=${news.id } name="id" class="id"></td>
-			<td width="40%">&nbsp;&nbsp;${news.title }</td>
-			<td width="100px" style="text-align: center; text-indent: 0px;">${news.author }</td>
-			<td>${news.publishTime }</td>
-			<td style="text-align: center; text-indent: 0px;">${news.clickTimes }</td>
-			<td>
-				<%-- <a href="javascript:void(0)" val="${news.id }" class="upd">修改</a>
-			   <a href="javascript:void(0)" val="${news.id }" class="del">删除</a> --%>
-			    <c:if test="${news.isPublish=='1' }"><p style="color:blue">已发布</p></c:if>
-			    <c:if test="${news.isPublish=='0' }"><p style="color:red">未发布</p></c:if>
-			</td>
-			<td><a href="javascript:void(0)" val="${news.id }" class="upd">修改</a></td>
-		</tr>
-		</c:forEach>
-		</tbody>
-	</table>
+	<div class="newsTable">
+		<table border="1" style=" border-collapse:collapse; width:100%;" id="newsTable">
+			<tr>
+				<th><p style="font-size:14px">全选/反选</p><input type="checkbox" id="all"/></th>
+				<th>标题</th>
+				<th>作者</th>
+				<th>发布时间</th>
+				<th>评论次数</th>
+				<th>是否发布</th>
+				<th>操作</th>
+			</tr>
+			<tbody id="news">
+			<c:forEach items="${newsList }" var="news" varStatus="status">
+			<tr <%-- <c:if test="${status.index %2 !=0 }">style="background:#f1f1f1"</c:if>
+			<c:if test="${status.index %2 ==0 }">style="background:white"</c:if> --%>>
+				<td style="text-align: center; text-indent: 0px;"><input type="checkbox" value=${news.id } name="id" class="id"></td>
+				<td width="40%">&nbsp;&nbsp;${news.title }</td>
+				<td width="100px" style="text-align: center; text-indent: 0px;">${news.author }</td>
+				<td>${news.publishTime }</td>
+				<td style="text-align: center; text-indent: 0px;">${news.clickTimes }</td>
+				<td>
+					<%-- <a href="javascript:void(0)" val="${news.id }" class="upd">修改</a>
+				   <a href="javascript:void(0)" val="${news.id }" class="del">删除</a> --%>
+				    <c:if test="${news.isPublish=='1' }"><p style="color:blue">已发布</p></c:if>
+				    <c:if test="${news.isPublish=='0' }"><p style="color:red">未发布</p></c:if>
+				</td>
+				<td><a href="javascript:void(0)" val="${news.id }" class="upd">修改</a></td>
+			</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+		<c:if test="${currPage>1}">
+			<a href="javascript:void(0)" class="page" val="1" style="color:blue;">首页</a>
+			<a href="javascript:void(0)" class="page" val="${currPage-1 }" style="color:blue;">上一页</a>
+		</c:if>
+		<c:if test="${currPage==1}">
+			<span class="disabled">首页</span>
+			<span class="disabled">上一页</span>
+		</c:if>
+		 ${currPage}/${pageCount}
+		<c:if test="${currPage<pageCount}">
+			<a href="javascript:void(0)" class="page" val="${currPage+1 }" style="color:blue;">下一页</a>
+			<a href="javascript:void(0)" class="page" val="${pageCount }" style="color:blue;">尾页</a>
+		</c:if>
+		<c:if test="${currPage==pageCount}">
+			<span class="disabled">下一页</span>
+			<span class="disabled">尾页</span>
+		</c:if>
+	</div>
+	
 </div>
 <!-- <script type="text/javascript">
 $(function(){

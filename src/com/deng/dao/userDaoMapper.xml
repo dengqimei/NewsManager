@@ -41,7 +41,11 @@
 	</select>
 	
 	<select id="queryAll" resultMap="UserResult">
-		select * from user_info
+		select * from user_info limit #{param1},#{param2}
+	</select>
+	
+	<select id="getPageCount" resultType="int">
+		select (count(*)-1)/#{pageSize}+1 from user_info
 	</select>
 	
 	<!-- 批量删除用户 -->

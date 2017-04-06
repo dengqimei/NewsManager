@@ -30,7 +30,7 @@ $(function(){
 			</select>
 			</td>
 		</tr> 
-		<tr height="30px"><td colspan="2"><input type="submit" value="提交" /></td></tr>
+		<tr height="30px"><td colspan="2"><input type="submit" value="添加" /></td></tr>
 	</table>
 	</form>
 </div>

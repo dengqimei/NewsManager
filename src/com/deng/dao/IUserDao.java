@@ -16,12 +16,14 @@ public interface IUserDao {
 	
 	public User queryByName(String name);
 	
-	public List<User> queryAll();
+	public List<User> queryAll(Integer offset,Integer pageSize);
 	
 	public int batchDel(String[] delids);
 	
 	public int batchInUse(String[] updids);
 	
 	public int batchUnUse(String[] updids);
+	
+	public int getPageCount(Integer pageSize);
 	
 }

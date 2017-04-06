@@ -17,7 +17,7 @@ public interface INewsService {
 	
 	public List<News> findAll();
 	
-	public List<News> findNewsByCatalog(Long catalog_id);
+	public List<News> findNewsByCatalog(Long catalog_id,Integer offset,Integer pageSize);
 	
 	public List<CatalogNewsModel> findAllNews();
 	
@@ -26,5 +26,11 @@ public interface INewsService {
 	public int batchPublish(String[] updids);
 	
 	public int batchCancel(String[] updids);
+	
+	public int getPageCount(Integer pageSize);
+	
+	public int getCatalogPageCount(Integer pageSize,Long catalog_id);
+	
+	public List<News> findAllNews(Integer offset,Integer pageSize);
 	
 }

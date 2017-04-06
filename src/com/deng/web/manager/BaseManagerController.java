@@ -133,8 +133,14 @@ public class BaseManagerController {
 	
 	//跳转到栏目管理页面
 	@RequestMapping("/Manager/toCatalogManager.action")
-	public String toCatalogManager(Model model){
-		catalogList = catalogService.findAll();
+	public String toCatalogManager(Model model,Integer currPage){
+		int pageSize = 12;
+		if(currPage==null)currPage=1;
+		int offset = (currPage-1)*pageSize;
+		int pageCount = catalogService.getPageCount(pageSize);
+		catalogList = catalogService.findAllCatalog(offset, pageSize);
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("currPage", currPage);
 		model.addAttribute("catalogList", catalogList);
 		return "/manager/catalogManager";
 	}
@@ -142,15 +148,21 @@ public class BaseManagerController {
 	//跳转到添加新闻页面
 	@RequestMapping("/Manager/toAddNews.action")
 	public String toAddNews(News news,Model model){
-		catalogList = catalogService.findAll();
+		catalogList = catalogService.findAllInuse();
 		model.addAttribute("catalogList", catalogList);
 		return "/manager/addNews";
 	}
 	
 	//跳转到新闻管理页面
 	@RequestMapping("/Manager/toNewsManager.action")
-	public String toNewsManager(Model model){
-		newsList = newsService.findAll();
+	public String toNewsManager(Model model,Integer currPage){
+		int pageSize = 12;
+		if(currPage==null)currPage=1;
+		int offset = (currPage-1)*pageSize;
+		int pageCount = newsService.getPageCount(pageSize);
+		newsList = newsService.findAllNews(offset, pageSize);
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("currPage", currPage);
 		model.addAttribute("newsList", newsList);
 		return "/manager/newsManager";
 	}
@@ -178,8 +190,8 @@ public class BaseManagerController {
 	
 	//修改新闻信息
 	@RequestMapping("/Manager/updNews.action")
-	public String updNews(News news,@RequestParam("uploadimage") CommonsMultipartFile uploadimage){
-		news.setImage(uploadimage.getBytes());
+	public String updNews(News news/*,@RequestParam("uploadimage") CommonsMultipartFile uploadimage*/){
+//		news.setImage(uploadimage.getBytes());
 		newsService.updateNews(news);
 		return "/manager/newsManager";
 	}
@@ -250,8 +262,14 @@ public class BaseManagerController {
 	
 	//跳转到用户管理页面
 	@RequestMapping("/Manager/toUserManager.action")
-	public String toUserManager(Model model){
-		userModelList = userService.findAll();
+	public String toUserManager(Model model,Integer currPage){
+		int pageSize = 12;
+		if(currPage==null)currPage=1;
+		int offset = (currPage-1)*pageSize;
+		int pageCount = userService.getPageCount(pageSize);
+		userModelList = userService.findAll(offset, pageSize);
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("currPage", currPage);
 		model.addAttribute("userModelList", userModelList);
 		return "/manager/userManager";
 	}
@@ -319,9 +337,15 @@ public class BaseManagerController {
 	
 	//跳转到评论管理页面
 	@RequestMapping("/Manager/toCommentManager.action")
-	public String toCommentManager(Model model){
-		commentList = commentService.findAllComment();
+	public String toCommentManager(Model model,Integer currPage){
+		int pageSize = 12;
+		if(currPage==null)currPage=1;
+		int offset = (currPage-1)*pageSize;
+		int pageCount = commentService.getPageCount(pageSize);
+		commentList = commentService.findAllComment(offset, pageSize);
 		model.addAttribute("commentList",commentList);
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("currPage", currPage);
 		return "manager/commentManager";
 	}
 	
@@ -369,17 +393,28 @@ public class BaseManagerController {
 	}*/
 	
 	//通过栏目筛选新闻信息
-	@ResponseBody
+//	@ResponseBody
 	@RequestMapping("/Manager/showNewsByCatalog.action")
-	public List<News> showNewsByCatalog(Long catalog_id){
-		return newsService.findNewsByCatalog(catalog_id);
+	public String showNewsByCatalog(Long catalog_id,Integer currPage,Model model){
+		int pageSize = 12;
+		if(currPage==null)currPage=1;
+		int offset = (currPage-1)*pageSize;
+		int pageCount = newsService.getCatalogPageCount(pageSize, catalog_id);
+		System.out.println("=================");
+		System.out.println(catalog_id);
+		System.out.println(currPage);
+		List<News> newsList = newsService.findNewsByCatalog(catalog_id,offset,pageSize);
+		model.addAttribute("pageCount",pageCount);
+		model.addAttribute("currPage", currPage);
+		model.addAttribute("newsList", newsList);
+		return "manager/c_news";
 	}
 	
 	//显示所有栏目
 	@ResponseBody
 	@RequestMapping("/Manager/showCatalog.action")
 	public List<Catalog> showCatalog(){
-		return catalogService.findAll();
+		return catalogService.findAllInuse();
 	}
 	
 	//显示地址

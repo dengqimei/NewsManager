@@ -27,7 +27,7 @@ public class CatalogServiceImpl implements ICatalogService{
 		catalog.setId(Long .parseLong(id));
 		catalog.setInputTime(inputTime);
 		catalog.setUpdateTime(updateTime);
-		catalog.setIsInuse("1");
+		catalog.setIsInuse("0");
 		catalogDao.save(catalog);
 	}
 
@@ -49,8 +49,8 @@ public class CatalogServiceImpl implements ICatalogService{
 	}
 
 	@Override
-	public List<Catalog> findAll() {
-		return catalogDao.queryAll();
+	public List<Catalog> findAllCatalog(Integer offset,Integer pageSize) {
+		return catalogDao.queryAllCatalog(offset,pageSize);
 	}
 	
 	@Override
@@ -88,6 +88,16 @@ public class CatalogServiceImpl implements ICatalogService{
 	@Override
 	public List<Catalog> findAllUserInuse() {
 		return catalogDao.queryAllUserInuse();
+	}
+	
+	@Override
+	public int getPageCount(Integer pageSize) {
+		return catalogDao.getPageCount(pageSize);
+	}
+
+	@Override
+	public List<Catalog> findAll() {
+		return catalogDao.queryAll();
 	}
 	
 }

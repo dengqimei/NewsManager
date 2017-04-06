@@ -20,7 +20,7 @@ public interface IUserService {
 	
 	public User findByName(String name);
 	
-	public List<UserModel> findAll();
+	public List<UserModel> findAll(Integer offset,Integer pageSize);
 	
 	public void saveLoginInfo(LoginInfo loginInfo);
 	
@@ -31,5 +31,7 @@ public interface IUserService {
 	public int batchInUse(String[] updids);
 	
 	public int batchUnUse(String[] updids);
+	
+	public int getPageCount(Integer pageSize);
 	
 }
