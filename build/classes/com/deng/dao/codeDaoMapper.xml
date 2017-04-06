@@ -9,38 +9,47 @@
 			<result property="name" column="itemname"/>
 		</resultMap>
 		
+		<!-- 查询所有省份信息 -->
 		<select id="queryAllProvince" resultMap="CodeResult">
 			select itemno,itemname from code_library where itemno like '%0000'
 		</select>
 		
+		<!-- 查询省份下的所有城市 -->
 		<select id="queryCityByProvince" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno like #{id}
 		</select>
 		
+		<!-- 查询城市下的所有县市 -->
 		<select id="queryCountyByCity" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno like #{id}
 		</select>
 		
+		<!-- 通过省份ID查询省份信息 -->
 		<select id="queryProvince" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno = #{id}
 		</select>
 		
+		<!-- 通过城市ID查询城市信息 -->
 		<select id="queryCity" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno = #{id}
 		</select>
 		
+		<!-- 通过县市ID查询县市信息 -->
 		<select id="queryCounty" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno = #{id}
 		</select>
 		
+		<!-- 通过ID查询用户地址 -->
 		<select id="queryAddressById" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'AreaCode' and itemno = #{id}
 		</select>
 		
+		<!-- 查询用户类型 -->
 		<select id="queryUserType" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'UserType' and itemno = #{id}
 		</select>
 		
+		<!-- 查询用户性别 -->
 		<select id="queryUserSex" parameterType="String" resultMap="CodeResult">
 			select itemno,itemname from code_library where codeno = 'UserSex' and itemno = #{id}
 		</select>

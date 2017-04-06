@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 	
+	//检查输入框是否为空
 	function check(){
 		var title = $("#title").val();
 		var author = $("#author").val();
@@ -21,14 +22,15 @@
 		}else if(content==""||content==null){
 			alert("新闻内容不能为空！！！");
 			return false;
-		}else if(uploadimage==""||uploadimage==null){
+		}/* else if(uploadimage==""||uploadimage==null){
 			alert("上传图片不能为空！！！");
 			return false;
-		}else{
+		} */else{
 			return true;
 		}
 	}
 
+	//添加新闻信息
 	$(function(){
 		var form = $("#addNewsForm");
 		form.off();
@@ -72,10 +74,10 @@
 			<td>文章内容：</td>
 			<td><textarea rows="5" cols="60" name="content" id="content"></textarea></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td>图片：</td>
 			<td><input type="file" id=uploadimage name="uploadimage" accept="image/*"></td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td><input type="submit" value="添加"></td>
 		</tr>

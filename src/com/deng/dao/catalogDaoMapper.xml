@@ -13,20 +13,24 @@
 		<result property="type" column="catalogtype"/>
 		<result property="isInuse" column="isinuse"/>
 	</resultMap>
-
+	
+	<!-- 保存栏目信息 -->
 	<insert id="save" parameterType="Catalog">
 		insert into catalog_info 
 		values(#{id},#{name},#{code},#{inputTime},#{updateTime},#{type},#{isInuse})
 	</insert>
 	
+	<!-- 查询所有栏目信息 -->
 	<select id="queryAll" resultMap="CatalogResult">
 		select * from catalog_info order by catalogcode asc
 	</select>
 	
+	<!-- 查询所有栏目信息并且分页 -->
 	<select id="queryAllCatalog" resultMap="CatalogResult">
 		select * from catalog_info order by catalogcode asc limit #{param1},#{param2}
 	</select>
 	
+	<!-- 查询分页数 -->
 	<select id="getPageCount" resultType="int">
 		select (count(*)-1)/#{pageSize}+1 from catalog_info
 	</select>
@@ -41,16 +45,19 @@
 		select * from catalog_info where isinuse = "1" and catalogtype="1" order by catalogcode asc
 	</select>
 	
+	<!-- 通过栏目Id查询栏目信息 -->
 	<select id="queryById" parameterType="Long" resultMap="CatalogResult">
 		select * from catalog_info where catalogid = #{id}
 	</select>
 	
+	<!-- 修改栏目信息 -->
 	<update id="update" parameterType="Catalog">
 		update catalog_info set catalogname = #{name},
 		catalogcode = #{code},updatetime = #{updateTime}
 		where catalogid= #{id}
 	</update>
 	
+	<!-- 删除栏目信息 -->
 	<delete id="deleteById" parameterType="Long">
 		delete from catalog_info where catalogid = #{id}
 	</delete>
@@ -78,4 +85,5 @@
 			#{id}
 		</foreach>
 	</update>
+	
 </mapper>

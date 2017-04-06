@@ -6,7 +6,7 @@
 	<div class="sign">
 		<span>欢迎您&nbsp;<a id="username" val="${username }" href="toUserInfo.action?userName=${username }">${username }</a>
 		<a href="toLogin.action">${login }</a></span> <!-- <span class="sp_home" style="visibility:hidden">首页</span> --> <span
-			class="sp_backstage" <c:if test="${usertype=='1' }"> style="visibility:hidden"</c:if>><a href="Manager/toIndex.action">后台管理</a></span> 
+			class="sp_backstage" <c:if test="${usertype=='1'||usertype==null }"> style="visibility:hidden"</c:if>><a href="Manager/toIndex.action">后台管理</a></span> 
 			<span class="sp_signout"<c:if test="${username==''||username==null }"> style="visibility:hidden"</c:if>><a href="logout.action">退出</a></span>
 	</div>
 </div>

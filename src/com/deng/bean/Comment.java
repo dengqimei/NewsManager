@@ -2,11 +2,11 @@ package com.deng.bean;
 
 public class Comment {
 
-	private Long id;
-	private String content;
-	private String publishTime;
-	private String user_id;
-	private Long news_id;
+	private Long id;//评论ID
+	private String content;//评论内容
+	private String publishTime;//评论发布时间
+	private String user_id;//评论人ID
+	private Long news_id;//评论的新闻ID
 	
 	public Comment() {}
 

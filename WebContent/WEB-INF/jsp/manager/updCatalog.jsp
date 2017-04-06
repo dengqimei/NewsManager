@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<script>
+<script type="text/javascript">
+//修改栏目信息
 $(function(){
 	var form=$("#updCatalogForm");
 	form.off();

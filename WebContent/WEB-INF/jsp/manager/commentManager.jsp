@@ -31,6 +31,7 @@ td {
 		}
 	});
 
+	//批量删除评论
 	function batchDel() {
 		var delids = new Array();
 		$('input[name="id"]:checked').each(function() {

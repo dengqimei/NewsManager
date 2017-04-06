@@ -13,7 +13,7 @@
 <script type="text/javascript" src="theme/1/js/main.js"></script>
 <script type="text/javascript">
 
-	
+	//判断是否登录、提示登录后才可评论
 	function out() {
 		var content = $('.text').val();
 		var username = $("#username").html();
@@ -42,6 +42,7 @@
 		return html;
 	}
 	
+	//保存评论信息
 	function saveComment(username){
 		var content = $('.text').val();
 		var newsId = $("#newsId").val();
@@ -56,6 +57,7 @@
 		});
 	}
 	
+	//显示评论信息
 	$(function showComment(){
 		var newsId = $("#newsId").val();
 		$.ajax({

@@ -1,20 +1,14 @@
 package com.deng.web.manager;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
-//import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.deng.bean.Catalog;
 import com.deng.bean.Code;
@@ -169,9 +163,9 @@ public class BaseManagerController {
 	
 	//添加新闻
 	@RequestMapping("/Manager/addNews.action")
-	public String addNews(News news,@RequestParam("uploadimage") CommonsMultipartFile uploadimage){
-		byte[] image = uploadimage.getBytes();
-		news.setImage(image);
+	public String addNews(News news/*,@RequestParam("uploadimage") CommonsMultipartFile uploadimage*/){
+//		byte[] image = uploadimage.getBytes();
+//		news.setImage(image);
 		newsService.addNews(news);
 		return "/manager/addNews";
 	}
@@ -240,7 +234,7 @@ public class BaseManagerController {
 		}
 	}
 	
-	//显示图片
+	/*//显示图片
 	@RequestMapping("/Manager/showImage.action")
 	public void showImage(Long id,HttpServletResponse response,OutputStream out){
 		byte[] image = newsService.findNewsById(id).getImage();
@@ -258,7 +252,7 @@ public class BaseManagerController {
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 	
 	//跳转到用户管理页面
 	@RequestMapping("/Manager/toUserManager.action")

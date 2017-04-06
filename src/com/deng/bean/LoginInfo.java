@@ -2,11 +2,11 @@ package com.deng.bean;
 
 public class LoginInfo {
 
-	private String sessionId;
-	private String userId;
-	private String userName;
-	private String loginTime;
-	private String logoutTime;
+	private String sessionId;//登录时的Session ID
+	private String userId;//登录的用户名
+	private String userName;//登录的用户名称
+	private String loginTime;//登录时间
+	private String logoutTime;//退出登录时间
 	
 	public LoginInfo() {}
 

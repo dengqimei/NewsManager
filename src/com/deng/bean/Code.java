@@ -2,8 +2,8 @@ package com.deng.bean;
 
 public class Code {
 
-	private String id;
-	private String name;
+	private String id;//code ID
+	private String name;//名称
 	
 	public Code() {}
 

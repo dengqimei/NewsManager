@@ -190,7 +190,7 @@ td{
 		})
 	});
 	
-	//根据栏目显示新闻信息
+	//根据栏目显示新闻信息、分页
 	function showNews(c_id){
 		$.post("showNewsByCatalog.action",{catalog_id:c_id},function(){
 			$(".newsTable").load("showNewsByCatalog.action",{catalog_id:c_id});

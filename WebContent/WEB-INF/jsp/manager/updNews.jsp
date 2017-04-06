@@ -15,7 +15,7 @@
 			    <input type="hidden" name="id" value="${news.id }">
 			    <input type="text" name="title" id="title" value="${news.title }">
 			</td>
-			<td rowspan="6"><img src="showImage.action?id=${news.id }" width="450px" height="300px"></td>
+			<%-- <td rowspan="6"><img src="showImage.action?id=${news.id }" width="450px" height="300px"></td> --%>
 			
 		</tr>
 		<tr>
@@ -44,12 +44,13 @@
 			<td><input type="text" name="clickTimes" id="clickTimes" value="${news.clickTimes }" readonly="readonly"></td>
 		</tr>
 		<tr>
-			<td colspan="3"><input type="submit" value="修改"></td>
+			<td colspan="2"><input type="submit" value="修改"></td>
 		</tr>
 	</table>
     </form>
     
 <script type="text/javascript">
+	//检查输入框是否为空
 	function check(){
 		var title = $("#title").val();
 		var author = $("#author").val();
@@ -76,6 +77,7 @@
 		}
 	}
 	
+	//修改新闻信息
 	$(function(){
 		var form=$("#updNewsForm");
 		form.off();

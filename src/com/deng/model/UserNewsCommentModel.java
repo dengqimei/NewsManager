@@ -4,9 +4,9 @@ import com.deng.bean.Comment;
 
 public class UserNewsCommentModel {
 
-	private String username;
-	private Comment comment;
-	private String newstitle;
+	private String username;//用户名称
+	private Comment comment;//用户的评论信息
+	private String newstitle;//新闻的标题
 	
 	public String getUsername() {
 		return username;

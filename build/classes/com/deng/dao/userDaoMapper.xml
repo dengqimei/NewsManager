@@ -17,33 +17,40 @@
 		<result property="isInuse" column="isinuse"/>		
 	</resultMap>
 
+	<!-- 保存用户信息 -->
 	<insert id="save" parameterType="User">
 		insert into user_info values(#{id},#{name},#{password},
 		#{age},#{sex},#{address},#{type},#{inputTime},#{updateTime},#{isInuse})
 	</insert>
 	
+	<!-- 通过用户ID删除用户 -->
 	<delete id="deleteById" parameterType="String">
 		delete from user_info where userid = #{id}
 	</delete>
 	
+	<!-- 修改用户信息 -->
 	<update id="update" parameterType="user">
 		update user_info set username = #{name},userage = #{age},
 		usersex = #{sex},useraddress = #{address},updatetime = #{updateTime}
 		where userid = #{id}
 	</update>
 	
+	<!-- 通过用户ID查询用户信息 -->
 	<select id="queryById" parameterType="String" resultMap="UserResult">
 		select * from user_info where userid = #{id}
 	</select>
 	
+	<!-- 通过用户名称查询用户信息 -->
 	<select id="queryByName" parameterType="String" resultMap="UserResult">
 		select * from user_info where username = #{name}
 	</select>
 	
+	<!-- 查询所有用户信息并且分页 -->
 	<select id="queryAll" resultMap="UserResult">
 		select * from user_info limit #{param1},#{param2}
 	</select>
 	
+	<!-- 查询分页数 -->
 	<select id="getPageCount" resultType="int">
 		select (count(*)-1)/#{pageSize}+1 from user_info
 	</select>
@@ -71,4 +78,5 @@
 			#{id}
 		</foreach>
 	</update>
+	
 </mapper>

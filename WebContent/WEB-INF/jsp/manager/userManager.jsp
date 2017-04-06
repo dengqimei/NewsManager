@@ -29,6 +29,7 @@ td {
 		}
 	});
 
+	//批量删除用户
 	function batchDel() {
 		var delids = new Array();
 		$('input[name="id"]:checked').each(function() {
@@ -51,6 +52,7 @@ td {
 		}
 	}
 
+	//批量启用用户
 	function batchInUse() {
 		var updids = new Array();
 		$('input[name="id"]:checked').each(function() {
@@ -73,6 +75,7 @@ td {
 		}
 	}
 
+	//批量禁用用户
 	function batchUnUse() {
 		var updids = new Array();
 		$('input[name="id"]:checked').each(function() {

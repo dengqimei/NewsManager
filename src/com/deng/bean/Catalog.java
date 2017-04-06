@@ -7,8 +7,8 @@ public class Catalog {
 	private String code;//栏目序号
 	private String inputTime;//栏目添加时间
 	private String updateTime;//栏目更新时间
-	private String type;
-	private String isInuse;
+	private String type;//栏目类型
+	private String isInuse;//栏目是否启用
 	
 	public Catalog() {}
 

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <script>
+//添加栏目
 $(function(){
 	var form=$("#addCategoryForm");
 	form.off();

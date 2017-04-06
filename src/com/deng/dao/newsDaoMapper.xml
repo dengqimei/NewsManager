@@ -13,37 +13,42 @@
 		<result property="updateTime" column="updatetime"/>
 		<result property="clickTimes" column="clicktimes"/>
 		<result property="catalog_id" column="catalog_id"/>
-		<result property="image" column="newsimage"/>
+		<!-- <result property="image" column="newsimage"/> -->
 		<result property="publishDate" column="publishdate"/>
 		<result property="isPublish" column="ispublish"/>
 	</resultMap>
 	
+	<!-- 保存新闻信息 -->
 	<insert id="save" parameterType="News">
 		insert into news_info values(#{id},#{title},#{author},#{content}
 		,#{publishTime},#{updateTime},#{clickTimes},#{catalog_id},
-		#{image,jdbcType=BLOB},#{publishDate},#{isPublish})
+		#{publishDate},#{isPublish})
 	</insert>
 	
+	<!-- 查询所有新闻信息 -->
 	<select id="queryAll" resultMap="NewsResult">
 		select * from news_info order by publishtime desc
 	</select>
 	
+	<!-- 通过新闻ID查询新闻信息 -->
 	<select id="queryById" parameterType="Long" resultMap="NewsResult">
 		select * from news_info where newsid = #{id}
 	</select>
 	
+	<!-- 修改新闻信息 -->
 	<update id="update" parameterType="News">
 		update news_info set newstitle = #{title},newsauthor = #{author},
 		newscontent = #{content},updateTime = #{updateTime},
-		clicktimes = #{clickTimes},catalog_id = #{catalog_id},newsimage = #{image,jdbcType=BLOB}
+		clicktimes = #{clickTimes},catalog_id = #{catalog_id}
 		where newsid = #{id}
 	</update>
 	
+	<!-- 删除新闻信息 -->
 	<delete id="deleteById" parameterType="Long">
 		delete from news_info where newsid = #{id}
 	</delete>
 	
-	<!-- 通过栏目查询栏目下所有新闻信息 -->
+	<!-- 通过栏目查询栏目下所有新闻信息并且分页 -->
 	<select id="queryByCatalogId"  resultMap="NewsResult">
 		select * from news_info where catalog_id = #{param1} order by publishtime desc limit #{param2},#{param3}
 	</select>
@@ -77,10 +82,12 @@
 		</foreach>
 	</update>
 	
+	<!-- 查询所有新闻信息并且分页 -->
 	<select id="findAllNews" resultMap="NewsResult">
 		select * from news_info order by newsid desc limit #{param1},#{param2}
 	</select>
 	
+	<!-- 查询页数 -->
 	<select id="getPageCount" resultType="int">
 		select (count(*)-1)/#{pageSize}+1 from news_info
 	</select>

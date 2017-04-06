@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript">
+//修改用户信息
 $(function() {
     initProvinces();
     var form=$("#updUserForm");

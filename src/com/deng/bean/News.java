@@ -1,7 +1,5 @@
 package com.deng.bean;
 
-import java.util.Arrays;
-
 public class News {
 
 	private Long id;//新闻编号
@@ -12,13 +10,13 @@ public class News {
 	private String updateTime;//更新时间
 	private Integer clickTimes;//点击次数
 	private Long catalog_id;//所属栏目
-	private byte[] image;//新闻图片
+//	private byte[] image;//新闻图片
 	private String publishDate;//发布日期
-	private String isPublish;
+	private String isPublish;//是否发布
 	
 	public News() {}
 
-	public News(Long id, String title, String author, String content, String publishTime, String updateTime,
+	/*public News(Long id, String title, String author, String content, String publishTime, String updateTime,
 			Integer clickTimes, Long catalog_id, byte[] image) {
 		this.id = id;
 		this.title = title;
@@ -29,7 +27,7 @@ public class News {
 		this.clickTimes = clickTimes;
 		this.catalog_id = catalog_id;
 		this.image = image;
-	}
+	}*/
 
 	public News(Long id, String title, String author, String content, String publishTime, String updateTime,
 			Integer clickTimes, Long catalog_id) {
@@ -107,13 +105,13 @@ public class News {
 		this.catalog_id = catalog_id;
 	}
 
-	public byte[] getImage() {
+	/*public byte[] getImage() {
 		return image;
 	}
 
 	public void setImage(byte[] image) {
 		this.image = image;
-	}
+	}*/
 
 	public String getPublishDate() {
 		return publishDate;
@@ -135,8 +133,15 @@ public class News {
 	public String toString() {
 		return "News [id=" + id + ", title=" + title + ", author=" + author + ", content=" + content + ", publishTime="
 				+ publishTime + ", updateTime=" + updateTime + ", clickTimes=" + clickTimes + ", catalog_id="
-				+ catalog_id + ", image=" + Arrays.toString(image) + ", publishDate=" + publishDate + ", isPublish="
-				+ isPublish + "]";
+				+ catalog_id + ", publishDate=" + publishDate + ", isPublish=" + isPublish + "]";
 	}
 
+/*	@Override
+	public String toString() {
+		return "News [id=" + id + ", title=" + title + ", author=" + author + ", content=" + content + ", publishTime="
+				+ publishTime + ", updateTime=" + updateTime + ", clickTimes=" + clickTimes + ", catalog_id="
+				+ catalog_id + ", image=" + Arrays.toString(image) + ", publishDate=" + publishDate + ", isPublish="
+				+ isPublish + "]";
+	}*/
+	
 }

@@ -7,8 +7,8 @@
 <script type="text/javascript" src="theme/1/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="theme/1/js/main.js"></script>
 <script type="text/javascript">
-
-$(function getPage(){
+//通过栏目查询新闻
+$(function(){
 	var c_id = $(".catalogid").attr("val");
 	$(".getpage").off();
 	$(".getpage").on("click",function(){
@@ -48,8 +48,8 @@ $(function getPage(){
 </div>
 <div class="page">
 	<c:if test="${currPage>1}">
-		<a class="getpage" val="1">首页</a>
-		<a class="getpage" val="${currPage-1}" >上一页</a>
+		<a class="getpage" href="javascript:void(0)" val="1" style="color:blue;">首页</a>
+		<a class="getpage" href="javascript:void(0)" val="${currPage-1}" style="color:blue;">上一页</a>
 	</c:if>
 	<c:if test="${currPage==1}">
 		<span class="disabled">首页</span>
@@ -57,8 +57,8 @@ $(function getPage(){
 	</c:if>
 	 ${currPage}/${pageCount}
 	<c:if test="${currPage<pageCount}">
-		<a class="getpage" val="${currPage+1}" >下一页</a>
-		<a class="getpage" val="${pageCount}" >尾页</a>
+		<a class="getpage" href="javascript:void(0)" val="${currPage+1}" style="color:blue;">下一页</a>
+		<a class="getpage" href="javascript:void(0)" val="${pageCount}" style="color:blue;">尾页</a>
 	</c:if>
 	<c:if test="${currPage==pageCount}">
 		<span class="disabled">下一页</span>
