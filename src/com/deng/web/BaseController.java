@@ -49,19 +49,33 @@ public class BaseController {
 	private List<Code> cityList;
 	private List<Code> countyList;
 	private LoginInfo loginInfo;
+	private List<UserNewsCommentModel> commentList;
+	private List<LoginInfo> loginInfoList;
 	
 	//进入系统首页
 	@RequestMapping("/toIndex.action")
-	public String toIndex(Model model,HttpServletRequest request){
-		showCatalog(model);
-		catalogNewsList = newsService.findAllNews();
-		model.addAttribute("catalogNewsList", catalogNewsList);
-//		request.getSession().setMaxInactiveInterval(5*60);
-		String login = (String) request.getSession().getAttribute("login");
-		String userName = (String) request.getSession().getAttribute("username");
-		if(("".equals(login)||login==null)&&("".equals(userName)||userName==null)){
-			request.getSession().setAttribute("login", "请登录");
-			request.getSession().setAttribute("usertype", "1");
+	public String toIndex(String userid,Model model,HttpServletRequest request){
+		if(userid!=null){
+			showCatalog(model);
+			catalogNewsList = newsService.findAllNews();
+			model.addAttribute("catalogNewsList", catalogNewsList);
+			User user = userService.findById(userid);
+			String username = user.getName();
+			String usertype = user.getType();
+			request.getSession().setAttribute("username", username);
+			request.getSession().setAttribute("login", "");
+			request.getSession().setAttribute("usertype", usertype);
+		}else{
+			showCatalog(model);
+			catalogNewsList = newsService.findAllNews();
+			model.addAttribute("catalogNewsList", catalogNewsList);
+	//		request.getSession().setMaxInactiveInterval(5*60);
+			String login = (String) request.getSession().getAttribute("login");
+			String userName = (String) request.getSession().getAttribute("username");
+			if(("".equals(login)||login==null)&&("".equals(userName)||userName==null)){
+				request.getSession().setAttribute("login", "请登录");
+				request.getSession().setAttribute("usertype", "1");
+			}
 		}
 		return "index";
 	}
@@ -73,62 +87,23 @@ public class BaseController {
 	}
 	
 	//用户登录
-	@RequestMapping("/login.action")
-	public String login(User user,HttpServletRequest request,Model model){
-		request.getSession().setMaxInactiveInterval(5*60);
-		if(user.getPassword()!=null){
-			String password = MD5.getInstance().getMD5ofStr(user.getPassword());
-			user.setPassword(password);
-		}
-		if(user.getId()!=null){
-			showCatalog(model);
-			catalogNewsList = newsService.findAllNews();
-			model.addAttribute("catalogNewsList", catalogNewsList);
-			if("success".equals(userService.login(user))){
-				String userName = userService.findById(user.getId()).getName();
-				request.getSession().setAttribute("login", "");
-				request.getSession().setAttribute("username", userName);
-				loginInfo = new LoginInfo();
-				loginInfo.setSessionId(request.getSession().getId());
-				loginInfo.setUserId(user.getId());
-				loginInfo.setUserName(userName);
-				userService.saveLoginInfo(loginInfo);
-				request.getSession().setAttribute("usertype", "1");
-				return "index";
-			}else if("manager".equals(userService.login(user))){
-				String userName = userService.findById(user.getId()).getName();
-				request.getSession().setAttribute("login", "");
-				request.getSession().setAttribute("username", userName);
-				loginInfo = new LoginInfo();
-				loginInfo.setSessionId(request.getSession().getId());
-				loginInfo.setUserId(user.getId());
-				loginInfo.setUserName(userName);
-				userService.saveLoginInfo(loginInfo);
-				request.getSession().setAttribute("usertype", "0");
-				return "index";
-			}else{
-				request.getSession().setAttribute("msg", "登录失败，用户名或者密码错误！");
-				return "failed";
-			}
-		}else{
-			String userName = (String) request.getSession().getAttribute("username");
-			if(userName==null){
-				request.getSession().setAttribute("login", "请登录");
-			}else{
-				request.getSession().setAttribute("username", userName);
-			}
-			showCatalog(model);
-			catalogNewsList = newsService.findAllNews();
-			model.addAttribute("catalogNewsList", catalogNewsList);
+	@ResponseBody
+	@RequestMapping(value="/login.action",produces={"text/html;charset=utf-8"})
+	public String login(String uid,String pwd,HttpServletRequest request,Model model){
+		String sessionId = request.getSession().getId();
+		loginInfo = new LoginInfo(sessionId, uid, "", "", "");
+		String message = userService.login(uid, pwd,loginInfo);
+		if("success".equals(message)){
 			return "index";
+		}else{
+			return message;
 		}
 	}
 	
-	//检查用户名是否存在
+	/*//检查用户名是否存在
 	@ResponseBody
 	@RequestMapping(value="/checkUserId.action",produces={"text/html;charset=utf-8"})
 	public String checkUserId(String userid){
-		System.out.println(userid);
 		User user = userService.findById(userid);
 		if(user==null){
 			return "failed";
@@ -149,7 +124,7 @@ public class BaseController {
 		}else{
 			return "success";
 		}
-	}
+	}*/
 	
 	//用户退出登录
 	@RequestMapping("/logout.action")
@@ -252,8 +227,8 @@ public class BaseController {
 		int pageSize = 5;
 		if(currPage==null)currPage=1;
 		int offset = (currPage-1)*pageSize;
-		int pageCount = newsService.getCatalogPageCount(pageSize, c_id);
-		newsList = newsService.findNewsByCatalog(c_id, offset, pageSize);
+		int pageCount = newsService.getInusePageCount(pageSize, c_id);
+		newsList = newsService.findInuseNewsByCatalog(c_id, offset, pageSize);
 		catalog = catalogService.findCatalogById(c_id);
 		model.addAttribute("pageCount",pageCount);
 		model.addAttribute("currPage", currPage);
@@ -303,12 +278,7 @@ public class BaseController {
 		model.addAttribute("address",address);
 	}
 		
-		
-	@RequestMapping("/toTest.action")
-	public String toTest(){
-		return "test";
-	}
-	
+	//显示评论信息
 	@ResponseBody
 	@RequestMapping("showComment.action")
 	public List<UserNewsCommentModel> showComment(Long newsId){
@@ -316,6 +286,7 @@ public class BaseController {
 		return list;
 	}
 	
+	//保存评论信息
 	@ResponseBody
 	@RequestMapping("saveComment.action")
 	public void saveComment(Long newsId,String content,String username){
@@ -325,6 +296,64 @@ public class BaseController {
 		comment.setNews_id(newsId);
 		comment.setUser_id(user.getId());
 		commentService.addComment(comment);
+	}
+	
+	@RequestMapping("/showUserInfo.action")
+	public String showUserInfo(String userName,Integer currPage,String catalogName,Model model){
+		User user = userService.findByName(userName);
+		if("修改密码".equals(catalogName)){
+			return "updPassword";
+		}else if("我的评论".equals(catalogName)){
+			int pageSize = 8;
+			if(currPage==null)currPage=1;
+			int offset = (currPage-1)*pageSize;
+			int pageCount = commentService.getPageCountByUser(pageSize,user.getId());
+			commentList = commentService.findUserComment(user.getId(),offset,pageSize);
+			model.addAttribute("commentList",commentList);
+			model.addAttribute("pageCount",pageCount);
+			model.addAttribute("currPage", currPage);
+			return "myComment";
+		}else if("我的登录信息".equals(catalogName)){
+			int pageSize = 8;
+			if(currPage==null)currPage=1;
+			int offset = (currPage-1)*pageSize;
+			int pageCount = userService.getLoginInfoPageCount(pageSize, user.getId());
+			loginInfoList = userService.findLoginInfo(user.getId(), offset, pageSize);
+			System.out.println("==============");
+			for(LoginInfo loginInfo:loginInfoList){
+				System.out.println(loginInfo);
+			}
+			model.addAttribute("loginInfoList",loginInfoList);
+			model.addAttribute("pageCount",pageCount);
+			model.addAttribute("currPage", currPage);
+			return "myLoginInfo";
+		}else{
+			catalogList = catalogService.findAllUserInuse();
+			model.addAttribute(user);
+			model.addAttribute("catalogList", catalogList);
+			showAddress(user, model);
+			return "myInfo";
+		}
+	}
+	
+	//修改用户信息
+	@RequestMapping("/updUser.action")
+	public String updUser(User user,Model model){
+		userService.updateUser(user);
+		User user1 = userService.findById(user.getId());
+		catalogList = catalogService.findAllUserInuse();
+		model.addAttribute("user",user1);
+		model.addAttribute("catalogList", catalogList);
+		showAddress(user1, model);
+		return "userInfo";
+	}
+	
+	//修改密码
+	@ResponseBody
+	@RequestMapping(value="updPassword.action",produces={"text/html;charset=utf-8"})
+	public String updPassword(String userName,String oldPWD,String newPWD){
+		String message = userService.updPassword(userName,oldPWD,newPWD);
+		return message;
 	}
 	
 }

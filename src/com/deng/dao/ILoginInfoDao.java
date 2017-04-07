@@ -16,9 +16,12 @@ public interface ILoginInfoDao {
 	public List<LoginInfo> queryAll();
 	
 	//查询用户的所有登录信息
-	public List<LoginInfo> queryByUserId(String userId);
+	public List<LoginInfo> queryByUserId(String userId, Integer offset, Integer pageSize);
 	
 	//查询用户最后登录时间
 	public String queryLastLoginTime (String userId);
+	
+	//查找登录信息的分页数
+	public int getLoginInfoPageCount(Integer pageSize,String userId);
 	
 }

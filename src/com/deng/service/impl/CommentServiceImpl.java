@@ -83,9 +83,9 @@ public class CommentServiceImpl implements ICommentService{
 	}
 
 	@Override
-	public List<UserNewsCommentModel> findUserComment(String user_id) {
+	public List<UserNewsCommentModel> findUserComment(String user_id,Integer offset,Integer pageSize) {
 		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
-		List<Comment> commentList = commentDao.queryByUserId(user_id);
+		List<Comment> commentList = commentDao.queryByUserId(user_id,offset,pageSize);
 		for(Comment comment : commentList){
 			UserNewsCommentModel model = new UserNewsCommentModel();
 			model.setComment(comment);
@@ -125,6 +125,16 @@ public class CommentServiceImpl implements ICommentService{
 	@Override
 	public int getPageCount(Integer pageSize){
 		return commentDao.getPageCount(pageSize);
+	}
+
+	@Override
+	public int getPageCountByUser(Integer pageSize, String userid) {
+		return commentDao.getPageCountByUser(pageSize, userid);
+	}
+
+	@Override
+	public int getPageCountByC(Integer pageSize, Long c_id) {
+		return commentDao.getPageCountByC(pageSize, c_id);
 	}
 	
 }

@@ -9,6 +9,29 @@
 <link rel="stylesheet" type="text/css" href="theme/1/css/common.css">
 <link rel="stylesheet" type="text/css" href="theme/1/css/front/style.css">
 </head>
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".login").off();
+	$(".login").on("click",function(){
+		$.post("toLogin.action",function(){
+			$("head").html("");
+			$("body").load("toLogin.action");
+		})
+	})
+});
+$(function(){
+	$(".logout").off();
+	$(".logout").on("click",function(){
+		$.post("logout.action",function(){
+			$("head").html("");
+			$("body").load("logout.action");
+		})
+	})
+});
+</script>
 <body>
 	<div id="main">
 		<div class="top">

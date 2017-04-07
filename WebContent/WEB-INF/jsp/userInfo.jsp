@@ -14,6 +14,7 @@
 <script type="text/javascript" src="theme/1/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="theme/1/js/main.js"></script>
 <script type="text/javascript">
+
 $(function() {
     initProvinces();
 });
@@ -25,7 +26,7 @@ function initProvinces() {
 	//$('#province').empty();
 	$.ajax({
 		type : "POST",
-		url : "../showProvince.action",
+		url : "showProvince.action",
 		Accept:"application/json",
 		contentType : "application/json",
 		dataType : "json",
@@ -47,7 +48,7 @@ function initCities(provinceID) {
 	$('#city').empty();
 	$.ajax({
 		type : "POST",
-		url : "../showCity.action?id=" + provinceID,
+		url : "showCity.action?id=" + provinceID,
 		Accept:"application/json",
 		contentType : "application/json",
 		dataType : "json",
@@ -69,7 +70,7 @@ function initCounties(cityID) {
 	$('#county').empty();
 	$.ajax({
 		type : "POST",
-		url : "../showCounty.action?id=" + cityID,
+		url : "showCounty.action?id=" + cityID,
 		Accept:"application/json",
 		contentType : "application/json",
 		dataType : "json",
@@ -83,8 +84,27 @@ function initCounties(cityID) {
 	});
 }
 
-</script>
+$(function(){
+	$(".userList").off();
+	$(".userList").on("click",function(){
+		var username = $("#username").attr("val");
+		var catalogname = $(this).attr("val");
+		$.post("showUserInfo.action",{userName:username,catalogName:catalogname},function(){
+			$(".userinfo").load("showUserInfo.action",{userName:username,catalogName:catalogname});
+		})
+	})
+});
 
+</script>
+<style type="text/css">
+
+.userinfo{
+	height:400px;
+	margin-left:30px;
+	margin-top:20px;
+}
+
+</style>
 <body>
 	<div id="main">
 		<div class="top">
@@ -101,7 +121,7 @@ function initCounties(cityID) {
 				<ul class="navUI">
 				<li><a href="toIndex.action">首页</a></li>
 				<c:forEach items="${catalogList }" var="catalog" begin="0" end="8">
-					<li><a href="javascript:void(0)">${catalog.name }</a></li>
+					<li><a class="userList" href="javascript:void(0)" val="${catalog.name }">${catalog.name }</a></li>
 				</c:forEach>
 				</ul>
 			</div>
@@ -110,57 +130,7 @@ function initCounties(cityID) {
 		<div class="content">
 			<div class="congw">
 				<div class="userinfo">
-					<form action="updUser.action" method="post" id="updUserForm">
-					
-						<table align="center" style="height:400px;margin-left:30px;font-size:16px;">
-							<caption align="center"><h2>用户个人信息</h2></caption>
-							<tr>
-								<td>用户名ID：</td>
-								<td><input type="text" name="id" id="id" value="${user.id }" readonly="readonly"></td>
-							</tr>
-							<tr>
-								<td>用户名称：</td>
-								<td><input type="text" name="name" id="name" value="${user.name }"></td>
-							</tr>
-							<tr>
-								<td>年龄：</td>
-								<td><input type="text" name="age" id="age" value="${user.age }"></td>
-							</tr>
-							<tr>
-								<td>性别：</td>
-								<td>
-									<input type="radio" name="sex" id="sex" value="0" <c:if test="${user.sex=='0'}"> checked='checked'</c:if> />男
-									<input type="radio" name="sex" id="sex" value="1" <c:if test="${user.sex=='1'}"> checked='checked'</c:if> >女
-								</td>
-							</tr>
-							<tr>
-								<td>地址：</td>
-								<td>
-									省份<select id="province" name="province">
-										<option value="${province.id }">${province.name }</option>
-									</select>
-									市<select id="city" name="city">
-										<option value="${city.id }">${city.name }</option>
-									</select>
-									县/市<select id="county" name="address">
-										<option  value="${user.address }">${address.name }</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>注册时间：</td>
-								<td><input type="text" name="age" id="age" value="${user.inputTime }" readonly="readonly"></td>
-							</tr>
-							<tr>
-								<td>最后登录时间：</td>
-								<td><input type="text" name="lastLogin" id="lastLogin" value="${user.lastLoginTime }" readonly="readonly"></td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="修改"></td>
-							</tr>
-						</table>
-						
-					</form>
+					<jsp:include page="myInfo.jsp"></jsp:include>
 				</div>
 				
 				<div class="link">

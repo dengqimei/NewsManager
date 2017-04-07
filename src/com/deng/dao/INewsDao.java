@@ -27,6 +27,9 @@ public interface INewsDao {
 	//通过栏目查询新闻信息并且分页
 	public List<News> queryByCatalogId(Long catalog_id,Integer offset,Integer pageSize);
 	
+	//通过栏目查询已发布的新闻信息并且分页
+	public List<News> queryInuseByCatalogId(Long catalog_id,Integer offset,Integer pageSize);
+	
 	//批量删除新闻信息
 	public int batchDel(String[] delids);
 	
@@ -41,6 +44,9 @@ public interface INewsDao {
 	
 	//查询所在栏目下所有新闻信息的分页数
 	public int getCatalogPageCount(Integer pageSize,Long catalog_id);
+	
+	//查询所在栏目下已发布新闻信息的分页数
+	public int getInusePageCount(Integer pageSize,Long catalog_id);
 	
 	//查询所有新闻信息并且分页
 	public List<News> findAllNews(Integer offset,Integer pageSize);

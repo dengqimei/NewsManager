@@ -23,7 +23,7 @@ public interface ICommentService {
 	public List<UserNewsCommentModel> findAllComment(Integer offset,Integer pageSize);
 	
 	//查找用户的所有评论
-	public List<UserNewsCommentModel> findUserComment(String user_id);
+	public List<UserNewsCommentModel> findUserComment(String user_id,Integer offset,Integer pageSize);
 	
 	//查找新闻的所有评论
 	public List<UserNewsCommentModel> findNewsComments(Long news_id);
@@ -33,5 +33,11 @@ public interface ICommentService {
 	
 	//查找分页数
 	public int getPageCount(Integer pageSize);
+	
+	//查询用户评论信息的分页数
+	public int getPageCountByUser(Integer pageSize,String userid);
+		
+	//查询新闻评论信息的分页数
+	public int getPageCountByC(Integer pageSize,Long c_id);
 	
 }

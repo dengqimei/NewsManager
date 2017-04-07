@@ -30,7 +30,7 @@
 	
 	<!-- 修改用户信息 -->
 	<update id="update" parameterType="user">
-		update user_info set username = #{name},userage = #{age},
+		update user_info set username = #{name},userpassword = #{password},userage = #{age},
 		usersex = #{sex},useraddress = #{address},updatetime = #{updateTime}
 		where userid = #{id}
 	</update>

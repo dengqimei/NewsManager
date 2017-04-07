@@ -18,7 +18,7 @@ public interface IUserService {
 	public void updateUser(User user);
 	
 	//用户登录
-	public String login(User user);
+	public String login(String userid,String pwd,LoginInfo loginInfo);
 	
 	//通过用户ID查找用户
 	public User findById(String id);
@@ -46,5 +46,14 @@ public interface IUserService {
 	
 	//查找分页数
 	public int getPageCount(Integer pageSize);
+	
+	//修改密码
+	public String updPassword(String userName,String oldPWD,String newPWD);
+	
+	//查找用户登录信息
+	public List<LoginInfo> findLoginInfo(String userId,Integer offset,Integer pageSize);
+	
+	//查找登录信息的分页数
+	public int getLoginInfoPageCount(Integer pageSize,String userId);
 	
 }

@@ -13,6 +13,7 @@ import com.deng.dao.IUserDao;
 import com.deng.model.UserModel;
 import com.deng.service.IUserService;
 import com.deng.util.DateUtil;
+import com.deng.util.MD5;
 
 public class UserServiceImpl implements IUserService{
 	
@@ -64,20 +65,22 @@ public class UserServiceImpl implements IUserService{
 	
 	//用户登录
 	@Override
-	public String login(User user) {
-		User user1 = userDao.queryById(user.getId());
-		if(user1!=null&&"1".equals(user1.getIsInuse())){  //用户是否存在、如果存在，是否启用
-			String password = user1.getPassword();
-			String type = user1.getType();
-			if(password.equals(user.getPassword())&&"0".equals(type)){
-				return "manager";
-			}else if(password.equals(user.getPassword())&&"1".equals(type)){
+	public String login(String userid,String pwd,LoginInfo loginInfo) {
+		String password = MD5.getInstance().getMD5ofStr(pwd);
+		User user = userDao.queryById(userid);
+		if(user!=null){
+			if(password.equals(user.getPassword())){
+				String loginTime = DateUtil.getDate();
+				loginInfo.setUserName(user.getName());
+				loginInfo.setLoginTime(loginTime);
+				loginInfoDao.save(loginInfo);
 				return "success";
 			}else{
-				return "failed";
+				return "密码错误！！！";
 			}
+		}else{
+			return "用户不存在！！！";
 		}
-		return "";
 	}
 
 	//通过ID查找用户
@@ -130,8 +133,6 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public User findByName(String name) {
 		User user = userDao.queryByName(name);
-		System.out.println("======================");
-		System.out.println(user);
 		String lastLoginTime = loginInfoDao.queryLastLoginTime(user.getId());
 		user.setLastLoginTime(lastLoginTime);
 		return user;
@@ -170,6 +171,35 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public int getPageCount(Integer pageSize) {
 		return userDao.getPageCount(pageSize);
+	}
+
+	@Override
+	public String updPassword(String userName, String oldPWD, String newPWD) {
+		String oldPassword = MD5.getInstance().getMD5ofStr(oldPWD);
+		String newPassword = MD5.getInstance().getMD5ofStr(newPWD);
+		User user = userDao.queryByName(userName);
+		if(user!=null){
+			String password = user.getPassword();
+			if(oldPassword.equals(password)){
+				user.setPassword(newPassword);
+				userDao.update(user);
+				return "修改成功！";
+			}else{
+				return "原始密码不正确！";
+			}
+		}else{
+			return "用户不存在！";
+		}
+	}
+
+	@Override
+	public List<LoginInfo> findLoginInfo(String userId, Integer offset, Integer pageSize) {
+		return loginInfoDao.queryByUserId(userId, offset, pageSize);
+	}
+
+	@Override
+	public int getLoginInfoPageCount(Integer pageSize, String userId) {
+		return loginInfoDao.getLoginInfoPageCount(pageSize, userId);
 	}
 
 	

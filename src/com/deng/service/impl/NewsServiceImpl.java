@@ -65,6 +65,11 @@ public class NewsServiceImpl implements INewsService{
 	public List<News> findNewsByCatalog(Long catalog_id,Integer offset,Integer pageSize) {
 		return newsDao.queryByCatalogId(catalog_id,offset,pageSize);
 	}
+	
+	@Override
+	public List<News> findInuseNewsByCatalog(Long catalog_id,Integer offset,Integer pageSize) {
+		return newsDao.queryInuseByCatalogId(catalog_id, offset, pageSize);
+	}
 
 	@Override
 	public List<News> findAll() {
@@ -125,6 +130,11 @@ public class NewsServiceImpl implements INewsService{
 	@Override
 	public int getCatalogPageCount(Integer pageSize,Long catalog_id) {
 		return newsDao.getCatalogPageCount(pageSize, catalog_id);
+	}
+
+	@Override
+	public int getInusePageCount(Integer pageSize, Long catalog_id) {
+		return newsDao.getInusePageCount(pageSize, catalog_id);
 	}
 	
 }

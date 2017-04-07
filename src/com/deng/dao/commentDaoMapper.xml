@@ -41,13 +41,13 @@
 	</select>
 	
 	<!-- 查询用户的所有评论 -->
-	<select id="queryByUserId" parameterType="String" resultMap="CommentResult">
-		select * from comment_info where user_id = #{id}
+	<select id="queryByUserId" resultMap="CommentResult">
+		select * from comment_info where user_id = #{param1} limit #{param2},#{param3}
 	</select>
 	
 	<!-- 查询新闻的所有评论 -->
-	<select id="queryByNewsId" parameterType="Long" resultMap="CommentResult">
-		select * from comment_info where news_id = #{id}
+	<select id="queryByNewsId" resultMap="CommentResult" parameterType="Long">
+		select * from comment_info where news_id = #{news_id}
 	</select>
 	
 	<!-- 批量删除用户评论信息 -->
@@ -58,9 +58,19 @@
 		</foreach>
 	</delete>
 	
-	<!-- 栏目下所有评论信息的页数 -->
+	<!-- 下所有评论信息的页数 -->
 	<select id="getPageCount" resultType="int">
 		select (count(*)-1)/#{pageSize}+1 from comment_info
+	</select>
+	
+	<!-- 栏目下所有评论信息的页数 -->
+	<select id="getPageCountByC" resultType="int">
+		select (count(*)-1)/#{param1}+1 from comment_info where news_id = #{param2}
+	</select>
+	
+	<!-- 栏目下所有评论信息的页数 -->
+	<select id="getPageCountByUser" resultType="int">
+		select (count(*)-1)/#{param1}+1 from comment_info where user_id = #{param2}
 	</select>
 	
 </mapper>

@@ -53,9 +53,16 @@
 		select * from news_info where catalog_id = #{param1} order by publishtime desc limit #{param2},#{param3}
 	</select>
 	
+	<!-- 通过栏目查询栏目下已发布新闻信息并且分页 -->
+	<select id="queryInuseByCatalogId"  resultMap="NewsResult">
+		select * from news_info where catalog_id = #{param1} and ispublish ="1" 
+		order by publishtime desc limit #{param2},#{param3}
+	</select>
+	
 	<!-- 通过栏目查询栏目下已发布的新闻信息 -->
 	<select id="queryCatalogNews" parameterType="Long" resultMap="NewsResult">
-		select * from news_info where catalog_id = #{Catalog_id} and ispublish = "1" order by publishtime desc
+		select * from news_info where catalog_id = #{Catalog_id} and ispublish = "1" 
+		order by publishtime desc
 	</select>
 	
 	<!-- 批量删除新闻 -->
@@ -95,6 +102,12 @@
 	<!-- 栏目下所有新闻信息的页数 -->
 	<select id="getCatalogPageCount" resultType="int">
 		select (count(*)-1)/#{param1}+1 from news_info where catalog_id = #{param2}
+	</select>
+	
+	<!-- 栏目下已发布新闻信息的页数 -->
+	<select id="getInusePageCount" resultType="int">
+		select (count(*)-1)/#{param1}+1 from news_info where catalog_id = #{param2}
+		and ispublish = "1"
 	</select>
 		
 </mapper>

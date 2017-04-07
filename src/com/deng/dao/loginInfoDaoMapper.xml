@@ -30,13 +30,18 @@
 	</select>
 	
 	<!-- 查询用户的登录信息 -->
-	<select id="queryByUserId" resultMap="LoginInfoResult" parameterType="String">
-		select * from login_info where userid = #{userId}
+	<select id="queryByUserId" resultMap="LoginInfoResult">
+		select * from login_info where userid = #{param1} order by logintime desc limit #{param2},#{param3}
 	</select>
 	
 	<!-- 查询用户最后登录时间 -->
 	<select id="queryLastLoginTime" resultType="String" parameterType="String">
 		select max(logintime) from login_info where userid = #{userId}
+	</select>
+	
+	<!-- 查询分页数 -->
+	<select id="getLoginInfoPageCount" resultType="int">
+		select (count(*)-1)/#{param1}+1 from login_info where userid = #{param2}
 	</select>
 	
 </mapper>

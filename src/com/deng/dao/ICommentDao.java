@@ -22,7 +22,7 @@ public interface ICommentDao {
 	public List<Comment> queryAll(Integer offset,Integer pageSize);
 
 	//查询用户的评论信息
-	public List<Comment> queryByUserId(String user_id);
+	public List<Comment> queryByUserId(String user_id,Integer offset,Integer pageSize);
 
 	//查询新闻的评论信息
 	public List<Comment> queryByNewsId(Long news_id);
@@ -32,5 +32,11 @@ public interface ICommentDao {
 
 	//查询评论信息的分页数
 	public int getPageCount(Integer pageSize);
+	
+	//查询用户评论信息的分页数
+	public int getPageCountByUser(Integer pageSize,String userid);
+	
+	//查询新闻评论信息的分页数
+	public int getPageCountByC(Integer pageSize,Long c_id);
 	
 }

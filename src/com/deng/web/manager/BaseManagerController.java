@@ -95,7 +95,6 @@ public class BaseManagerController {
 		if(delids.length==result){
 			return result+"个用户删除成功！！！";
 		}else{
-			System.out.println("删除失败！！！");
 			return "删除失败！！！";
 		}
 	}
@@ -108,7 +107,6 @@ public class BaseManagerController {
 		if(updids.length==result){
 			return result+"个栏目启用成功！！！";
 		}else{
-			System.out.println("启用失败！！！");
 			return "启用失败！！！";
 		}
 	}
@@ -120,7 +118,6 @@ public class BaseManagerController {
 		if(updids.length==result){
 			return result+"个栏目禁用成功！！！";
 		}else{
-			System.out.println("禁用失败！！！");
 			return "禁用失败！！！";
 		}
 	}
@@ -205,7 +202,6 @@ public class BaseManagerController {
 		if(delids.length==result){
 			return result+"条新闻删除成功！！！";
 		}else{
-			System.out.println("删除失败！！！");
 			return "删除失败！！！";
 		}
 	}
@@ -299,7 +295,6 @@ public class BaseManagerController {
 		if(delids.length==result){
 			return result+"个用户删除成功！！！";
 		}else{
-			System.out.println("删除失败！！！");
 			return "删除失败！！！";
 		}
 	}
@@ -312,7 +307,6 @@ public class BaseManagerController {
 		if(updids.length==result){
 			return result+"个用户启用成功！！！";
 		}else{
-			System.out.println("启用失败！！！");
 			return "启用失败！！！";
 		}
 	}
@@ -324,7 +318,6 @@ public class BaseManagerController {
 		if(updids.length==result){
 			return result+"个用户禁用成功！！！";
 		}else{
-			System.out.println("禁用失败！！！");
 			return "禁用失败！！！";
 		}
 	}
@@ -351,7 +344,6 @@ public class BaseManagerController {
 		if(delids.length==result){
 			return result+"条评论删除成功！！！";
 		}else{
-			System.out.println("删除失败！！！");
 			return "删除失败！！！";
 		}
 	}
@@ -394,9 +386,6 @@ public class BaseManagerController {
 		if(currPage==null)currPage=1;
 		int offset = (currPage-1)*pageSize;
 		int pageCount = newsService.getCatalogPageCount(pageSize, catalog_id);
-		System.out.println("=================");
-		System.out.println(catalog_id);
-		System.out.println(currPage);
 		List<News> newsList = newsService.findNewsByCatalog(catalog_id,offset,pageSize);
 		model.addAttribute("pageCount",pageCount);
 		model.addAttribute("currPage", currPage);

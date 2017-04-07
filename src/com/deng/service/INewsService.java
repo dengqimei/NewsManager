@@ -25,6 +25,8 @@ public interface INewsService {
 	//通过栏目查找新闻信息并且分页
 	public List<News> findNewsByCatalog(Long catalog_id,Integer offset,Integer pageSize);
 	
+	public List<News> findInuseNewsByCatalog(Long catalog_id,Integer offset,Integer pageSize);
+	
 	//查找所有新闻信息
 	public List<CatalogNewsModel> findAllNews();
 	
@@ -45,5 +47,8 @@ public interface INewsService {
 	
 	//查找所有新闻并且分页
 	public List<News> findAllNews(Integer offset,Integer pageSize);
+	
+	//查询所在栏目下已发布新闻信息的分页数
+	public int getInusePageCount(Integer pageSize,Long catalog_id);
 	
 }
