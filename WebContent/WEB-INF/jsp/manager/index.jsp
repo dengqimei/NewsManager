@@ -64,7 +64,7 @@
 			</div>
 		</div>
 		<div id="foot">
-			<a href="javascript:void(0)">信息科技有限公司</a>
+			<a href="javascript:void(0)">软件科技有限公司</a>
 		</div>
 	</div>
 </body>

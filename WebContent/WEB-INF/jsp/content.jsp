@@ -20,9 +20,12 @@
 		var publishTime = new Date();
 		if(username==""){
 			alert("请登录后再评论！！！");
+		}else if(content==""){
+			alert("请输入评论内容！！！");
 		}else{
-			$('#info-show ul').prepend(reply(username,content,publishTime));
-			saveComment(username);
+			//$('#info-show ul').prepend(reply(username,content,publishTime));
+			check();
+			//saveComment(username);
 		}
 	
 	}
@@ -76,6 +79,25 @@
 			}
 		});
 	});
+	
+	//检查用户是否已经评论过该新闻
+	function check(){
+		var username = $("#username").html();
+		var newsId = $("#newsId").val();
+		$.ajax({
+			url:"checkIsComment.action",
+			data:{userName:username,newsId:newsId},
+			success:function(data){
+				if(data=="success"){
+					saveComment(username)
+				}else{
+					alert(data);
+					location.reload(this);
+				}
+			}
+		});
+	}
+	
 </script>
 <body>
 	<div id="main">
@@ -107,7 +129,7 @@
 					</div>
 					<div class="tools-box">
 						<!-- <div class="operator-box-btn"><span class="face-icon"  >☺</span><span class="img-icon">▧</span></div> -->
-						<div class="submit-btn"><input type="button" onClick="out()"value="提交评论" /></div>
+						<div class="submit-btn"><input type="button" onClick="out()"value="发表评论" /></div>
 					</div>
 				</div>
 				<div id="info-show">
@@ -128,8 +150,7 @@
 		<div class="footer">
 			<div class="foot">
 				<p>
-					信息发布系统 技术支持：<a href="javascript:void(0)">软件科技有限公司</a>
-					电话：021-xxxxxxx
+					新闻信息发布系统  技术支持：<a href="javascript:void(0)">软件科技有限公司</a>
 				</p>
 			</div>
 		</div>

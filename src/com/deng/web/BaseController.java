@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -130,6 +131,9 @@ public class BaseController {
 	@RequestMapping("/logout.action")
 	public String logout(HttpServletRequest request,Model model){
 		String userName = (String) request.getSession().getAttribute("username");
+		System.out.println("=================");
+		System.out.println(userName);
+		System.out.println(loginInfo);
 		if(loginInfo!=null&&userName!=null){
 			request.getSession().setAttribute("username","");
 			request.getSession().setAttribute("login", "请登录");
@@ -298,6 +302,18 @@ public class BaseController {
 		commentService.addComment(comment);
 	}
 	
+	//检查该用户是否已经对该新闻进行评论
+	@ResponseBody
+	@RequestMapping(value="checkIsComment.action",produces={"text/html;charset=utf-8"})
+	public String checkIsComment(String userName,Long newsId){
+		boolean flag = commentService.isComment(userName, newsId);
+		if(flag){
+			return "您已经评论过该新闻，请不要重复评论！！！";
+		}else{
+			return "success";
+		}
+	}
+	
 	@RequestMapping("/showUserInfo.action")
 	public String showUserInfo(String userName,Integer currPage,String catalogName,Model model){
 		User user = userService.findByName(userName);
@@ -319,10 +335,6 @@ public class BaseController {
 			int offset = (currPage-1)*pageSize;
 			int pageCount = userService.getLoginInfoPageCount(pageSize, user.getId());
 			loginInfoList = userService.findLoginInfo(user.getId(), offset, pageSize);
-			System.out.println("==============");
-			for(LoginInfo loginInfo:loginInfoList){
-				System.out.println(loginInfo);
-			}
 			model.addAttribute("loginInfoList",loginInfoList);
 			model.addAttribute("pageCount",pageCount);
 			model.addAttribute("currPage", currPage);
@@ -354,6 +366,18 @@ public class BaseController {
 	public String updPassword(String userName,String oldPWD,String newPWD){
 		String message = userService.updPassword(userName,oldPWD,newPWD);
 		return message;
+	}
+	
+	//批量删除评论
+	@ResponseBody
+	@RequestMapping(value="/batchDelComment.action",produces={"text/html;charset=UTF-8;"})
+	public String batchDelComment(@Param("delids")String[] delids){
+		int result = commentService.batchDel(delids);
+		if(delids.length==result){
+			return result+"条评论删除成功！！！";
+		}else{
+			return "删除失败！！！";
+		}
 	}
 	
 }

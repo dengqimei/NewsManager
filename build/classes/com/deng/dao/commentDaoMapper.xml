@@ -42,7 +42,7 @@
 	
 	<!-- 查询用户的所有评论 -->
 	<select id="queryByUserId" resultMap="CommentResult">
-		select * from comment_info where user_id = #{param1} limit #{param2},#{param3}
+		select * from comment_info where user_id = #{param1} order by publishtime desc limit #{param2},#{param3}
 	</select>
 	
 	<!-- 查询新闻的所有评论 -->
@@ -71,6 +71,10 @@
 	<!-- 栏目下所有评论信息的页数 -->
 	<select id="getPageCountByUser" resultType="int">
 		select (count(*)-1)/#{param1}+1 from comment_info where user_id = #{param2}
+	</select>
+	
+	<select id="isComment" resultMap="CommentResult">
+		select * from comment_info where user_id = #{param1} and news_id = #{param2}
 	</select>
 	
 </mapper>

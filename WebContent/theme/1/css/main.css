@@ -26,4 +26,5 @@
 #info-show .reply-cont{ width: 89%; padding-right: 1%; float: right;}
 #info-show .reply-cont  p{ min-height: 20px; line-height: 20px;  font-family: "微软雅黑"; font-size: 14px;}
 #info-show .reply-cont .username{ color: #99cc66; margin-bottom: 5px;}
-#info-show .reply-cont .comment-body{ color: #999; max-height: auto;}
+#info-show .reply-cont .comment-body{ color: black; max-height: auto;}
+#info-show .reply-cont .comment-footer{ color: #999; max-height: auto;}

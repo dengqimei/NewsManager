@@ -49,7 +49,7 @@ $(function(){
 									</div>
 									<div class="art_txt">
 										<div class="title">
-											<a href="toContent.action?id=${news.id }">${news.title }</a><span class="icon_pen"></span>
+											<a href="toContent.action?id=${news.id }">${news.title }</a><!-- <span class="icon_pen"></span> -->
 										</div>
 										<div class="tag_txt">
 											<span>栏目名称：${catalog.name }</span>
@@ -102,8 +102,7 @@ $(function(){
 		<div class="footer">
 			<div class="foot">
 				<p>
-					信息发布系统 技术支持：<a href="javascript:void(0)">软件科技有限公司</a>
-					电话：021-xxxxxxx
+					新闻信息发布系统  技术支持：<a href="javascript:void(0)">软件科技有限公司</a>
 				</p>
 			</div>
 		</div>

@@ -69,12 +69,14 @@ public class UserServiceImpl implements IUserService{
 		String password = MD5.getInstance().getMD5ofStr(pwd);
 		User user = userDao.queryById(userid);
 		if(user!=null){
-			if(password.equals(user.getPassword())){
+			if(password.equals(user.getPassword())&&"1".equals(user.getIsInuse())){
 				String loginTime = DateUtil.getDate();
 				loginInfo.setUserName(user.getName());
 				loginInfo.setLoginTime(loginTime);
 				loginInfoDao.save(loginInfo);
 				return "success";
+			}else if("0".equals(user.getIsInuse())){
+				return "用户已经被禁用，请联系系统管理员！";
 			}else{
 				return "密码错误！！！";
 			}
@@ -183,7 +185,7 @@ public class UserServiceImpl implements IUserService{
 			if(oldPassword.equals(password)){
 				user.setPassword(newPassword);
 				userDao.update(user);
-				return "修改成功！";
+				return "修改成功，下次登录请输入新密码！！！";
 			}else{
 				return "原始密码不正确！";
 			}

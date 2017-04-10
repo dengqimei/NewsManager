@@ -40,4 +40,7 @@ public interface ICommentService {
 	//查询新闻评论信息的分页数
 	public int getPageCountByC(Integer pageSize,Long c_id);
 	
+	//查看用户是否已经评论该新闻
+	public boolean isComment(String userName,Long newsId);
+	
 }

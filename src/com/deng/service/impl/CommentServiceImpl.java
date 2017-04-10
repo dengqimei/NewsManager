@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import com.deng.bean.Comment;
 import com.deng.bean.News;
+import com.deng.bean.User;
 import com.deng.dao.ICommentDao;
 import com.deng.dao.INewsDao;
 import com.deng.dao.IUserDao;
@@ -135,6 +136,21 @@ public class CommentServiceImpl implements ICommentService{
 	@Override
 	public int getPageCountByC(Integer pageSize, Long c_id) {
 		return commentDao.getPageCountByC(pageSize, c_id);
+	}
+
+	@Override
+	public boolean isComment(String userName, Long newsId) {
+		User user = userDao.queryByName(userName);
+		String userId = "";
+		if(user!=null){
+			userId = user.getId();
+		}
+		Comment comment = commentDao.isComment(userId, newsId);
+		if(comment!=null){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 }

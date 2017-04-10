@@ -1,6 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+$(function(){
+	$(".login").off();
+	$(".login").on("click",function(){
+		$.post("toLogin.action",function(){
+			$("head").html("");
+			$("body").load("toLogin.action");
+		})
+	})
+});
+$(function(){
+	$(".logout").off();
+	$(".logout").on("click",function(){
+		$.post("logout.action",function(){
+			$("head").html("");
+			$("body").load("logout.action");
+		})
+	})
+});
+</script>
+
 <div class="logo_sign">
 	<div class="logo"></div>
 	<div class="sign">

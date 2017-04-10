@@ -52,7 +52,7 @@
 </style>
 <form action="addNews.action" method="post" id="addNewsForm" enctype="multipart/form-data">
 	<table style="border-collapse: collapse; width: 100%;">
-		<caption style="font-size:24px;font-weight: bold;">发布新闻</caption>
+		<caption style="font-size:24px;font-weight: bold;">添加新闻</caption>
 		<tr>
 			<td width="70px">文章标题：</td>
 			<td><input type="text" id="title" name="title"></td>

@@ -147,8 +147,7 @@ $(function(){
 		<div class="footer">
 			<div class="foot">
 				<p>
-					信息发布系统 技术支持：<a href="javascript:void(0)">软件科技有限公司</a>
-					电话：021-xxxxxxx
+					新闻信息发布系统  技术支持：<a href="javascript:void(0)">软件科技有限公司</a>
 				</p>
 			</div>
 		</div>

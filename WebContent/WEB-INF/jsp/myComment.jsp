@@ -55,7 +55,7 @@ td {
 					data : "delids=" + delids,
 					success : function(data) {
 						alert(data);
-						$(".baseUI li :contains('评论管理')").trigger("click");
+						$(".navUI li :contains('我的评论')").trigger("click");
 					}
 				});
 			}
