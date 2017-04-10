@@ -49,6 +49,19 @@ public class UserServiceImpl implements IUserService{
 		userDao.save(user);
 	}
 	
+	@Override
+	public String checkUserIsExist(String userid,String username){
+		User user1 = userDao.queryById(userid);
+		User user2 = userDao.queryByName(username);
+		if(user1!=null){
+			return "userid exist";
+		}else if (user2!=null){
+			return "username exist";
+		}else{
+			return "not exist";
+		}
+	}
+	
 	//删除用户
 	@Override
 	public void deleteUserById(String id) {

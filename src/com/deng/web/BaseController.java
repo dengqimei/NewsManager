@@ -170,6 +170,18 @@ public class BaseController {
 		return "login";
 	}
 	
+	//检查该用户是否已经对该新闻进行评论
+	@ResponseBody
+	@RequestMapping(value="checkRegister.action",produces={"text/html;charset=utf-8"})
+	public String checkRegister(String userid,String username){
+		System.out.println("=====");
+		System.out.println(userid);
+		System.out.println(username);
+		String message = userService.checkUserIsExist(userid,username);
+		System.out.println(message);
+		return message;
+	}
+	
 	//显示所有省份
 	@ResponseBody
 	@RequestMapping(value="/showProvince.action",consumes="application/json",method=RequestMethod.POST,produces="application/json")

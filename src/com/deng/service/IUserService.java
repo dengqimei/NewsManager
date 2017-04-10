@@ -11,6 +11,9 @@ public interface IUserService {
 	//用户注册
 	public void register(User user);
 	
+	//检查用户是否已注册
+	public String checkUserIsExist(String userid,String username);
+	
 	//通过ID删除用户
 	public void deleteUserById(String id);
 	

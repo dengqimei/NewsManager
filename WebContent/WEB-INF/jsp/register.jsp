@@ -88,11 +88,57 @@
 		});
 	}
 	
+	function check(){
+		var id = $("#id").val();
+		var name = $("#name").val();
+		var password = $("#password").val();
+		var age = $("#age").val();
+		var sex = $("#sex").attr("checked");
+		var address = $("#county").val();
+		if(id==""){
+			alert("请输入用户ID！！！");
+			return false;
+		}else if(name==""){
+			alert("请输入用户名称！！！")
+			return false;
+		}else if(password==""){
+			alert("请输入密码！！！");
+			return false;
+		}else if(age==""){
+			alert("请输入年龄！！！");
+			return false;
+		}else if(sex!="checked"){
+			alert("请选择性别！！！");
+			return false;
+		}else if(address=="000000"){
+			alert("请选择地址！！！");
+			return false;
+		}else{
+			$.ajax({
+				url:"checkRegister.action",
+				data:{userid:id,username:name},
+				success:function(data){
+					if(data=="userid exist"){
+						alert("用户ID已经存在，请重新输入！！！");
+						$("#id").val("");
+						$(".registerForm").attr("onsubmit","return false");
+					}else if(data=="username exist"){
+						alert("用户名称已经存在，请重新输入！！！");
+						$("#name").val("");
+						$(".registerForm").attr("onsubmit","return false");
+					}else{
+						$(".registerForm").attr("onsubmit","return true");
+					}
+				}
+			});
+		}
+	}
+	
 </script>
 
 <body>
 	
-	<form action="register.action" method="post">
+	<form class="registerForm" action="register.action" method="post" onsubmit="return false">
 	
 		<table align="center">
 			<caption><h1>用户注册</h1></caption>
@@ -137,7 +183,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="注册"></td>
+				<td colspan="2"><input type="submit" value="注册" onclick="check()"></td>
 			</tr>
 		</table>
 		
