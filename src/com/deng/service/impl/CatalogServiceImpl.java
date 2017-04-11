@@ -58,6 +58,7 @@ public class CatalogServiceImpl implements ICatalogService{
 		return catalogDao.queryAllCatalog(offset,pageSize);
 	}
 	
+	//查询所有已启用的栏目
 	@Override
 	public List<Catalog> findAllInuse() {
 		return catalogDao.queryAllInuse();
@@ -93,16 +94,19 @@ public class CatalogServiceImpl implements ICatalogService{
 		}
 	}
 
+	//查询所有已启用的用户栏目
 	@Override
 	public List<Catalog> findAllUserInuse() {
 		return catalogDao.queryAllUserInuse();
 	}
 	
+	//查找分页数
 	@Override
 	public int getPageCount(Integer pageSize) {
 		return catalogDao.getPageCount(pageSize);
 	}
 
+	//查询所有栏目
 	@Override
 	public List<Catalog> findAll() {
 		return catalogDao.queryAll();

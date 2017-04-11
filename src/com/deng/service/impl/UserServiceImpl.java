@@ -186,11 +186,13 @@ public class UserServiceImpl implements IUserService{
 		}
 	}
 
+	//查找所有用户分页数
 	@Override
 	public int getPageCount(Integer pageSize) {
 		return userDao.getPageCount(pageSize);
 	}
 
+	//修改密码
 	@Override
 	public String updPassword(String userName, String oldPWD, String newPWD) {
 		String oldPassword = MD5.getInstance().getMD5ofStr(oldPWD);
@@ -210,11 +212,13 @@ public class UserServiceImpl implements IUserService{
 		}
 	}
 
+	//查询用户登录信息
 	@Override
 	public List<LoginInfo> findLoginInfo(String userId, Integer offset, Integer pageSize) {
 		return loginInfoDao.queryByUserId(userId, offset, pageSize);
 	}
 
+	//用户的登录信息分页数
 	@Override
 	public int getLoginInfoPageCount(Integer pageSize, String userId) {
 		return loginInfoDao.getLoginInfoPageCount(pageSize, userId);

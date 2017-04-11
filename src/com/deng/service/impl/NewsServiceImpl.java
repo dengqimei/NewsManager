@@ -59,21 +59,25 @@ public class NewsServiceImpl implements INewsService{
 		newsDao.update(news);
 	}
 
+	//通过id查找新闻
 	@Override
 	public News findNewsById(Long id) {
 		return newsDao.queryById(id);
 	}
 
+	//通过栏目查找新闻、并且分页
 	@Override
 	public List<News> findNewsByCatalog(Long catalog_id,Integer offset,Integer pageSize) {
 		return newsDao.queryByCatalogId(catalog_id,offset,pageSize);
 	}
 	
+	//查找已启用栏目的新闻并且分页
 	@Override
 	public List<News> findInuseNewsByCatalog(Long catalog_id,Integer offset,Integer pageSize) {
 		return newsDao.queryInuseByCatalogId(catalog_id, offset, pageSize);
 	}
 
+	//查找所有新闻
 	@Override
 	public List<News> findAll() {
 		return newsDao.queryAll();
@@ -124,21 +128,25 @@ public class NewsServiceImpl implements INewsService{
 		}
 	}
 
+	//查找分页数
 	@Override
 	public int getPageCount(Integer pageSize) {
 		return newsDao.getPageCount(pageSize);
 	}
 
+	//查找所有新闻的分页数
 	@Override
 	public List<News> findAllNews(Integer offset, Integer pageSize) {
 		return newsDao.findAllNews(offset, pageSize);
 	}
 
+	//栏目中所有新闻的分页数
 	@Override
 	public int getCatalogPageCount(Integer pageSize,Long catalog_id) {
 		return newsDao.getCatalogPageCount(pageSize, catalog_id);
 	}
 
+	//已启用栏目所有新闻的分页数
 	@Override
 	public int getInusePageCount(Integer pageSize, Long catalog_id) {
 		return newsDao.getInusePageCount(pageSize, catalog_id);

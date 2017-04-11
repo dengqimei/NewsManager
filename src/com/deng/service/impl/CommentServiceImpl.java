@@ -53,21 +53,25 @@ public class CommentServiceImpl implements ICommentService{
 		commentDao.save(comment);
 	}
 
+	//删除评论信息
 	@Override
 	public void deleteCommentById(Long id) {
 		commentDao.deleteById(id);
 	}
 
+	//修改评论
 	@Override
 	public void updateComment(Comment comment) {
 		commentDao.update(comment);
 	}
 
+	//通过id查找评论
 	@Override
 	public Comment findCommentById(Long id) {
 		return commentDao.queryById(id);
 	}
 	
+	//查询所有评论、并且分页
 	@Override
 	public List<UserNewsCommentModel> findAllComment(Integer offset,Integer pageSize) {
 		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
@@ -84,6 +88,7 @@ public class CommentServiceImpl implements ICommentService{
 		return list;
 	}
 
+	//查询用户的所有评论、并且分页
 	@Override
 	public List<UserNewsCommentModel> findUserComment(String user_id,Integer offset,Integer pageSize) {
 		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
@@ -100,7 +105,7 @@ public class CommentServiceImpl implements ICommentService{
 		return list;
 	}
 	
-	//查询所有评论信息
+	//查询新闻的所有评论信息
 	public List<UserNewsCommentModel> findNewsComments(Long news_id){
 		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
 		List<Comment> commentList = commentDao.queryByNewsId(news_id);
@@ -126,21 +131,25 @@ public class CommentServiceImpl implements ICommentService{
 		}
 	}
 
+	//查找所有评论分页数
 	@Override
 	public int getPageCount(Integer pageSize){
 		return commentDao.getPageCount(pageSize);
 	}
 
+	//查找用户评论分页数
 	@Override
 	public int getPageCountByUser(Integer pageSize, String userid) {
 		return commentDao.getPageCountByUser(pageSize, userid);
 	}
 
+	//查找新闻评论分页数
 	@Override
 	public int getPageCountByC(Integer pageSize, Long c_id) {
 		return commentDao.getPageCountByC(pageSize, c_id);
 	}
 
+	//检查用户是否评论该新闻
 	@Override
 	public boolean isComment(String userName, Long newsId) {
 		User user = userDao.queryByName(userName);
