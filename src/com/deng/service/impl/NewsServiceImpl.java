@@ -30,6 +30,7 @@ public class NewsServiceImpl implements INewsService{
 		this.catalogDao = catalogDao;
 	}
 
+	//添加新闻
 	@Override
 	public void addNews(News news) {
 		String publishTime = DateUtil.getDate();
@@ -44,11 +45,13 @@ public class NewsServiceImpl implements INewsService{
 		newsDao.save(news);
 	}
 
+	//删除新闻
 	@Override
 	public void deleteNewsById(Long id) {
 		newsDao.deleteById(id);
 	}
 
+	//修改新闻信息
 	@Override
 	public void updateNews(News news) {
 		String updateTime = DateUtil.getDate();
@@ -76,6 +79,7 @@ public class NewsServiceImpl implements INewsService{
 		return newsDao.queryAll();
 	}
 
+	//查找所有新闻
 	@Override
 	public List<CatalogNewsModel> findAllNews() {
 		List<CatalogNewsModel> list = new ArrayList<CatalogNewsModel>();
@@ -90,6 +94,7 @@ public class NewsServiceImpl implements INewsService{
 		return list;
 	}
 
+	//批量删除新闻
 	@Override
 	public int batchDel(String[] delids) {
 		if(delids.length==0){
@@ -99,6 +104,7 @@ public class NewsServiceImpl implements INewsService{
 		}
 	}
 
+	//批量发布新闻
 	@Override
 	public int batchPublish(String[] updids) {
 		if(updids.length==0){
@@ -108,6 +114,7 @@ public class NewsServiceImpl implements INewsService{
 		}
 	}
 	
+	//批量取消发布新闻
 	@Override
 	public int batchCancel(String[] updids) {
 		if(updids.length==0){

@@ -101,39 +101,10 @@ public class BaseController {
 		}
 	}
 	
-	/*//检查用户名是否存在
-	@ResponseBody
-	@RequestMapping(value="/checkUserId.action",produces={"text/html;charset=utf-8"})
-	public String checkUserId(String userid){
-		User user = userService.findById(userid);
-		if(user==null){
-			return "failed";
-		}else{
-			return "success";
-		}
-	}
-	
-	//检查登录密码是否正确
-	@ResponseBody
-	@RequestMapping(value="/checkLogin.action",produces={"text/html;charset=utf-8"})
-	public String checkLogin(String userid,String password){
-		User user = new User();
-		user.setId(userid);
-		user.setPassword(MD5.getInstance().getMD5ofStr(password));
-		if("failed".equals(userService.login(user))){
-			return "failed";
-		}else{
-			return "success";
-		}
-	}*/
-	
 	//用户退出登录
 	@RequestMapping("/logout.action")
 	public String logout(HttpServletRequest request,Model model){
 		String userName = (String) request.getSession().getAttribute("username");
-		System.out.println("=================");
-		System.out.println(userName);
-		System.out.println(loginInfo);
 		if(loginInfo!=null&&userName!=null){
 			request.getSession().setAttribute("username","");
 			request.getSession().setAttribute("login", "请登录");
@@ -170,13 +141,10 @@ public class BaseController {
 		return "login";
 	}
 	
-	//检查该用户是否已经对该新闻进行评论
+	//检查该用户ID或用户名称是否已经注册
 	@ResponseBody
 	@RequestMapping(value="checkRegister.action",produces={"text/html;charset=utf-8"})
 	public String checkRegister(String userid,String username){
-		System.out.println("=====");
-		System.out.println(userid);
-		System.out.println(username);
 		String message = userService.checkUserIsExist(userid,username);
 		System.out.println(message);
 		return message;
@@ -208,17 +176,6 @@ public class BaseController {
 		countyList = codeService.findCountyByCity(cityId+"%");
 		return countyList;
 	}
-	
-	/*//跳转到新闻列表页面
-	@RequestMapping("/toList.action")
-	public String toList(Long c_id,Model model){
-		showCatalog(model);
-		newsList = newsService.findNewsByCatalog(c_id);
-		catalog = catalogService.findCatalogById(c_id);
-		model.addAttribute("newsList", newsList);
-		model.addAttribute("catalog",catalog);
-		return "list";
-	}*/
 	
 	//跳转到新闻列表页面
 	@RequestMapping("/toList.action")

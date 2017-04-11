@@ -49,6 +49,7 @@ public class UserServiceImpl implements IUserService{
 		userDao.save(user);
 	}
 	
+	//检查用户ID或
 	@Override
 	public String checkUserIsExist(String userid,String username){
 		User user1 = userDao.queryById(userid);
@@ -71,6 +72,8 @@ public class UserServiceImpl implements IUserService{
 	//修改用户信息
 	@Override
 	public void updateUser(User user) {
+		String password  = userDao.queryById(user.getId()).getPassword();
+		user.setPassword(password);
 		String updateTime = DateUtil.getDate();
 		user.setUpdateTime(updateTime);
 		userDao.update(user);

@@ -19,6 +19,7 @@ public class CatalogServiceImpl implements ICatalogService{
 		this.catalogDao = catalogDao;
 	}
 
+	//添加栏目
 	@Override
 	public void addCatalog(Catalog catalog) {
 		String inputTime = DateUtil.getDate();
@@ -31,11 +32,13 @@ public class CatalogServiceImpl implements ICatalogService{
 		catalogDao.save(catalog);
 	}
 
+	//删除栏目
 	@Override
 	public void deleteCatalogById(Long id) {
 		catalogDao.deleteById(id);
 	}
 
+	//修改栏目
 	@Override
 	public void updateCatalog(Catalog catalog) {
 		String updateTime = DateUtil.getDate();
@@ -43,11 +46,13 @@ public class CatalogServiceImpl implements ICatalogService{
 		catalogDao.update(catalog);
 	}
 
+	//查找栏目
 	@Override
 	public Catalog findCatalogById(Long id) {
 		return catalogDao.queryById(id);
 	}
 
+	//查找所有栏目、并且分页
 	@Override
 	public List<Catalog> findAllCatalog(Integer offset,Integer pageSize) {
 		return catalogDao.queryAllCatalog(offset,pageSize);
@@ -58,6 +63,7 @@ public class CatalogServiceImpl implements ICatalogService{
 		return catalogDao.queryAllInuse();
 	}
 
+	//批量删除栏目
 	@Override
 	public int batchDel(String[] delids) {
 		if(delids.length==0){
@@ -67,6 +73,7 @@ public class CatalogServiceImpl implements ICatalogService{
 		}
 	}
 
+	//批量启用栏目
 	@Override
 	public int batchInUse(String[] updids) {
 		if(updids.length==0){
@@ -76,6 +83,7 @@ public class CatalogServiceImpl implements ICatalogService{
 		}
 	}
 
+	//批量禁用栏目
 	@Override
 	public int batchUnUse(String[] updids) {
 		if(updids.length==0){

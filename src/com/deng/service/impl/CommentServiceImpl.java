@@ -37,6 +37,7 @@ public class CommentServiceImpl implements ICommentService{
 		this.newsDao = newsDao;
 	}
 
+	//评论新闻
 	@Override
 	public void addComment(Comment comment) {
 		String id = IdUtil.getId();
@@ -99,6 +100,7 @@ public class CommentServiceImpl implements ICommentService{
 		return list;
 	}
 	
+	//查询所有评论信息
 	public List<UserNewsCommentModel> findNewsComments(Long news_id){
 		List<UserNewsCommentModel> list = new ArrayList<UserNewsCommentModel>();
 		List<Comment> commentList = commentDao.queryByNewsId(news_id);
@@ -114,6 +116,7 @@ public class CommentServiceImpl implements ICommentService{
 		return list;
 	}
 
+	//批量删除评论
 	@Override
 	public int batchDel(String[] delids) {
 		if(delids.length==0){
