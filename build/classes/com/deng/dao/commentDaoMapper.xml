@@ -37,7 +37,7 @@
 	
 	<!-- 查询所有评论信息并且分页 -->
 	<select id="queryAll" resultMap="CommentResult">
-		select * from comment_info limit #{param1},#{param2}
+		select * from comment_info order by publishtime desc limit #{param1},#{param2}
 	</select>
 	
 	<!-- 查询用户的所有评论 -->
