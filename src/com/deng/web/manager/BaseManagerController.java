@@ -310,6 +310,7 @@ public class BaseManagerController {
 			return "启用失败！！！";
 		}
 	}
+	
 	//批量禁用用户
 	@ResponseBody
 	@RequestMapping(value="/Manager/batchUnUseUser.action",produces={"text/html;charset=UTF-8;"})
@@ -321,6 +322,30 @@ public class BaseManagerController {
 			return "禁用失败！！！";
 		}
 	}
+	
+	//批量禁用用户
+		@ResponseBody
+		@RequestMapping(value="/Manager/setAdmin.action",produces={"text/html;charset=UTF-8;"})
+		public String setAdmin(@Param("updids")String[] updids){
+			int result = userService.setAdmin(updids);
+			if(updids.length==result){
+				return result+"个用户成功设为管理员！！！";
+			}else{
+				return "设为管理员失败！！！";
+			}
+		}
+		
+		//批量禁用用户
+		@ResponseBody
+		@RequestMapping(value="/Manager/setCommonUser.action",produces={"text/html;charset=UTF-8;"})
+		public String setCommonUser(@Param("updids")String[] updids){
+			int result = userService.setCommonUser(updids);
+			if(updids.length==result){
+				return result+"个用户成功设为普通用户！！！";
+			}else{
+				return "设为普通用户失败！！！";
+			}
+		}
 	
 	//跳转到评论管理页面
 	@RequestMapping("/Manager/toCommentManager.action")
@@ -347,36 +372,6 @@ public class BaseManagerController {
 			return "删除失败！！！";
 		}
 	}
-	
-	/*//跳转到管理员登录页面
-	@RequestMapping("/Manager/toLogin.action")
-	public String toLogin(){
-		return "manager/login";
-	}
-	
-	//管理员登录
-	@RequestMapping("/Manager/login.action")
-	public String login(User user,Model model,HttpServletRequest request){
-		if("manager".equals(userService.login(user))){
-			String userName = userService.findById(user.getId()).getName();
-			request.getSession().setAttribute("username", userName);
-			request.getSession().setAttribute("login", "");
-			loginInfo = new LoginInfo();
-			loginInfo.setSessionId(request.getSession().getId());
-			loginInfo.setUserId(user.getId());
-			loginInfo.setUserName(userName);
-			userService.saveLoginInfo(loginInfo);
-			return "manager/index";
-		}
-		return "manager/failed";
-	}
-	
-	//管理员退出登录
-	@RequestMapping("/Manager/logout.action")
-	public void logout(HttpServletRequest request,Model model){
-		userService.Logout(loginInfo);
-		request.getSession().setAttribute("username","");
-	}*/
 	
 	//通过栏目筛选新闻信息
 //	@ResponseBody

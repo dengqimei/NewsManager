@@ -148,7 +148,7 @@ td {
 				<td>${catalog.code }</td>
 				<td>
 					<c:if test="${catalog.isInuse=='1' }">
-						<p style="color: blue">启用</p>
+						<p style="color: blue">已启用</p>
 					</c:if> 
 					<c:if test="${catalog.isInuse=='0' }">
 						<p style="color: red">禁用</p>

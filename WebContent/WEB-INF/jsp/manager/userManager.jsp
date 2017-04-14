@@ -98,6 +98,52 @@ td {
 		}
 	}
 	
+	//设为管理员
+	function setAdmin() {
+		var updids = new Array();
+		$('input[name="id"]:checked').each(function() {
+			updids.push($(this).val());
+		});
+		if (updids.length == 0) {
+			alert("请至少选择一个用户!");
+		} else {
+			var flag = confirm("确定将已选中的用户设为管理员吗？");
+			if (flag) {
+				$.ajax({
+					url : "setAdmin.action",
+					data : "updids=" + updids,
+					success : function(data) {
+						alert(data);
+						$(".baseUI li :contains('用户管理')").trigger("click");
+					}
+				});
+			}
+		}
+	}
+	
+	//设为普通用户
+	function setCommonUser() {
+		var updids = new Array();
+		$('input[name="id"]:checked').each(function() {
+			updids.push($(this).val());
+		});
+		if (updids.length == 0) {
+			alert("请至少选择一个用户!");
+		} else {
+			var flag = confirm("确定将已选中的用户设为普通用户吗？");
+			if (flag) {
+				$.ajax({
+					url : "setCommonUser.action",
+					data : "updids=" + updids,
+					success : function(data) {
+						alert(data);
+						$(".baseUI li :contains('用户管理')").trigger("click");
+					}
+				});
+			}
+		}
+	}
+	
 	//翻页
 	$(function(){
 		$(".page").off();
@@ -116,6 +162,8 @@ td {
 		<input type="button" value="删除" onclick="batchDel()" />&nbsp; 
 		<input type="button" value="启用" onclick="batchInUse()" />&nbsp;
 		<input type="button" value="禁用" onclick="batchUnUse()" />&nbsp;
+		<input type="button" value="设为管理员" onclick="setAdmin()" />&nbsp;
+		<input type="button" value="设为普通用户" onclick="setCommonUser()" />&nbsp;
 	</div>
 	<div class="userTable">
 		<table border="1" style="border-collapse: collapse; width: 100%;">
@@ -144,10 +192,11 @@ td {
 					<td>${userModel.user.inputTime }</td>
 					<td style="text-align: center; text-indent: 0px;"><c:if
 							test="${userModel.user.isInuse=='1' }">
-							<p style="color: blue">启用</p>
+							<p style="color: blue">已启用</p>
 						</c:if> <c:if test="${userModel.user.isInuse=='0' }">
 							<p style="color: red">禁用</p>
-						</c:if> <%-- <a href="javascript:void(0)" val="${userModel.user.id }" class="upd">修改</a>
+						</c:if>
+						<%-- <a href="javascript:void(0)" val="${userModel.user.id }" class="upd">修改</a>
 					    <a href="javascript:void(0)" val="${userModel.user.id }" class="del">删除</a> --%>
 					</td>
 				</tr>

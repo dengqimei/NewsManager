@@ -185,6 +185,26 @@ public class UserServiceImpl implements IUserService{
 			return userDao.batchUnUse(updids);
 		}
 	}
+	
+	//设为管理员
+	@Override
+	public int setAdmin(String[] updids){
+		if(updids.length==0){
+			return -1;
+		}else{
+			return userDao.setAdmin(updids);
+		}
+	}
+		
+	//设为普通用户
+	@Override
+	public int setCommonUser(String[] updids){
+		if(updids.length==0){
+			return -1;
+		}else{
+			return userDao.setCommonUser(updids);
+		}
+	}
 
 	//查找所有用户分页数
 	@Override

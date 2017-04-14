@@ -47,6 +47,12 @@ public interface IUserService {
 	//批量禁用用户
 	public int batchUnUse(String[] updids);
 	
+	//设为管理员
+	public int setAdmin(String[] updids);
+	
+	//设为普通用户
+	public int setCommonUser(String[] updids);
+	
 	//查找分页数
 	public int getPageCount(Integer pageSize);
 	

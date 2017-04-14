@@ -79,4 +79,20 @@
 		</foreach>
 	</update>
 	
+	<!-- 设置用户为管理员 -->
+	<update id="setAdmin" parameterType="String">
+		update user_info set usertype = "0" where userid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</update>
+	
+	<!-- 设置用户为普通用户 -->
+	<update id="setCommonUser" parameterType="String">
+		update user_info set usertype = "1" where userid in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</update>
+	
 </mapper>
