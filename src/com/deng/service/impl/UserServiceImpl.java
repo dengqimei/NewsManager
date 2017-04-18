@@ -97,7 +97,7 @@ public class UserServiceImpl implements IUserService{
 				return "密码错误！！！";
 			}
 		}else{
-			return "用户不存在！！！";
+			return "用户名ID不存在！！！";
 		}
 	}
 

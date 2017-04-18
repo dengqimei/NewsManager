@@ -93,7 +93,7 @@
 		var name = $("#name").val();
 		var password = $("#password").val();
 		var age = $("#age").val();
-		var sex = $("#sex").attr("checked");
+		var sex = $("#sex:checked").attr("checked");
 		var address = $("#county").val();
 		if(id==""){
 			alert("请输入用户ID！！！");
@@ -104,8 +104,24 @@
 		}else if(password==""){
 			alert("请输入密码！！！");
 			return false;
+		}else if (checkStrLength(password) < 6) {
+			alert("对不起，密码长度不能少于6位！");
+			$("#password").val("");
+			return false;
+		}else if (checkStrLength(password) > 14) {
+			alert("对不起，密码长度不能超过14位！");
+			$("#password").val("");
+			return false;
 		}else if(age==""){
 			alert("请输入年龄！！！");
+			return false;
+		}else if(!isNumber(age)){
+			alert("对不起，年龄应该为数字！");
+			$("#age").val("");
+			return false;
+		}else if (checkStrLength(age)>=3){
+			alert("请输入正确的年龄！");
+			$("#age").val("");
 			return false;
 		}else if(sex!="checked"){
 			alert("请选择性别！！！");
@@ -132,6 +148,24 @@
 				}
 			});
 		}
+	}
+	
+	//计算字符串的长度
+	function checkStrLength(value) {
+		var StrTrueLength = value.replace(/[^\x00-\xff]/g, "~~").length;
+		return StrTrueLength;
+	}
+	
+	/*判断是否为数字*/
+	function isNumber(str) {
+		var Letters = "1234567890";
+		for (var i = 0; i < str.length; i = i + 1) {
+			var CheckChar = str.charAt(i);
+			if (Letters.indexOf(CheckChar) == -1) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 </script>

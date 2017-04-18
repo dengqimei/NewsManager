@@ -29,6 +29,7 @@
 		var userid = $("#id").val();
 		var password = $("#password").val();
 		if(check()){
+			$(".loginForm").attr("onsubmit","return true");
 			$.ajax({
 				url:"login.action",
 				data:{uid:userid,pwd:password},
@@ -60,7 +61,7 @@ body{
 </style>
 <body>
 	<div id="login">
-		<form action="#" method="post" id="loginForm">
+		<form action="#" method="post" id="loginForm" onsubmit="return false">
 			<table align="center">
 				<caption><h1>用户登录</h1></caption>
 				<tr>
@@ -79,7 +80,7 @@ body{
 					</td>
 				</tr> -->
 				<tr>
-					<td align="center"><input onclick="login()" type="button" value="登录"></td>
+					<td align="center"><input onclick="login()" type="submit" value="登录"></td>
 					<td><a href="toRegister.action" style="color:blue;">没有账号？注册</a></td>
 				</tr>
 			</table>
