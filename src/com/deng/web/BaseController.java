@@ -134,7 +134,7 @@ public class BaseController {
 	
 	//用户注册
 	@RequestMapping("/register.action")
-	public String register(User user,String sex,String address){
+	public String register(User user){
 		String password = MD5.getInstance().getMD5ofStr(user.getPassword());
 		user.setPassword(password);
 		userService.register(user);
@@ -142,11 +142,10 @@ public class BaseController {
 	}
 	
 	//检查该用户ID或用户名称是否已经注册
+	@RequestMapping("/checkRegister.action")
 	@ResponseBody
-	@RequestMapping(value="checkRegister.action",produces={"text/html;charset=utf-8"})
 	public String checkRegister(String userid,String username){
 		String message = userService.checkUserIsExist(userid,username);
-		System.out.println(message);
 		return message;
 	}
 	
@@ -185,7 +184,7 @@ public class BaseController {
 		if(currPage==null)currPage=1;
 		int offset = (currPage-1)*pageSize;
 		int pageCount = newsService.getCatalogPageCount(pageSize,c_id);
-		newsList = newsService.findNewsByCatalog(c_id,offset,pageSize);
+		newsList = newsService.findInuseNewsByCatalog(c_id,offset,pageSize);
 		catalog = catalogService.findCatalogById(c_id);
 		model.addAttribute("newsList", newsList);
 		model.addAttribute("catalog",catalog);

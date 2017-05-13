@@ -4,6 +4,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<style type="text/css">
+	.td-title{
+		text-align:right;
+	}
+</style>
+
 <script type="text/javascript">
 
 $(function() {
@@ -83,26 +90,26 @@ function initCounties(cityID) {
 		<table align="center" style="height:300px;margin-left:30px;font-size:16px;">
 			<!-- <caption align="center"><h2>用户个人信息</h2></caption> -->
 			<tr>
-				<td>用户名ID：</td>
+				<td class="td-title">用户名ID：</td>
 				<td><input type="text" name="id" id="id" value="${user.id }" readonly="readonly"></td>
 			</tr>
 			<tr>
-				<td>用户名称：</td>
+				<td class="td-title">用户名称：</td>
 				<td><input type="text" name="name" id="name" value="${user.name }"></td>
 			</tr>
 			<tr>
-				<td>年龄：</td>
+				<td class="td-title">年龄：</td>
 				<td><input type="text" name="age" id="age" value="${user.age }"></td>
 			</tr>
 			<tr>
-				<td>性别：</td>
+				<td class="td-title">性别：</td>
 				<td>
 					<input type="radio" name="sex" id="sex" value="0" <c:if test="${user.sex=='0'}"> checked="checked"</c:if> />男
 					<input type="radio" name="sex" id="sex" value="1" <c:if test="${user.sex=='1'}"> checked="checked"</c:if> />女
 				</td>
 			</tr>
 			<tr>
-				<td>地址：</td>
+				<td class="td-title">地址：</td>
 				<td>
 					省份<select id="province" name="province">
 						<option value="${province.id }">${province.name }</option>
@@ -116,15 +123,15 @@ function initCounties(cityID) {
 				</td>
 			</tr>
 			<tr>
-				<td>注册时间：</td>
+				<td class="td-title">注册时间：</td>
 				<td><input type="text" name="age" id="age" value="${user.inputTime }" readonly="readonly"></td>
 			</tr>
 			<tr>
-				<td>最后登录时间：</td>
+				<td class="td-title">最后登录时间：</td>
 				<td><input type="text" name="lastLogin" id="lastLogin" value="${user.lastLoginTime }" readonly="readonly"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="修改"></td>
+				<td colspan="2" style="text-align:center;"><input type="submit" value="修改"></td>
 			</tr>
 		</table>
 		

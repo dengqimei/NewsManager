@@ -5,6 +5,38 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户登录</title>
+<style type="text/css">
+*{
+	padding:0;
+	margin:0;
+}
+	html{
+		height:100%;
+	}
+	body{
+		height:100%;
+		background:url('theme/1/images/login.png') no-repeat;
+		background-size:100% 100%;
+	}
+	#login{
+		width: 700px;
+	    margin: auto;
+	    text-align: center;
+	    padding-left: 386px;
+	    padding-top: 280px;
+	}
+	input{
+		margin-top:5px;
+		padding:5px 10px;
+	}
+	td{
+		text-align:right;
+	}
+	.register-btn{
+		margin-right:-10px;
+		margin-left:10px;
+	}
+</style>
 </head>
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="js/jquery.form.js"></script>
@@ -51,19 +83,10 @@
 	
 </script>
 
-<style type="text/css">
-body{
-	text-align: center;
-}
-#login{
-	margin:0 auto;
-}
-</style>
 <body>
 	<div id="login">
 		<form action="#" method="post" id="loginForm" onsubmit="return false">
 			<table align="center">
-				<caption><h1>用户登录</h1></caption>
 				<tr>
 					<td>用户名ID：</td>
 					<td><input type="text" name="id" id="id"></td>
@@ -80,8 +103,8 @@ body{
 					</td>
 				</tr> -->
 				<tr>
-					<td align="center"><input onclick="login()" type="submit" value="登录"></td>
-					<td><a href="toRegister.action" style="color:blue;">没有账号？注册</a></td>
+					<td align="center" colspan="2"><input onclick="login()" type="submit" value="登录"><a href="toRegister.action" class="register-btn"  style="color:blue;">没有账号？注册</a></td>
+					
 				</tr>
 			</table>
 		</form>

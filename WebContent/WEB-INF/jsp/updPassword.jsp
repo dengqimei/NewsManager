@@ -3,6 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<style type="text/css">
+	.td-title{
+		text-align:right;
+	}
+</style>
+
 <script type="text/javascript">
 
 function check(){
@@ -57,15 +64,15 @@ function updPWD(){
 		<form action="#" method="post">
 			<table height="150px" border="0" cellspacing="0" cellpadding="0" align="center">
 				<tr>
-					<td>原始密码：</td>
+					<td class="td-title">原始密码：</td>
 					<td><input type="password" name="oldPWD" id="oldPWD"></td>
 				</tr>
 				<tr>
-					<td>新密码：</td>
+					<td class="td-title">新密码：</td>
 					<td><input type="password" name="newPWD" id="newPWD"></td>
 				</tr>
 				<tr>
-					<td>确认密码：</td>
+					<td class="td-title">确认密码：</td>
 					<td><input type="password" name="newPWD1" id="newPWD1"></td>
 				</tr>
 				<tr>

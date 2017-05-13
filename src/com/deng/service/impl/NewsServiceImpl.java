@@ -71,6 +71,8 @@ public class NewsServiceImpl implements INewsService{
 		return newsDao.queryByCatalogId(catalog_id,offset,pageSize);
 	}
 	
+	
+	
 	//查找已启用栏目的新闻并且分页
 	@Override
 	public List<News> findInuseNewsByCatalog(Long catalog_id,Integer offset,Integer pageSize) {

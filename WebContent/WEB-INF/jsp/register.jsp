@@ -6,6 +6,63 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户注册</title>
+<style type="text/css">
+*{
+	padding:0;
+	margin:0;
+}
+	html{
+		height:100%;
+	}
+	body{
+		/* height:100%; */
+		background:url('theme/1/images/register.jpg') no-repeat;
+		background-size:100% 100%;
+		position:reletive;
+	}
+	.logo{
+		width: 800px;
+	    height: 132px;
+	    background: url(theme/1/images/logo.png) no-repeat;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    margin-top: -30px;
+	    margin-left:30px;
+	}
+	.form-con{
+		width: 700px;
+	    height: 420px;
+	    display: block;
+	    background: rgba(255, 242, 242, 0.4);
+	    border-radius:10px;
+	    margin:  125px auto 0 auto;
+	}
+	.registerForm{
+		padding-left:90px;
+	}
+	td{
+		padding:5px 10px;
+		text-align:right;
+	}
+	 .text-left{
+	 	text-align:left;
+	 }
+	 input{
+	 	
+		margin-top:5px;
+		padding:5px 10px;
+	}
+	input[type="text"],input[type="password"]{
+		width:180px;
+	}
+	.table-title{
+		color:white;
+		font-family: cursive;
+	    margin-left: -74px;
+	    font-size: 40px;
+	}
+</style>
 </head>
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="js/jquery.form.js"></script>
@@ -89,6 +146,7 @@
 	}
 	
 	function check(){
+		$("#msg").empty();
 		var id = $("#id").val();
 		var name = $("#name").val();
 		var password = $("#password").val();
@@ -130,23 +188,34 @@
 			alert("请选择地址！！！");
 			return false;
 		}else{
-			$.ajax({
-				url:"checkRegister.action",
-				data:{userid:id,username:name},
-				success:function(data){
-					if(data=="userid exist"){
-						alert("用户ID已经存在，请重新输入！！！");
-						$("#id").val("");
-						$(".registerForm").attr("onsubmit","return false");
-					}else if(data=="username exist"){
-						alert("用户名称已经存在，请重新输入！！！");
-						$("#name").val("");
-						$(".registerForm").attr("onsubmit","return false");
-					}else{
-						$(".registerForm").attr("onsubmit","return true");
-					}
+			return checkUser();
+		}
+	}
+	function checkUser(){
+		var id = $("#id").val();
+		var name = $("#name").val();
+		$.ajax({
+			url:"checkRegister.action",
+			data:{userid:id,username:name},
+			success:function(data){
+				if(data=="userid exist"){
+					alert("用户ID已经存在，请重新输入！！！");
+					$("#id").val("");
+					$("#msg").attr("value","false");
+				}else if(data=="username exist"){
+					alert("用户名称已经存在，请重新输入！！！");
+					$("#name").val("");
+					$("#msg").attr("value","false");
+				}else{
+					$("#msg").attr("value","true");
 				}
-			});
+			}
+		});
+		var flag = $("#msg").val();
+		if(flag=="true"){
+			return true;
+		}else{
+			return false;
 		}
 	}
 	
@@ -171,37 +240,38 @@
 </script>
 
 <body>
-	
-	<form class="registerForm" action="register.action" method="post" onsubmit="return false">
+	<div class="logo"></div>
+	<div class="form-con">
+	<form class="registerForm" action="register.action" method="post" onsubmit="return check()">
 	
 		<table align="center">
-			<caption><h1>用户注册</h1></caption>
+			<caption><h1 class="table-title">用户注册</h1></caption>
 			<tr>
 				<td>用户名ID：</td>
-				<td><input type="text" name="id" id="id"></td>
+				<td class="text-left"><input type="text" name="id" id="id"><input type="hidden" id="msg"></td>
 			</tr>
 			<tr>
 				<td>用户名称：</td>
-				<td><input type="text" name="name" id="name"></td>
+				<td class="text-left"><input type="text" name="name" id="name"></td>
 			</tr>
 			<tr>
 				<td>密码：</td>
-				<td><input type="password" name="password" id="password"></td>
+				<td class="text-left"><input type="password" name="password" id="password"></td>
 			</tr>
 			<tr>
 				<td>年龄：</td>
-				<td><input type="text" name="age" id="age"></td>
+				<td class="text-left"><input type="text" name="age" id="age"></td>
 			</tr>
 			<tr>
 				<td>性别：</td>
-				<td>
+				<td class="text-left">
 					<input type="radio" name="sex" id="sex" value="0">男
 					<input type="radio" name="sex" id="sex" value="1">女
 				</td>
 			</tr>
 			<tr>
 				<td>地址：</td>
-				<td>
+				<td class="text-left">
 					省份<select id="province" name="province">
 						<option value="000000">---请选择---</option>
 						<%-- <c:forEach items="${provinceList }" var="province">
@@ -217,11 +287,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="注册" onclick="check()"></td>
+				<td colspan="2" style="text-align:center;"><input style="width:95px;height:27px;background: url('theme/1/images/register_btn.jpg')" value="" type="submit">
+				已有账号，请<a href="toLogin.action" class="register-btn"  style="color:blue;">登录</a></td>
 			</tr>
 		</table>
 		
 	</form>
-	
+	</div>
 </body>
 </html>
