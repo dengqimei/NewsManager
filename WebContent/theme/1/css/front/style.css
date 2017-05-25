@@ -232,7 +232,7 @@
 	margin-bottom:10px}	
 .box_b{
 	width:350px;
-	margin-left:8px;
+	margin-left:5px;
 	float:left;
 	border:1px solid #d7ebf6;
 	-webkit-border-radius:5px;
@@ -247,7 +247,7 @@
 .box_f{
 	width:350px;
 	min-height:225px;
-	margin-left:8px;
+	margin-left:5px;
 	float:left;
 	border:1px solid #dfb4a7;
 	-webkit-border-radius:5px;
@@ -286,7 +286,7 @@
 	color:#f26023;}	
 .box_b .txt_title,.box_f .txt_title{
 	display:inline-block;
-	width:180px;
+	width:150px;
 	text-indent:10px;
 	overflow:hidden;
 	white-space:nowrap;
@@ -301,7 +301,7 @@
 	overflow:hidden;
 	float:left;}	
 .box_b .txt_time,.box_f .txt_time{
-	width:65px;
+	width:70px;
 	display:inline-block;
 	overflow:hidden;
 	float:left;}

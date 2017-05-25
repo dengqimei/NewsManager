@@ -17,8 +17,7 @@ tr{
 td {
 	font-size: 15px;
 	font-family: 微软雅黑;
-	text-align: left;
-	text-indent: 1em;
+	text-align: center;
 }
 </style>
 
